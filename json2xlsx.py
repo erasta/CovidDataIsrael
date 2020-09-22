@@ -4,7 +4,7 @@ import os
 from xlsxwriter import Workbook
 
 os.makedirs('out', exist_ok=True)
-with Workbook('out/w.xlsx') as workbook:
+with Workbook('out/covid.xlsx') as workbook:
     for i, data in enumerate(map(lambda x: x['data'], json.load(open('./json/data.json')))):
         if not isinstance(data, list):
             data = [data]

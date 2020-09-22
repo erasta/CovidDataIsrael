@@ -9,7 +9,7 @@ for i, data in enumerate(map(lambda x: x['data'], json.load(open('./json/data.js
     print(i, fields)
 
     os.makedirs('./out/csv', exist_ok=True)
-    with open('./out/csv/data' + str(i) + '.csv', 'w') as csvfile:
+    with open('./out/covid.csv', 'a') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fields)
         writer.writeheader()
         for row in data:
