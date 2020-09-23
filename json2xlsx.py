@@ -21,8 +21,8 @@ sheet2data = group_sheet_data(sheets, datas)
 
 deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'deadPatientsPerDate']
 if len(deadPatientsPerDate) > 0:
-    sheet2data.append(('weeklyDead_computed', deadPatientsPerDate[0]))
-    # sheet2data.append(('weeklyDead_computed', utils.computeWeekly(deadPatientsPerDate[0])))
+    # sheet2data.append(('weeklyDead_computed', deadPatientsPerDate[0]))
+    sheet2data.append(('weeklyDead_computed', utils.computeWeekly(deadPatientsPerDate[0])))
 
 os.makedirs('out', exist_ok=True)
 os.makedirs('out/csv', exist_ok=True)
