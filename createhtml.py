@@ -16,6 +16,16 @@ def create_index_html(file2desc):
                 padding: 5px;
             }
         </style>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123138137-9"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-123138137-9');
+        </script>
+
         <script src="https://d3js.org/d3.v3.min.js"></script>
   </head>
   <body>
