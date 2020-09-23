@@ -19,25 +19,35 @@ sheet2data = group_sheet_data(sheets, datas)
 
 os.makedirs('out', exist_ok=True)
 os.makedirs('out/csv', exist_ok=True)
-with Workbook('out/covid.xlsx') as workbook:
-    for sheetname, data in sheet2data:
+with open('out/covid.csv', 'w') as csvall:
+    with Workbook('out/covid.xlsx') as workbook:
+        for sheetname, data in sheet2data:
 
-        if not isinstance(data, list):
-            data = [data]
-        data = list(data)
-        fields = list(data[0].keys())
-        print(sheetname, fields)
+            if not isinstance(data, list):
+                data = [data]
+            data = list(data)
+            fields = list(data[0].keys())
+            print(sheetname, fields)
 
-        worksheet = workbook.add_worksheet(sheetname)
-        worksheet.write_row(row=0, col=0, data=fields)
-        for index, item in enumerate(data):
-            row = map(lambda field_id: item.get(field_id, ''), fields)
-            worksheet.write_row(row=index + 1, col=0, data=row)
+            worksheet = workbook.add_worksheet(sheetname)
+            worksheet.write_row(row=0, col=0, data=fields)
+            for index, item in enumerate(data):
+                row = map(lambda field_id: item.get(field_id, ''), fields)
+                worksheet.write_row(row=index + 1, col=0, data=row)
 
-        worksheet_autowidth(worksheet, len(fields))
+            worksheet_autowidth(worksheet, len(fields))
 
-        with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fields)
-            writer.writeheader()
+            with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fields)
+                writer.writeheader()
+                for row in data:
+                    writer.writerow(row)
+
+            titleline = '-' * len(sheetname)
+            print(f'{titleline}\n{sheetname}\n{titleline}', file=csvall)
+            writerall = csv.DictWriter(csvall, fieldnames=fields)
+            writerall.writeheader()
             for row in data:
-                writer.writerow(row)
+                writerall.writerow(row)
+            print('\n', file=csvall)
+
