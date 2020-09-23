@@ -8,6 +8,7 @@ import utils
 from dashreq import get_dash_data, get_dash_req
 from utils import group_sheet_data
 from xlscolumn import worksheet_autowidth
+import createhtml
 
 dashrequest = get_dash_req()
 sheets = list(map(lambda x: x['queryName'], dashrequest['requests']))
@@ -17,6 +18,11 @@ datas = list(map(lambda x: x['data'], dashjson))
 # datas = list(range(len(sheets)))
 
 sheet2data = group_sheet_data(sheets, datas)
+
+deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'deadPatientsPerDate']
+if len(deadPatientsPerDate) > 0:
+    sheet2data.append(('weeklyDead_computed', deadPatientsPerDate[0]))
+    # sheet2data.append(('weeklyDead_computed', utils.computeWeekly(deadPatientsPerDate[0])))
 
 os.makedirs('out', exist_ok=True)
 os.makedirs('out/csv', exist_ok=True)
@@ -54,4 +60,4 @@ with open('out/covid.csv', 'w') as csvall:
 
     links = [('out/covid.xlsx', 'XLS with sheets'), ('out/covid.csv', 'CSV containing all')]
     links += [(f'out/csv/{sheetname}.csv', f'{sheetname}') for sheetname, data in sheet2data]
-    utils.create_index_html(links)
+    createhtml.create_index_html(links)
