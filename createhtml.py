@@ -31,7 +31,10 @@ def create_index_html(file2desc):
   <body>
 ''', file=html)
         for filename, desc in file2desc:
-            print(f"    <p><a href=\"#\" onclick='showtable(\"{filename}\")'>{desc}</a> <a href='{filename}'>download</a></p>", file=html)
+            if filename.endswith('.csv'):
+                print(f"    <p><a href=\"#\" onclick='showtable(\"{filename}\")'>{desc}</a> <a href='{filename}'>download</a></p>", file=html)
+            else:
+                print(f"    <p>{desc} <a href='{filename}'>download</a></p>", file=html)
         print('''
         <div id="show" style="position: absolute;left: 400px;width: calc(100vw - 400px);height: 100vh;top: 0;z-index: -9999;"></div>
         <script type="text/javascript"charset="utf-8">
