@@ -1,6 +1,10 @@
 import requests
 import json
 
+def get_dash_req():
+    return {"requests":[{"id":"0","queryName":"lastUpdate","single":True,"parameters":{}},{"id":"1","queryName":"infectedPerDate","single":False,"parameters":{}},{"id":"2","queryName":"updatedPatientsOverallStatus","single":False,"parameters":{}},{"id":"3","queryName":"sickPerDateTwoDays","single":False,"parameters":{}},{"id":"4","queryName":"sickPatientPerLocation","single":False,"parameters":{}},{"id":"5","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"6","queryName":"deadPatientsPerDate","single":False,"parameters":{}},{"id":"7","queryName":"recoveredPerDay","single":False,"parameters":{}},{"id":"8","queryName":"testResultsPerDate","single":False,"parameters":{}},{"id":"9","queryName":"infectedPerDate","single":False,"parameters":{}},{"id":"10","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"11","queryName":"infectedByAgeAndGenderPublic","single":False,"parameters":{"ageSections":[0,10,20,30,40,50,60,70,80,90]}},{"id":"12","queryName":"isolatedDoctorsAndNurses","single":True,"parameters":{}},{"id":"13","queryName":"testResultsPerDate","single":False,"parameters":{}},{"id":"14","queryName":"contagionDataPerCityPublic","single":False,"parameters":{}},{"id":"15","queryName":"hospitalStatus","single":False,"parameters":{}},{"id":"16","queryName":"doublingRate","single":False,"parameters":{}},{"id":"17","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"18","queryName":"updatedPatientsOverallStatus","single":False,"parameters":{}},{"id":"19","queryName":"CalculatedVerified","single":False,"parameters":{}}]}
+
+
 def get_dash_data():
     url = "https://datadashboardapi.health.gov.il/api/queries/_batch"
 
@@ -31,6 +35,6 @@ def get_dash_data():
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0",
         }
 
-        payload = {"requests":[{"id":"0","queryName":"lastUpdate","single":True,"parameters":{}},{"id":"1","queryName":"infectedPerDate","single":False,"parameters":{}},{"id":"2","queryName":"updatedPatientsOverallStatus","single":False,"parameters":{}},{"id":"3","queryName":"sickPerDateTwoDays","single":False,"parameters":{}},{"id":"4","queryName":"sickPatientPerLocation","single":False,"parameters":{}},{"id":"5","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"6","queryName":"deadPatientsPerDate","single":False,"parameters":{}},{"id":"7","queryName":"recoveredPerDay","single":False,"parameters":{}},{"id":"8","queryName":"testResultsPerDate","single":False,"parameters":{}},{"id":"9","queryName":"infectedPerDate","single":False,"parameters":{}},{"id":"10","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"11","queryName":"infectedByAgeAndGenderPublic","single":False,"parameters":{"ageSections":[0,10,20,30,40,50,60,70,80,90]}},{"id":"12","queryName":"isolatedDoctorsAndNurses","single":True,"parameters":{}},{"id":"13","queryName":"testResultsPerDate","single":False,"parameters":{}},{"id":"14","queryName":"contagionDataPerCityPublic","single":False,"parameters":{}},{"id":"15","queryName":"hospitalStatus","single":False,"parameters":{}},{"id":"16","queryName":"doublingRate","single":False,"parameters":{}},{"id":"17","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"18","queryName":"updatedPatientsOverallStatus","single":False,"parameters":{}},{"id":"19","queryName":"CalculatedVerified","single":False,"parameters":{}}]}
+        payload = get_dash_req()
         r2 = session.post(url, json=payload, headers=header)
-        return r2.json(), payload
+        return r2.json()
