@@ -29,7 +29,7 @@ def create_index_html(file2desc):
                 padding: 5px;
             }
         </style>
-        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
   </head>
   <body>
 ''', file=html)
