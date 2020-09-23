@@ -5,27 +5,20 @@ from xlsxwriter import Workbook
 
 from dashreq import get_dash_data, get_dash_req
 from xlscolumn import worksheet_autowidth
+from utils import group_sheet_data
 
 dashrequest = get_dash_req()
 sheets = list(map(lambda x: x['queryName'], dashrequest['requests']))
-sheets = [name[0].lower() + name[1:] for name in sheets]
-uniqsheets = [x for i, x in enumerate(sheets) if i == sheets.index(x)]
-# datas = list(range(len(sheets)))
 
 dashjson = get_dash_data()
 datas = list(map(lambda x: x['data'], dashjson))
+# datas = list(range(len(sheets)))
 
-datazip = []
-for u in uniqsheets:
-    if sheets.count(u) == 1:
-        datazip.append((u, datas[sheets.index(u)]))
-    else:
-        for occur, index in enumerate([i for i, x in enumerate(sheets) if x == u]):
-            datazip.append((u + str(occur + 1), datas[index]))
+sheet2data = group_sheet_data(sheets, datas)
 
 os.makedirs('out', exist_ok=True)
 with Workbook('out/covid.xlsx') as workbook:
-    for sheetname, data in datazip:
+    for sheetname, data in sheet2data:
 
         if not isinstance(data, list):
             data = [data]
