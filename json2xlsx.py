@@ -62,6 +62,6 @@ with open('out/covid.csv', 'w') as csvall:
                 writerall.writerow(row)
             print('\n', file=csvall)
 
-    links = [('out/covid.xlsx', 'XLS with sheets'), ('out/covid.csv', 'CSV containing all')]
-    links += [(f'out/csv/{sheetname}.csv', f'{sheetname}') for sheetname, data in sheet2data]
-    createhtml.create_index_html(links)
+    # links = [('out/covid.xlsx', 'XLS with sheets'), ('out/covid.csv', 'CSV containing all')]
+    # links += [(f'out/csv/{sheetname}.csv', f'{sheetname}') for sheetname, data in sheet2data]
+    # createhtml.create_index_html(links)
