@@ -62,7 +62,7 @@ with open('index.html', 'w') as html:
     <p><a href='out/covid.csv'>CSV containing all</a></p>
 ''', file=html)
     for sheetname, data in sheet2data:
-        print(f"    <p><a href='out/{sheetname}.csv'>{sheetname}.csv</a></p>", file=html)
+        print(f"    <p><a href='out/csv/{sheetname}.csv'>{sheetname}.csv</a></p>", file=html)
     print('''
   </body>
 </html>
