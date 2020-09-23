@@ -12,20 +12,20 @@ os.makedirs('out', exist_ok=True)
 with Workbook('out/covid.xlsx') as workbook:
     datas = map(lambda x: x['data'], dashjson)
     sheets = map(lambda x: x["queryName"], dashrequest["requests"])
-    shnames = []
-    for shname, data in zip(sheets, datas):
+    sheets_names = []
+    for sheetname, data in zip(sheets, datas):
 
-        if shname in shnames:
-            shname = shname + str(len(list(map(lambda n: shname in n, shnames))))
-        shnames.append(shname)
+        if sheetname in sheets_names:
+            sheetname = sheetname + str(len(list(map(lambda n: sheetname in n, sheets_names))))
+        sheets_names.append(sheetname)
 
         if not isinstance(data, list):
             data = [data]
         data = list(data)
         fields = list(data[0].keys())
-        print(shname, fields)
+        print(sheetname, fields)
 
-        worksheet = workbook.add_worksheet(shname)
+        worksheet = workbook.add_worksheet(sheetname)
         worksheet.write_row(row=0, col=0, data=fields)
         for index, item in enumerate(data):
             row = map(lambda field_id: item.get(field_id, ''), fields)
