@@ -15,14 +15,16 @@ def group_sheet_data(sheets, datas):
 
 
 def computeWeekly(data):
-    sum = 0
+    data = [(datetime.strptime(row['date'], '%Y-%m-%dT%H:%M:%S.%fZ'), row) for row in data]
+    data = [(date, (date.weekday() + 1) % 7, row) for date, row in data]
+    weeks = [[]]
+    for date, weekday, row in data:
+        if weekday == 0 or len(weeks) == 0:
+            weeks.append([])
+        weeks[-1].append((date, weekday, row))
     ret = []
-    for row in data:
-        date = datetime.strptime(row['date'], '%Y-%m-%dT%H:%M:%S.%fZ')
-        sum += row['amount']
-        if date.weekday() == 5:  # saturday
-            ret.append({'date': row['date'], 'amount': sum})
-            sum = 0
-    if ret[-1]['date'] != data[-1]['date']:
-        ret.append({'date': data[-1]['date'], 'amount': sum})
+    for weekdata in weeks:
+        dates = [date for date, weekday, row in weekdata]
+        amount = sum([row['amount'] for date, weekday, row in weekdata])
+        ret.append({'date': max(dates).isoformat() + 'Z', 'from': min(dates).isoformat() + 'Z', 'amount': amount})
     return ret
