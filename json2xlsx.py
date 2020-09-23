@@ -53,5 +53,5 @@ with open('out/covid.csv', 'w') as csvall:
             print('\n', file=csvall)
 
     links = [('out/covid.xlsx', 'XLS with sheets'), ('out/covid.csv', 'CSV containing all')]
-    links += [(f'out/csv/{sheetname}.csv', f'{sheetname}.csv') for sheetname, data in sheet2data]
-    utils.create_index_html(links)s
+    links += [(f'out/csv/{sheetname}.csv', f'{sheetname}') for sheetname, data in sheet2data]
+    utils.create_index_html(links)

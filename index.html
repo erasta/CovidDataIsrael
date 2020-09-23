@@ -1,33 +1,70 @@
 
 <html>
   <head>
+        <meta charset="utf-8">
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 2px black solid;
+                font: 12px sans-serif;
+            }
 
+            td {
+                border: 1px black solid;
+                padding: 5px;
+            }
+        </style>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
   </head>
   <body>
 
-    <p><a href='out/covid.xlsx'>XLS with sheets.csv</a></p>
-    <p><a href='out/covid.csv'>CSV containing all.csv</a></p>
-    <p><a href='out/csv/lastUpdate.csv'>lastUpdate.csv.csv</a></p>
-    <p><a href='out/csv/infectedPerDate1.csv'>infectedPerDate1.csv.csv</a></p>
-    <p><a href='out/csv/infectedPerDate2.csv'>infectedPerDate2.csv.csv</a></p>
-    <p><a href='out/csv/updatedPatientsOverallStatus1.csv'>updatedPatientsOverallStatus1.csv.csv</a></p>
-    <p><a href='out/csv/updatedPatientsOverallStatus2.csv'>updatedPatientsOverallStatus2.csv.csv</a></p>
-    <p><a href='out/csv/sickPerDateTwoDays.csv'>sickPerDateTwoDays.csv.csv</a></p>
-    <p><a href='out/csv/sickPatientPerLocation.csv'>sickPatientPerLocation.csv.csv</a></p>
-    <p><a href='out/csv/patientsPerDate1.csv'>patientsPerDate1.csv.csv</a></p>
-    <p><a href='out/csv/patientsPerDate2.csv'>patientsPerDate2.csv.csv</a></p>
-    <p><a href='out/csv/patientsPerDate3.csv'>patientsPerDate3.csv.csv</a></p>
-    <p><a href='out/csv/deadPatientsPerDate.csv'>deadPatientsPerDate.csv.csv</a></p>
-    <p><a href='out/csv/recoveredPerDay.csv'>recoveredPerDay.csv.csv</a></p>
-    <p><a href='out/csv/testResultsPerDate1.csv'>testResultsPerDate1.csv.csv</a></p>
-    <p><a href='out/csv/testResultsPerDate2.csv'>testResultsPerDate2.csv.csv</a></p>
-    <p><a href='out/csv/infectedByAgeAndGenderPublic.csv'>infectedByAgeAndGenderPublic.csv.csv</a></p>
-    <p><a href='out/csv/isolatedDoctorsAndNurses.csv'>isolatedDoctorsAndNurses.csv.csv</a></p>
-    <p><a href='out/csv/contagionDataPerCityPublic.csv'>contagionDataPerCityPublic.csv.csv</a></p>
-    <p><a href='out/csv/hospitalStatus.csv'>hospitalStatus.csv.csv</a></p>
-    <p><a href='out/csv/doublingRate.csv'>doublingRate.csv.csv</a></p>
-    <p><a href='out/csv/calculatedVerified.csv'>calculatedVerified.csv.csv</a></p>
+    <p><a href="#" onclick='showtable("out/covid.xlsx")'>XLS with sheets</a> <a href='out/covid.xlsx'>download</a></p>
+    <p><a href="#" onclick='showtable("out/covid.csv")'>CSV containing all</a> <a href='out/covid.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/lastUpdate.csv")'>lastUpdate</a> <a href='out/csv/lastUpdate.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/infectedPerDate1.csv")'>infectedPerDate1</a> <a href='out/csv/infectedPerDate1.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/infectedPerDate2.csv")'>infectedPerDate2</a> <a href='out/csv/infectedPerDate2.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/updatedPatientsOverallStatus1.csv")'>updatedPatientsOverallStatus1</a> <a href='out/csv/updatedPatientsOverallStatus1.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/updatedPatientsOverallStatus2.csv")'>updatedPatientsOverallStatus2</a> <a href='out/csv/updatedPatientsOverallStatus2.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/sickPerDateTwoDays.csv")'>sickPerDateTwoDays</a> <a href='out/csv/sickPerDateTwoDays.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/sickPatientPerLocation.csv")'>sickPatientPerLocation</a> <a href='out/csv/sickPatientPerLocation.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/patientsPerDate1.csv")'>patientsPerDate1</a> <a href='out/csv/patientsPerDate1.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/patientsPerDate2.csv")'>patientsPerDate2</a> <a href='out/csv/patientsPerDate2.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/patientsPerDate3.csv")'>patientsPerDate3</a> <a href='out/csv/patientsPerDate3.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/deadPatientsPerDate.csv")'>deadPatientsPerDate</a> <a href='out/csv/deadPatientsPerDate.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/recoveredPerDay.csv")'>recoveredPerDay</a> <a href='out/csv/recoveredPerDay.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/testResultsPerDate1.csv")'>testResultsPerDate1</a> <a href='out/csv/testResultsPerDate1.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/testResultsPerDate2.csv")'>testResultsPerDate2</a> <a href='out/csv/testResultsPerDate2.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/infectedByAgeAndGenderPublic.csv")'>infectedByAgeAndGenderPublic</a> <a href='out/csv/infectedByAgeAndGenderPublic.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/isolatedDoctorsAndNurses.csv")'>isolatedDoctorsAndNurses</a> <a href='out/csv/isolatedDoctorsAndNurses.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/contagionDataPerCityPublic.csv")'>contagionDataPerCityPublic</a> <a href='out/csv/contagionDataPerCityPublic.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/hospitalStatus.csv")'>hospitalStatus</a> <a href='out/csv/hospitalStatus.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/doublingRate.csv")'>doublingRate</a> <a href='out/csv/doublingRate.csv'>download</a></p>
+    <p><a href="#" onclick='showtable("out/csv/calculatedVerified.csv")'>calculatedVerified</a> <a href='out/csv/calculatedVerified.csv'>download</a></p>
 
+        <div id="show" style="position: absolute;left: 300px;width: calc(100vw - 300px);height: 100vh;top: 0;z-index: -9999;"></div>
+        <script type="text/javascript"charset="utf-8">
+        function showtable(fileshow) {
+            console.log(fileshow);
+            d3.text(fileshow, function(data) {
+                var parsedCSV = d3.csv.parseRows(data);
+
+                var container = d3.select("#show")
+                container.html('')
+
+                container.append("table")
+
+                    .selectAll("tr")
+                        .data(parsedCSV).enter()
+                        .append("tr")
+
+                    .selectAll("td")
+                        .data(function(d) { return d; }).enter()
+                        .append("td")
+                        .text(function(d) { return d; });
+            });
+        }
+        showtable("out/csv/contagionDataPerCityPublic.csv");
+        </script>
   </body>
 </html>
 
