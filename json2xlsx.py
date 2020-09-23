@@ -51,3 +51,20 @@ with open('out/covid.csv', 'w') as csvall:
                 writerall.writerow(row)
             print('\n', file=csvall)
 
+with open('index.html', 'w') as html:
+    print('''
+<html>
+  <head>
+
+  </head>
+  <body>
+    <p><a href='out/covid.xlsx'>XLS with sheets</a></p>
+    <p><a href='out/covid.csv'>CSV containing all</a></p>
+''', file=html)
+    for sheetname, data in sheet2data:
+        print(f"    <p><a href='out/{sheetname}.csv'>{sheetname}.csv</a></p>", file=html)
+    print('''
+  </body>
+</html>
+''', file=html)
+
