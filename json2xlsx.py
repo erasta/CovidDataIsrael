@@ -11,6 +11,10 @@ from xlscolumn import worksheet_autowidth
 import createhtml
 
 dashrequest = get_dash_req()
+for r in dashrequest['requests']:
+    print(r['id'], r['queryName'])
+# print(json.dumps(dashrequest, indent=4, sort_keys=True))
+# exit()
 sheets = list(map(lambda x: x['queryName'], dashrequest['requests']))
 
 dashjson = get_dash_data()

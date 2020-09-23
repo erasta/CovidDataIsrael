@@ -1,9 +1,6 @@
 import requests
 import json
 
-def get_dash_req():
-    return {"requests":[{"id":"0","queryName":"lastUpdate","single":True,"parameters":{}},{"id":"1","queryName":"infectedPerDate","single":False,"parameters":{}},{"id":"2","queryName":"updatedPatientsOverallStatus","single":False,"parameters":{}},{"id":"3","queryName":"sickPerDateTwoDays","single":False,"parameters":{}},{"id":"4","queryName":"sickPatientPerLocation","single":False,"parameters":{}},{"id":"5","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"6","queryName":"deadPatientsPerDate","single":False,"parameters":{}},{"id":"7","queryName":"recoveredPerDay","single":False,"parameters":{}},{"id":"8","queryName":"testResultsPerDate","single":False,"parameters":{}},{"id":"9","queryName":"infectedPerDate","single":False,"parameters":{}},{"id":"10","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"11","queryName":"infectedByAgeAndGenderPublic","single":False,"parameters":{"ageSections":[0,10,20,30,40,50,60,70,80,90]}},{"id":"12","queryName":"isolatedDoctorsAndNurses","single":True,"parameters":{}},{"id":"13","queryName":"testResultsPerDate","single":False,"parameters":{}},{"id":"14","queryName":"contagionDataPerCityPublic","single":False,"parameters":{}},{"id":"15","queryName":"hospitalStatus","single":False,"parameters":{}},{"id":"16","queryName":"doublingRate","single":False,"parameters":{}},{"id":"17","queryName":"patientsPerDate","single":False,"parameters":{}},{"id":"18","queryName":"updatedPatientsOverallStatus","single":False,"parameters":{}},{"id":"19","queryName":"CalculatedVerified","single":False,"parameters":{}}]}
-
 
 def get_dash_data():
     # return json.load(open('samples/data-09-23.json', 'r'))
@@ -40,3 +37,125 @@ def get_dash_data():
         payload = get_dash_req()
         r2 = session.post(url, json=payload, headers=header)
         return r2.json()
+
+
+def get_dash_req():
+    return {
+        "requests": [
+            {
+                "id": "0",
+                "parameters": {},
+                "queryName": "lastUpdate",
+                "single": True
+            },
+            {
+                "id": "1",
+                "parameters": {},
+                "queryName": "infectedPerDate",
+                "single": False
+            },
+            {
+                "id": "2",
+                "parameters": {},
+                "queryName": "updatedPatientsOverallStatus",
+                "single": False
+            },
+            {
+                "id": "3",
+                "parameters": {},
+                "queryName": "sickPerDateTwoDays",
+                "single": False
+            },
+            {
+                "id": "4",
+                "parameters": {},
+                "queryName": "sickPatientPerLocation",
+                "single": False
+            },
+            {
+                "id": "5",
+                "parameters": {},
+                "queryName": "patientsPerDate",
+                "single": False
+            },
+            {
+                "id": "6",
+                "parameters": {},
+                "queryName": "deadPatientsPerDate",
+                "single": False
+            },
+            {
+                "id": "7",
+                "parameters": {},
+                "queryName": "recoveredPerDay",
+                "single": False
+            },
+            {
+                "id": "8",
+                "parameters": {},
+                "queryName": "testResultsPerDate",
+                "single": False
+            },
+            {
+                "id": "9",
+                "parameters": {
+                    "ageSections": [
+                        0,
+                        10,
+                        20,
+                        30,
+                        40,
+                        50,
+                        60,
+                        70,
+                        80,
+                        90
+                    ]
+                },
+                "queryName": "infectedByAgeAndGenderPublic",
+                "single": False
+            },
+            {
+                "id": "10",
+                "parameters": {},
+                "queryName": "isolatedDoctorsAndNurses",
+                "single": True
+            },
+            {
+                "id": "11",
+                "parameters": {},
+                "queryName": "contagionDataPerCityPublic",
+                "single": False
+            },
+            {
+                "id": "12",
+                "parameters": {},
+                "queryName": "hospitalStatus",
+                "single": False
+            },
+            {
+                "id": "13",
+                "parameters": {},
+                "queryName": "doublingRate",
+                "single": False
+            },
+            {
+                "id": "14",
+                "parameters": {},
+                "queryName": "updatedPatientsOverallStatus",
+                "single": False
+            },
+            {
+                "id": "15",
+                "parameters": {},
+                "queryName": "CalculatedVerified",
+                "single": False
+            },
+            {
+                "id": "16",
+                "parameters": {},
+                "queryName": "otherHospitalizedStaff",
+                "single": False
+            }
+        ]
+    }
