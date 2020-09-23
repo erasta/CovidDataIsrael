@@ -1,12 +1,13 @@
+import csv
 import json
 import os
-import csv
 
 from xlsxwriter import Workbook
 
+import utils
 from dashreq import get_dash_data, get_dash_req
-from xlscolumn import worksheet_autowidth
 from utils import group_sheet_data
+from xlscolumn import worksheet_autowidth
 
 dashrequest = get_dash_req()
 sheets = list(map(lambda x: x['queryName'], dashrequest['requests']))
@@ -51,20 +52,6 @@ with open('out/covid.csv', 'w') as csvall:
                 writerall.writerow(row)
             print('\n', file=csvall)
 
-with open('index.html', 'w') as html:
-    print('''
-<html>
-  <head>
-
-  </head>
-  <body>
-    <p><a href='out/covid.xlsx'>XLS with sheets</a></p>
-    <p><a href='out/covid.csv'>CSV containing all</a></p>
-''', file=html)
-    for sheetname, data in sheet2data:
-        print(f"    <p><a href='out/csv/{sheetname}.csv'>{sheetname}.csv</a></p>", file=html)
-    print('''
-  </body>
-</html>
-''', file=html)
-
+    links = [('out/covid.xlsx', 'XLS with sheets'), ('out/covid.csv', 'CSV containing all')]
+    links += [(f'out/csv/{sheetname}.csv', f'{sheetname}.csv') for sheetname, data in sheet2data]
+    utils.create_index_html(links)s

@@ -10,3 +10,19 @@ def group_sheet_data(sheets, datas):
                 datazip.append((u + str(occur + 1), datas[index]))
     return datazip
 
+
+def create_index_html(file2desc):
+    with open('index.html', 'w') as html:
+        print('''
+<html>
+  <head>
+
+  </head>
+  <body>
+''', file=html)
+        for filename, desc in file2desc:
+            print(f"    <p><a href='{filename}'>{desc}.csv</a></p>", file=html)
+        print('''
+  </body>
+</html>
+''', file=html)
