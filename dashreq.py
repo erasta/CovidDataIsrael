@@ -6,6 +6,8 @@ def get_dash_req():
 
 
 def get_dash_data():
+    # return json.load(open('samples/data-09-23.json', 'r'))
+
     url = "https://datadashboardapi.health.gov.il/api/queries/_batch"
 
     with requests.session() as session:
