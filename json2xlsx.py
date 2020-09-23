@@ -1,5 +1,6 @@
 import json
 import os
+import csv
 
 from xlsxwriter import Workbook
 
@@ -17,6 +18,7 @@ datas = list(map(lambda x: x['data'], dashjson))
 sheet2data = group_sheet_data(sheets, datas)
 
 os.makedirs('out', exist_ok=True)
+os.makedirs('out/csv', exist_ok=True)
 with Workbook('out/covid.xlsx') as workbook:
     for sheetname, data in sheet2data:
 
@@ -33,3 +35,9 @@ with Workbook('out/covid.xlsx') as workbook:
             worksheet.write_row(row=index + 1, col=0, data=row)
 
         worksheet_autowidth(worksheet, len(fields))
+
+        with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fields)
+            writer.writeheader()
+            for row in data:
+                writer.writerow(row)
