@@ -142,17 +142,11 @@ def get_dash_req():
             {
                 "id": "14",
                 "parameters": {},
-                "queryName": "updatedPatientsOverallStatus",
-                "single": False
-            },
-            {
-                "id": "15",
-                "parameters": {},
                 "queryName": "CalculatedVerified",
                 "single": False
             },
             {
-                "id": "16",
+                "id": "15",
                 "parameters": {},
                 "queryName": "otherHospitalizedStaff",
                 "single": False
