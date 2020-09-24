@@ -4,7 +4,11 @@ const {
 (async () => {
     const response = await fetch('dashreq.json');
     const json = await response.json();
-    const names = json.requests.map(j => j.queryName);
+
+    const response2 = await fetch('dashcomputed.json');
+    const json2 = await response2.json();
+
+    const names = json.requests.map(j => j.queryName).concat(json2);
     console.log(names);
 
     let sheetname = new URL(window.location.href).searchParams.get("sheet");
@@ -13,7 +17,7 @@ const {
     console.log(fileshow);
 
     const CsvLink = ({ name, downloadlink, showlink }) => {
-        const showname = name.replace(/(?:^|\.?)([A-Z])/g, function (x, y) { return " " + y }).replace(/^_/, "");
+        const showname = name.replace(/(?:^|\.?)([A-Z])/g, function (x, y) { return "_" + y }).replace(/^_/, "").replace(/_/g, " ");
         return <div>
             <ButtonGroup disableElevation color="primary">
                 <Button href={showlink} disabled={!showlink}>{showname}</Button>&nbsp;
