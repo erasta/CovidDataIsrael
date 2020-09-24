@@ -44,7 +44,7 @@ const DataShow = ({ fileshow }) => {
             }
             setWork(false);
         })();
-    }, [])
+    }, [fileshow])
     return (
         <>
             <CircularWorkGif work={work} />

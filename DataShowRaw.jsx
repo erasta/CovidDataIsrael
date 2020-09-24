@@ -19,7 +19,7 @@ const DataShowRaw = ({ fileshow }) => {
                 .text(function (d) { return d; });
             setWork(false);
         })();
-    }, [])
+    }, [fileshow])
     return (
         <>
             <CircularWorkGif work={work} />
