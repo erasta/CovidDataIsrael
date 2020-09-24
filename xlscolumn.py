@@ -47,3 +47,13 @@ def set_column_autowidth(worksheet: Worksheet, column: int):
 def worksheet_autowidth(worksheet: Worksheet, fieldnum: int):
     for ifield in range(fieldnum):
         set_column_autowidth(worksheet, ifield)
+
+
+def write_data_worksheet(data, fields, workbook, sheetname):
+    worksheet = workbook.add_worksheet(sheetname)
+    worksheet.write_row(row=0, col=0, data=fields)
+    for index, item in enumerate(data):
+        row = map(lambda field_id: item.get(field_id, ''), fields)
+        worksheet.write_row(row=index + 1, col=0, data=row)
+
+    worksheet_autowidth(worksheet, len(fields))

@@ -72,3 +72,11 @@ def computeWeekly(data):
         amount = sum([row['amount'] for date, weekday, row in weekdata])
         ret.append({'date': max(dates).isoformat() + 'Z', 'from': min(dates).isoformat() + 'Z', 'amount': amount})
     return ret
+
+
+def data2fields(data):
+    if not isinstance(data, list):
+        data = [data]
+    data = list(data)
+    fields = list(data[0].keys())
+    return data, fields

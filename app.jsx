@@ -44,7 +44,7 @@ const {
             console.log(fileshow);
             d3.text(fileshow, function (data) {
                 var parsedCSV = d3.csv.parseRows(data);
-                // console.log(parsedCSV)
+                console.log(parsedCSV)
 
                 var container = d3.select(ref.current)
                 container.html('')

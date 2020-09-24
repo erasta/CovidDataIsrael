@@ -7,7 +7,7 @@ from xlsxwriter import Workbook
 import utils
 from dashreq import get_dash_data, get_dash_req
 from utils import group_sheet_data
-from xlscolumn import worksheet_autowidth
+import xlscolumn
 
 dashrequest = get_dash_req()
 for r in dashrequest['requests']:
@@ -32,20 +32,10 @@ os.makedirs('out/csv', exist_ok=True)
 with open('out/covid.csv', 'w') as csvall:
     with Workbook('out/covid.xlsx') as workbook:
         for sheetname, data in sheet2data:
-
-            if not isinstance(data, list):
-                data = [data]
-            data = list(data)
-            fields = list(data[0].keys())
+            data, fields = utils.data2fields(data)
             print(sheetname, fields)
 
-            worksheet = workbook.add_worksheet(sheetname)
-            worksheet.write_row(row=0, col=0, data=fields)
-            for index, item in enumerate(data):
-                row = map(lambda field_id: item.get(field_id, ''), fields)
-                worksheet.write_row(row=index + 1, col=0, data=row)
-
-            worksheet_autowidth(worksheet, len(fields))
+            xlscolumn.write_data_worksheet(data, fields, workbook, sheetname)
 
             with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=fields)
