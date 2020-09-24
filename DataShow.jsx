@@ -42,22 +42,25 @@ const TableFromObjects = ({ parsedCSV }) => {
     />
 }
 
+const extractDateAndNumbers = (rows) => {
+
+}
+
 const DataShow = ({ fileshow }) => {
-    const [work, setWork] = React.useState(true);
-    const [parsedCSV, setParsedCSV] = React.useState([]);
+    const [state, setState] = React.useState({parsed: [], work: true});
     React.useEffect(() => {
         (async () => {
-            setWork(true);
+            setState({parsed: [], work: true});
             console.log(fileshow);
             const data = await (await fetch(fileshow)).text();
-            setParsedCSV(d3.csv.parse(data));
-            setWork(false);
+            const parsed = d3.csv.parse(data);
+            setState({parsed: parsed, work: false});
         })();
     }, [fileshow])
     return (
         <>
-            <CircularWorkGif work={work} />
-            <TableFromObjects parsedCSV={parsedCSV} />
+            <CircularWorkGif work={state.work} />
+            <TableFromObjects parsedCSV={state.parsed} />
         </>
     )
 }
