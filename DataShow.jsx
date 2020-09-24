@@ -47,7 +47,7 @@ const DataShow = ({ fileshow }) => {
     }, [])
     return (
         <>
-            {work ? <img src='android-spinner.gif' width='150'></img> : null}
+            <CircularWorkGif work={work} />
             <div
                 ref={ref}
             />

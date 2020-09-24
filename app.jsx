@@ -29,7 +29,7 @@ const App = ({ fileshow }) => {
         <Grid container direction="row">
             <Grid item xs={3}>
                 <CsvButtons names={names.names} />
-                {names.work ? <img src='android-spinner.gif' width='150'></img> : null}
+                <CircularWorkGif work={names.work} />
             </Grid>
             <Grid item xs={9}>
                 {(fileshow === 'out/covid.csv') ?
