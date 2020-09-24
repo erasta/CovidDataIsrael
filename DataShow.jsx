@@ -87,7 +87,7 @@ const DataGraph = ({ parsed }) => {
             <XYPlot
             width={1000} height={700}
             >
-                {/* <XAxis /> */}
+                <XAxis />
                 <YAxis />
                 <HorizontalGridLines />
                 {/* <VerticalGridLines /> */}
