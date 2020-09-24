@@ -1,10 +1,10 @@
-const TableFromObjects = ({ parsedCSV }) => {
+const TableFromObjects = ({ parsed }) => {
     const ref = React.useRef()
     React.useEffect(() => {
         const container = d3.select(ref.current)
         container.html('')
-        if (parsedCSV.length) {
-            const columns = Object.keys(parsedCSV[0]);
+        if (parsed.length) {
+            const columns = Object.keys(parsed[0]);
             // The table generation function
             var table = container.append("table"),
                 thead = table.append("thead"),
@@ -20,7 +20,7 @@ const TableFromObjects = ({ parsedCSV }) => {
 
             // create a row for each object in the data
             var rows = tbody.selectAll("tr")
-                .data(parsedCSV)
+                .data(parsed)
                 .enter()
                 .append("tr");
 
@@ -36,13 +36,13 @@ const TableFromObjects = ({ parsedCSV }) => {
                 .attr("style", "font-family: Courier") // sets the font style
                 .html(function (d) { return d.value; });
         }
-    }, [parsedCSV])
+    }, [parsed])
     return <div
         ref={ref}
     />
 }
 
-const extractDateAndNumbers = (rows) => {
+const extractDateAndNumbers = (parsed) => {
 
 }
 
@@ -60,7 +60,7 @@ const DataShow = ({ fileshow }) => {
     return (
         <>
             <CircularWorkGif work={state.work} />
-            <TableFromObjects parsedCSV={state.parsed} />
+            <TableFromObjects parsed={state.parsed} />
         </>
     )
 }
