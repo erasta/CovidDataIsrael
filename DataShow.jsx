@@ -85,11 +85,14 @@ const DataGraph = ({ parsed }) => {
     return (
         numfields.length === 0 || extracted.length === 0 ? null :
             <XYPlot
-                margin={{ left: 50, right: 50, top: 50, bottom: 50 }}
-                width={500}
-                height={500}
+                margin={60}
+                width={700}
+                height={400}
             >
-                <XAxis />
+                <XAxis
+                    tickFormat={t => new Date(t).toLocaleDateString()}
+                    tickLabelAngle={-45}
+                />
                 <YAxis />
                 <HorizontalGridLines />
                 {/* <VerticalGridLines /> */}
