@@ -1,3 +1,12 @@
+const {
+    HorizontalGridLines,
+    VerticalGridLines,
+    XAxis,
+    XYPlot,
+    YAxis,
+    LineMarkSeries
+} = reactVis;
+
 const TableFromObjects = ({ parsed }) => {
     const ref = React.useRef()
     React.useEffect(() => {
@@ -43,23 +52,69 @@ const TableFromObjects = ({ parsed }) => {
 }
 
 const extractDateAndNumbers = (parsed) => {
+    if (!parsed.length || !Object.keys(parsed[0]).includes('date')) {
+        return [[], []];
+    }
+    parsed = parsed.filter(row => row['date'].trim() !== '');
+    const strDates = parsed.map(row => row['date'].trim());
+    const invalidDates = strDates.filter(x => isNaN(new Date(x).getTime()));
+    if (invalidDates.length > 0) {
+        return [[], []];
+    }
+    const checkedfields = Object.keys(parsed[0]).filter(key => key !== 'date');
+    const numfields = checkedfields.filter(key => {
+        const nums = parsed.map(row => parseFloat(row[key].trim()));
+        const nans = nums.filter(isNaN);
+        return nans.length === 0;
+    })
+    const extracted = parsed.map(row => {
+        const newrow = { 'date': row['date'].trim() };
+        numfields.forEach(key => { newrow[key] = row[key].trim() });
+        return newrow;
+    });
+    return [extracted, numfields];
+}
 
+const DataGraph = ({ parsed }) => {
+    const [extracted, numfields] = extractDateAndNumbers(parsed);
+    const data = numfields.map(field => {
+        return extracted.map(row => {
+            return { x: new Date(row['date']).getTime(), y: row[field] };
+        })
+    });
+    return (
+        numfields.length === 0 || extracted.length === 0 ? null :
+            <XYPlot
+            width={1000} height={700}
+            >
+                {/* <XAxis /> */}
+                <YAxis />
+                <HorizontalGridLines />
+                {/* <VerticalGridLines /> */}
+                {
+                    data.map((datafield, i) =>
+                        <reactVis.LineSeries key={i} data={datafield} />
+                    )
+                }
+            </XYPlot>
+    )
 }
 
 const DataShow = ({ fileshow }) => {
-    const [state, setState] = React.useState({parsed: [], work: true});
+    const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
         (async () => {
-            setState({parsed: [], work: true});
+            setState({ parsed: [], work: true });
             console.log(fileshow);
             const data = await (await fetch(fileshow)).text();
             const parsed = d3.csv.parse(data);
-            setState({parsed: parsed, work: false});
+            setState({ parsed: parsed, work: false });
         })();
     }, [fileshow])
     return (
         <>
             <CircularWorkGif work={state.work} />
+            <DataGraph parsed={state.parsed} />
             <TableFromObjects parsed={state.parsed} />
         </>
     )
