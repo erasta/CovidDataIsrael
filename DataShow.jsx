@@ -79,13 +79,15 @@ const DataGraph = ({ parsed }) => {
     const [extracted, numfields] = extractDateAndNumbers(parsed);
     const data = numfields.map(field => {
         return extracted.map(row => {
-            return { x: new Date(row['date']).getTime(), y: row[field] };
+            return { x: new Date(row['date']).getTime(), y: parseFloat(row[field]) };
         })
     });
     return (
         numfields.length === 0 || extracted.length === 0 ? null :
             <XYPlot
-            width={1000} height={700}
+                margin={{ left: 50, right: 50, top: 50, bottom: 50 }}
+                width={500}
+                height={500}
             >
                 <XAxis />
                 <YAxis />
@@ -93,7 +95,11 @@ const DataGraph = ({ parsed }) => {
                 {/* <VerticalGridLines /> */}
                 {
                     data.map((datafield, i) =>
-                        <reactVis.LineSeries key={i} data={datafield} />
+                        <reactVis.LineSeries
+                            key={i}
+                            data={datafield}
+                            sizeRange={[5, 15]}
+                        />
                     )
                 }
             </XYPlot>
