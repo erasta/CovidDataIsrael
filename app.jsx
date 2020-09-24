@@ -29,31 +29,68 @@ const CsvButtons = ({ names }) => (
     </div>
 )
 
+const checkAllKeysAreSame = (data) => {
+    return data.length && data.find(d => Object.keys(d) === Object.keys(data[0]));
+}
+
 const DataShow = ({ fileshow }) => {
     const [work, setWork] = React.useState(true);
     const ref = React.useRef()
     React.useEffect(() => {
-        setWork(true);
-        console.log(fileshow);
-        d3.text(fileshow, function (data) {
-            var parsedCSV = d3.csv.parseRows(data);
-            console.log(parsedCSV)
-
-            var container = d3.select(ref.current)
+        (async () => {
+            setWork(true);
+            const container = d3.select(ref.current)
             container.html('')
+            console.log(fileshow);
+            const data = await (await fetch(fileshow)).text();
+            if (fileshow === 'out/covid.csv') {
+                const parsedCSV = d3.csv.parseRows(data);
+                container.append("table")
+                    .selectAll("tr")
+                    .data(parsedCSV).enter()
+                    .append("tr")
+                    .selectAll("td")
+                    .data(function (d) { return d; }).enter()
+                    .append("td")
+                    .text(function (d) { return d; });
+            } else {
+                const parsedCSV = d3.csv.parse(data);
+                if (parsedCSV.length) {
+                    const columns = Object.keys(parsedCSV[0]);
+                    // The table generation function
+                    var table = container.append("table"),
+                        thead = table.append("thead"),
+                        tbody = table.append("tbody");
 
-            container.append("table")
+                    // append the header row
+                    thead.append("tr")
+                        .selectAll("th")
+                        .data(columns)
+                        .enter()
+                        .append("th")
+                        .text(function (column) { return column; });
 
-                .selectAll("tr")
-                .data(parsedCSV).enter()
-                .append("tr")
+                    // create a row for each object in the data
+                    var rows = tbody.selectAll("tr")
+                        .data(parsedCSV)
+                        .enter()
+                        .append("tr");
 
-                .selectAll("td")
-                .data(function (d) { return d; }).enter()
-                .append("td")
-                .text(function (d) { return d; });
+                    // create a cell in each row for each column
+                    rows.selectAll("td")
+                        .data(function (row) {
+                            return columns.map(function (column) {
+                                return { column: column, value: row[column] };
+                            });
+                        })
+                        .enter()
+                        .append("td")
+                        .attr("style", "font-family: Courier") // sets the font style
+                        .html(function (d) { return d.value; });
+                }
+            }
             setWork(false);
-        });
+        })();
     }, [])
     return (
         <>
@@ -79,7 +116,7 @@ const App = ({ fileshow }) => {
             newnames = newnames.concat(json2)
 
             setNames({ names: newnames, work: false });
-            console.log(names);
+            console.log(newnames);
         })();
     }, []);
 
