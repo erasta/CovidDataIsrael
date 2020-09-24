@@ -68,11 +68,11 @@ const {
 
     const App = ({ names, fileshow }) => (
         <>
-            <Grid container>
+            <Grid container direction="row">
                 <Grid item xs={3}>
                     <CsvButtons names={names} />
                 </Grid>
-                <Grid item>
+                <Grid item xs={9}>
                     <DataShow fileshow={fileshow} />
                 </Grid>
             </Grid>
