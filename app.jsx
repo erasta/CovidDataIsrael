@@ -57,7 +57,7 @@ const DataShow = ({ fileshow }) => {
     }, [])
     return (
         <>
-            {work ? <p>.................</p> : null}
+            {work ? <img src='android-spinner.gif' width='150'></img> : null}
             <div
                 ref={ref}
             />
@@ -87,7 +87,7 @@ const App = ({ fileshow }) => {
         <Grid container direction="row">
             <Grid item xs={3}>
                 <CsvButtons names={names.names} />
-                {names.work ? <p>.................</p> : null}
+                {names.work ? <img src='android-spinner.gif' width='150'></img> : null}
             </Grid>
             <Grid item xs={9}>
                 <DataShow fileshow={fileshow} />
