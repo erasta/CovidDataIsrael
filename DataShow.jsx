@@ -86,7 +86,7 @@ const DataGraph = ({ parsed }) => {
         numfields.length === 0 || extracted.length === 0 ? null :
             <XYPlot
                 margin={60}
-                width={700}
+                width={1000}
                 height={400}
             >
                 <XAxis
@@ -95,7 +95,7 @@ const DataGraph = ({ parsed }) => {
                 />
                 <YAxis />
                 <HorizontalGridLines />
-                {/* <VerticalGridLines /> */}
+                <VerticalGridLines />
                 {
                     data.map((datafield, i) =>
                         <reactVis.LineSeries
