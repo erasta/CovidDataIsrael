@@ -25,53 +25,19 @@
     </script>
 
     <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js"></script>
+    <script src='https://unpkg.com/react-router-dom@5.2.0/umd/react-router-dom.min.js'></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> <!-- Don't use this in production: -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 </head>
 
 <body>
-
-    <p>XLS with sheets <a href='out/covid.xlsx'>download</a></p>
-    <p><a href="?sheet=all">CSV containing all</a> <a href='out/covid.csv'>download</a></p>
-    <div id="sheets"></div>
-    <div id="show"
-        style="position: absolute;left: 400px;width: calc(100vw - 400px);height: 100vh;top: 0;z-index: -9999;"></div>
-    <script>
-        (async () => {
-            const response = await fetch('dashreq.json');
-            const json = await response.json();
-            const names = json.requests.map(j => j.queryName);
-            const html = names.map(name => `
-            <p>
-                <a href="?sheet=${name}">${name}</a>
-                <a href='out/csv/${name}.csv'>download</a>
-            </p>
-            `).join('');
-            document.getElementById('sheets').innerHTML = html;
-        })();
-
-        function showtable(fileshow) {
-            console.log(fileshow);
-            d3.text(fileshow, function (data) {
-                var parsedCSV = d3.csv.parseRows(data);
-
-                var container = d3.select("#show")
-                container.html('')
-
-                container.append("table")
-
-                    .selectAll("tr")
-                    .data(parsedCSV).enter()
-                    .append("tr")
-
-                    .selectAll("td")
-                    .data(function (d) { return d; }).enter()
-                    .append("td")
-                    .text(function (d) { return d; });
-            });
-        }
-
-        let sheetname = new URL(window.location.href).searchParams.get("sheet");
-        sheetname = sheetname || 'contagionDataPerCityPublic';
-        showtable(sheetname === 'all' ? 'out/covid.csv' : `out/csv/${sheetname}.csv`);
+    <div id="root"></div>
+    <script type="text/babel" src="app.jsx">
     </script>
 </body>
 
