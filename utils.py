@@ -80,3 +80,10 @@ def data2fields(data):
     data = list(data)
     fields = list(data[0].keys())
     return data, fields
+
+
+def writeToCsv(data, fields, csvfile):
+    writer = csv.DictWriter(csvfile, fieldnames=fields)
+    writer.writeheader()
+    for row in data:
+        writer.writerow(row)
