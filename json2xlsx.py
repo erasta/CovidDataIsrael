@@ -8,7 +8,6 @@ import utils
 from dashreq import get_dash_data, get_dash_req
 from utils import group_sheet_data
 from xlscolumn import worksheet_autowidth
-import createhtml
 
 dashrequest = get_dash_req()
 for r in dashrequest['requests']:
