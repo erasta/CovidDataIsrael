@@ -16,12 +16,12 @@ const App = ({ name }) => {
     const [names, setNames] = React.useState({ names: [], work: true });
     React.useEffect(() => {
         (async () => {
-            const response = await fetch('dashreq.json');
+            const response = await fetch('jsons/dashreq.json');
             const json = await response.json();
             let newnames = json.requests.map(j => j.queryName);
             setNames({ names: newnames, work: true });
 
-            const response2 = await fetch('dashcomputed.json');
+            const response2 = await fetch('jsons/dashcomputed.json');
             const json2 = await response2.json();
             newnames = newnames.concat(json2)
 

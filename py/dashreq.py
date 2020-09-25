@@ -40,5 +40,5 @@ def get_dash_data():
 
 
 def get_dash_req():
-    with open('dashreq.json') as f:
+    with open('jsons/dashreq.json') as f:
         return json.load(f)
