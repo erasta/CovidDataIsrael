@@ -7,7 +7,7 @@ sheetname = sheetname || 'contagionDataPerCityPublic';
 const fileshow = sheetname === 'all' ? 'out/covid.csv' : `out/csv/${sheetname}.csv`
 console.log(fileshow);
 
-const App = ({ fileshow }) => {
+const App = ({ fileshow,name }) => {
     const [names, setNames] = React.useState({ names: [], work: true });
     React.useEffect(() => {
         (async () => {
@@ -34,7 +34,7 @@ const App = ({ fileshow }) => {
             <Grid item xs={9}>
                 {(fileshow === 'out/covid.csv') ?
                     <DataShowRaw fileshow={fileshow} /> :
-                    <DataShow fileshow={fileshow} />
+                    <DataShow fileshow={fileshow} name={name} />
                 }
             </Grid>
         </Grid>
@@ -42,6 +42,6 @@ const App = ({ fileshow }) => {
 }
 
 ReactDOM.render(
-    <App fileshow={fileshow} />,
+    <App fileshow={fileshow} name={sheetname} />,
     document.getElementById('root')
 );

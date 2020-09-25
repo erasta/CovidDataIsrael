@@ -1,12 +1,3 @@
-const {
-    HorizontalGridLines,
-    VerticalGridLines,
-    XAxis,
-    XYPlot,
-    YAxis,
-    LineMarkSeries
-} = reactVis;
-
 const TableFromObjects = ({ parsed }) => {
     const ref = React.useRef()
     React.useEffect(() => {
@@ -57,7 +48,8 @@ const extractDateAndNumbers = (parsed) => {
     }
     parsed = parsed.filter(row => row['date'].trim() !== '');
     const strDates = parsed.map(row => row['date'].trim());
-    const invalidDates = strDates.filter(x => isNaN(new Date(x).getTime()));
+    const dates = strDates.map(row => new Date(row));
+    const invalidDates = dates.filter(x => isNaN(x.getTime()));
     if (invalidDates.length > 0) {
         return [[], []];
     }
@@ -72,53 +64,74 @@ const extractDateAndNumbers = (parsed) => {
         numfields.forEach(key => { newrow[key] = row[key].trim() });
         return newrow;
     });
-    return [extracted, numfields];
+    return [extracted, numfields, dates];
 }
 
 const DataGraph = ({ parsed }) => {
-    const [extracted, numfields] = extractDateAndNumbers(parsed);
+    const [extracted, numfields, dates] = extractDateAndNumbers(parsed);
     let negative = false;
-    const data = numfields.map(field => {
-        return extracted.map(row => {
-            const item = { x: new Date(row['date']).getTime(), y: parseFloat(row[field]) };
-            if (item.y < 0) negative = true;
-            return item;
-        })
-    });
+    // const data = numfields.map(field => {
+    //     return extracted.map(row => {
+    //         const item = { x: new Date(row['date']).getTime(), y: parseFloat(row[field]) };
+    //         if (item.y < 0) negative = true;
+    //         return item;
+    //     })
+    // });
+    console.log(extracted)
+    let data = {}
+    if (extracted.length) {
+        data = {
+            labels: dates.map(d => d.toLocaleDateString()),
+            datasets: [
+                {
+                    label: numfields[0],
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                    hoverBorderColor: 'rgba(255,99,132,1)',
+                    data: extracted.map(row => parseFloat(row[numfields[0]])),
+                }
+            ]
+        };
+    }
     return (
         numfields.length === 0 || extracted.length === 0 ? null :
-            <XYPlot
-                margin={60}
-                width={1000}
-                height={400}
-            >
-                <XAxis
-                    tickFormat={t => new Date(t).toLocaleDateString()}
-                    tickLabelAngle={-45}
-                />
-                <YAxis />
-                <HorizontalGridLines />
-                <VerticalGridLines />
-                {
-                    data.map((datafield, i) =>
-                        negative ?
-                            <reactVis.LineSeries
-                                key={i}
-                                data={datafield}
-                                sizeRange={[5, 15]}
-                            /> :
-                            <reactVis.VerticalBarSeries
-                                key={i}
-                                data={datafield}
-                                sizeRange={[5, 15]}
-                            />
-                    )
-                }
-            </XYPlot>
+            <ReactChartjs2.Bar
+                data={data}
+            />
+        // <XYPlot
+        //     margin={60}
+        //     width={1000}
+        //     height={400}
+        // >
+        //     <XAxis
+        //         tickFormat={t => new Date(t).toLocaleDateString()}
+        //         tickLabelAngle={-45}
+        //     />
+        //     <YAxis />
+        //     <HorizontalGridLines />
+        //     <VerticalGridLines />
+        //     {
+        //         data.map((datafield, i) =>
+        //             negative ?
+        //                 <reactVis.LineSeries
+        //                     key={i}
+        //                     data={datafield}
+        //                     sizeRange={[5, 15]}
+        //                 /> :
+        //                 <reactVis.VerticalBarSeries
+        //                     key={i}
+        //                     data={datafield}
+        //                     sizeRange={[5, 15]}
+        //                 />
+        //         )
+        //     }
+        // </XYPlot>
     )
 }
 
-const DataShow = ({ fileshow }) => {
+const DataShow = ({ fileshow, name }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
         (async () => {
@@ -131,6 +144,7 @@ const DataShow = ({ fileshow }) => {
     }, [fileshow])
     return (
         <>
+            <h2>{name[0].toUpperCase() + name.substr(1)}</h2>
             <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
             <TableFromObjects parsed={state.parsed} />
