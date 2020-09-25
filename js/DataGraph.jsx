@@ -66,6 +66,26 @@ const groupGroupsByTime = (group, dates, numitems) => {
     return [groupdates, groupnumitems];
 }
 
+const attachAlpha = (color, alpha) => {
+    if (color.startsWith('rgb')) {
+        const arr = color.split(')')[0].split('(')[1].split(',');
+        const justNumsComma = arr.map(x => x.trim()).join(',');
+        return 'rgba(' + justNumsComma + ',' + alpha + ')'
+    } else {
+        let alphahex = parseInt(Math.floor(alpha * 255), 16);
+        while (alphahex.length < 2) alphahex = '0' + alphahex;
+        return color + alphahex;
+    }
+}
+
+const colorByNumber = (t, amount) => {
+    const scheme = d3.schemeSet1.concat(d3.schemeSet2).concat(d3.schemeSet3);
+    if (t < scheme.length) {
+        return scheme[t];
+    }
+    return d3.interpolateRainbow((t - scheme.length) / (amount - scheme.length))
+}
+
 const DataGraph = ({ parsed }) => {
     const [chartStyle, setChartStyle] = React.useState('Line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
@@ -77,14 +97,15 @@ const DataGraph = ({ parsed }) => {
         data = {
             labels: groupdates.map(d => d.toLocaleDateString()),
             datasets: groupnumitems.map((field, i) => {
-                const color = new Array(3).fill().map(() => '' + Math.floor(Math.random() * 256)).join(',')
+                // const color1 = new Array(3).fill().map(() => '' + Math.floor(Math.random() * 256)).join(',')
+                const color = colorByNumber(i, groupnumitems.length + 1);
                 return {
                     label: numfields[i],
-                    backgroundColor: 'rgba(' + color + ',0.2)',
-                    borderColor: 'rgba(' + color + ',0.8)',
+                    backgroundColor: attachAlpha(color, 0.2),
+                    borderColor: attachAlpha(color, 1),
                     borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(' + color + ',0.6)',
-                    hoverBorderColor: 'rgba(' + color + ',1)',
+                    // hoverBackgroundColor: 'rgba(' + color + ',0.6)',
+                    // hoverBorderColor: 'rgba(' + color + ',1)',
                     data: field,
                 }
             })
