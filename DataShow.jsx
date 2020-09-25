@@ -59,75 +59,38 @@ const extractDateAndNumbers = (parsed) => {
         const nans = nums.filter(isNaN);
         return nans.length === 0;
     })
-    const extracted = parsed.map(row => {
-        const newrow = { 'date': row['date'].trim() };
-        numfields.forEach(key => { newrow[key] = row[key].trim() });
-        return newrow;
-    });
-    return [extracted, numfields, dates];
+    const numitems = numfields.map(key => {
+        return parsed.map(row => parseFloat(row[key].trim()));
+    })
+    return [numitems, numfields, dates];
 }
 
 const DataGraph = ({ parsed }) => {
-    const [extracted, numfields, dates] = extractDateAndNumbers(parsed);
-    let negative = false;
-    // const data = numfields.map(field => {
-    //     return extracted.map(row => {
-    //         const item = { x: new Date(row['date']).getTime(), y: parseFloat(row[field]) };
-    //         if (item.y < 0) negative = true;
-    //         return item;
-    //     })
-    // });
-    console.log(extracted)
+    const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
+    console.log(numitems)
     let data = {}
-    if (extracted.length) {
+    if (numfields.length) {
         data = {
             labels: dates.map(d => d.toLocaleDateString()),
-            datasets: [
-                {
-                    label: numfields[0],
-                    backgroundColor: 'rgba(255,99,132,0.2)',
-                    borderColor: 'rgba(255,99,132,1)',
+            datasets: numitems.map((field, i) => {
+                const color = new Array(3).fill().map(() => '' + Math.floor(Math.random() * 256)).join(',')
+                return {
+                    label: numfields[i],
+                    backgroundColor: 'rgba(' + color + ',0.2)',
+                    borderColor: 'rgba(' + color + ',1)',
                     borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: extracted.map(row => parseFloat(row[numfields[0]])),
+                    hoverBackgroundColor: 'rgba(' + color + ',0.4)',
+                    hoverBorderColor: 'rgba(' + color + ',1)',
+                    data: field,
                 }
-            ]
+            })
         };
     }
     return (
-        numfields.length === 0 || extracted.length === 0 ? null :
-            <ReactChartjs2.Bar
+        numfields.length === 0 ? null :
+            <ReactChartjs2.Line
                 data={data}
             />
-        // <XYPlot
-        //     margin={60}
-        //     width={1000}
-        //     height={400}
-        // >
-        //     <XAxis
-        //         tickFormat={t => new Date(t).toLocaleDateString()}
-        //         tickLabelAngle={-45}
-        //     />
-        //     <YAxis />
-        //     <HorizontalGridLines />
-        //     <VerticalGridLines />
-        //     {
-        //         data.map((datafield, i) =>
-        //             negative ?
-        //                 <reactVis.LineSeries
-        //                     key={i}
-        //                     data={datafield}
-        //                     sizeRange={[5, 15]}
-        //                 /> :
-        //                 <reactVis.VerticalBarSeries
-        //                     key={i}
-        //                     data={datafield}
-        //                     sizeRange={[5, 15]}
-        //                 />
-        //         )
-        //     }
-        // </XYPlot>
     )
 }
 
