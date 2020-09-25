@@ -15,10 +15,11 @@ const extractDateAndNumbers = (parsed) => {
     }
     const checkedfields = Object.keys(parsed[0]).filter(key => key !== 'date');
     const numfields = checkedfields.filter(key => {
-        const nums = parsed.map(row => parseFloat(row[key].trim()));
-        const nans = nums.filter(isNaN);
+        const strs = parsed.map(row => row[key].trim()).filter(x => x != '');
+        if (strs.length === 0) return false;
+        const nans = strs.filter(val => val !== '' + parseFloat(val));
         return nans.length === 0;
-    })
+    });
     const numitems = numfields.map(key => {
         return parsed.map(row => parseFloat(row[key].trim()));
     })
@@ -57,7 +58,6 @@ const groupByTime = (group, dates, nums) => {
 
 const groupGroupsByTime = (group, dates, numitems) => {
     let groupdates;
-    console.log(group)
     const groupnumitems = numitems.map(nums => {
         let groupnums;
         [groupdates, groupnums] = groupByTime(group, dates, nums);
