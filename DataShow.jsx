@@ -77,9 +77,12 @@ const extractDateAndNumbers = (parsed) => {
 
 const DataGraph = ({ parsed }) => {
     const [extracted, numfields] = extractDateAndNumbers(parsed);
+    let negative = false;
     const data = numfields.map(field => {
         return extracted.map(row => {
-            return { x: new Date(row['date']).getTime(), y: parseFloat(row[field]) };
+            const item = { x: new Date(row['date']).getTime(), y: parseFloat(row[field]) };
+            if (item.y < 0) negative = true;
+            return item;
         })
     });
     return (
@@ -98,11 +101,17 @@ const DataGraph = ({ parsed }) => {
                 <VerticalGridLines />
                 {
                     data.map((datafield, i) =>
-                        <reactVis.LineSeries
-                            key={i}
-                            data={datafield}
-                            sizeRange={[5, 15]}
-                        />
+                        negative ?
+                            <reactVis.LineSeries
+                                key={i}
+                                data={datafield}
+                                sizeRange={[5, 15]}
+                            /> :
+                            <reactVis.VerticalBarSeries
+                                key={i}
+                                data={datafield}
+                                sizeRange={[5, 15]}
+                            />
                     )
                 }
             </XYPlot>
