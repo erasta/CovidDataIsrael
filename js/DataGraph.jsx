@@ -1,5 +1,5 @@
 const {
-    MenuItem, Select
+    MenuItem, Select, InputLabel, FormHelperText
 } = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
@@ -55,8 +55,8 @@ const DataGraph = ({ parsed }) => {
                     value={chartStyle}
                     onChange={setChartStyle}
                 >
-                    <MenuItem value={'Bar'}>Bar</MenuItem>
-                    <MenuItem value={'Line'}>Line</MenuItem>
+                    <MenuItem value={'Bar'} >Bars Chart</MenuItem>
+                    <MenuItem value={'Line'} >Lines Chart </MenuItem>
                 </Select>
                 {(chartStyle === 'Line') ?
                     <ReactChartjs2.Line
