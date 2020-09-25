@@ -42,23 +42,31 @@ const TableFromObjects = ({ parsed }) => {
     />
 }
 
-const DataShow = ({ fileshow, name }) => {
+const DataShow = ({ name, showtable = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
         (async () => {
             setState({ parsed: [], work: true });
-            console.log(fileshow);
-            const data = await (await fetch(fileshow)).text();
+            console.log(name);
+            const data = await (await fetch(`out/csv/${name}.csv`)).text();
             const parsed = d3.csv.parse(data);
             setState({ parsed: parsed, work: false });
         })();
-    }, [fileshow])
+    }, [name])
     return (
         <>
-            <h2>{name[0].toUpperCase() + name.substr(1)}</h2>
+            {!showtable && !parsed.length ? null :
+                <h2>{name[0].toUpperCase() + name.substr(1)}</h2>
+            }
             <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
-            <TableFromObjects parsed={state.parsed} />
+            {!showtable ? null :
+                <TableFromObjects parsed={state.parsed} />
+            }
         </>
     )
 }
+
+// const DataShowCharts = ({ names}) => {
+//     return names.map(name )
+// }
