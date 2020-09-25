@@ -5,9 +5,15 @@ const {
 let sheetname = new URL(window.location.href).searchParams.get("sheet");
 sheetname = sheetname || 'contagionDataPerCityPublic';
 const fileshow = sheetname === 'all' ? 'out/covid.csv' : `out/csv/${sheetname}.csv`
-console.log(fileshow);
+console.log(sheetname, fileshow);
 
-const App = ({ fileshow,name }) => {
+const ShowByName = ({ fileshow, name }) => {
+    if (name === 'all') return <DataShowRaw fileshow={fileshow} name={name} />
+    if (name === 'showcharts') return <DataShow fileshow={fileshow} name={name} />
+    return <DataShow fileshow={fileshow} name={name} />
+}
+
+const App = ({ fileshow, name }) => {
     const [names, setNames] = React.useState({ names: [], work: true });
     React.useEffect(() => {
         (async () => {
@@ -32,10 +38,7 @@ const App = ({ fileshow,name }) => {
                 <CircularWorkGif work={names.work} />
             </Grid>
             <Grid item xs={9}>
-                {(fileshow === 'out/covid.csv') ?
-                    <DataShowRaw fileshow={fileshow} /> :
-                    <DataShow fileshow={fileshow} name={name} />
-                }
+                <ShowByName fileshow={fileshow} name={name} />
             </Grid>
         </Grid>
     </>
