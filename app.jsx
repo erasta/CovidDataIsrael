@@ -3,12 +3,12 @@ const {
 } = MaterialUI;
 
 let sheetname = new URL(window.location.href).searchParams.get("sheet");
-sheetname = sheetname || 'contagionDataPerCityPublic';
+sheetname = sheetname || 'showcharts';
 console.log(sheetname);
 
 const ShowByName = ({ name, names }) => {
     if (name === 'all') return <DataShowRaw fileshow={'out/covid.csv'} />
-    // if (name === 'showcharts') return <DataShowCharts fileshow={fileshow} name={name} names={names}/>
+    if (name === 'showcharts') return <DataShowCharts names={names} />
     return <DataShow name={name} />
 }
 
@@ -37,7 +37,7 @@ const App = ({ name }) => {
                 <CircularWorkGif work={names.work} />
             </Grid>
             <Grid item xs={9}>
-                <ShowByName name={name} names={names.names}/>
+                <ShowByName name={name} names={names.names} />
             </Grid>
         </Grid>
     </>

@@ -55,7 +55,7 @@ const DataShow = ({ name, showtable = true }) => {
     }, [name])
     return (
         <>
-            {!showtable && !parsed.length ? null :
+            {!showtable && !state.parsed.length ? null :
                 <h2>{name[0].toUpperCase() + name.substr(1)}</h2>
             }
             <CircularWorkGif work={state.work} />
@@ -67,6 +67,32 @@ const DataShow = ({ name, showtable = true }) => {
     )
 }
 
-// const DataShowCharts = ({ names}) => {
-//     return names.map(name )
-// }
+const DataShowCharts = ({ names }) => (
+    <>
+        <DataShow
+            key={'patientsPerDate'}
+            name={'patientsPerDate'}
+            showtable={false}
+        />
+        <Grid container>
+            {[
+                'infectedPerDate',
+                'deadPatientsPerDate',
+                'recoveredPerDay',
+                'testResultsPerDate',
+                'doublingRate',
+                'calculatedVerified',
+                'deadWeekly_computed',
+                'deadDelta_computed'
+            ].map(name =>
+                <Grid item xs={6}>
+                    <DataShow
+                        key={name}
+                        name={name}
+                        showtable={false}
+                    />
+                </Grid>
+            )}
+        </Grid>
+    </>
+)
