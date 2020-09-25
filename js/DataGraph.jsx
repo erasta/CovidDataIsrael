@@ -1,5 +1,5 @@
 const {
-    MenuItem, Select, InputLabel, FormHelperText
+    MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox
 } = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
@@ -86,9 +86,14 @@ const colorByNumber = (t, amount) => {
     return d3.interpolateRainbow((t - scheme.length) / (amount - scheme.length))
 }
 
+const accumulateNums = (nums) => {
+    return nums.map((sum => value => sum += value)(0));
+}
+
 const DataGraph = ({ parsed }) => {
     const [chartStyle, setChartStyle] = React.useState('Line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
+    const [accumulated, setAccumulated] = React.useState(false);
 
     const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
     const [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
@@ -106,7 +111,7 @@ const DataGraph = ({ parsed }) => {
                     borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(' + color + ',0.6)',
                     // hoverBorderColor: 'rgba(' + color + ',1)',
-                    data: field,
+                    data: accumulated ? accumulateNums(field) : field,
                 }
             })
         };
@@ -130,6 +135,16 @@ const DataGraph = ({ parsed }) => {
                     <MenuItem value={'Weekly'} >Weekly</MenuItem>
                     <MenuItem value={'Monthly'} >Monthly</MenuItem>
                 </Select>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={accumulated}
+                            onChange={e => setAccumulated(e.target.checked)}
+                            color="primary"
+                        />}
+                    label="Sum"
+                    labelPlacement="start"
+                />
                 {(chartStyle === 'Line') ?
                     <ReactChartjs2.Line
                         data={data}
