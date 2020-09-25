@@ -1,6 +1,6 @@
-// const {
-//     ToggleButtonGroup, ToggleButton
-// } = MaterialUI;
+const {
+    MenuItem, Select
+} = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
     if (!parsed.length || !Object.keys(parsed[0]).includes('date')) {
@@ -26,6 +26,8 @@ const extractDateAndNumbers = (parsed) => {
 }
 
 const DataGraph = ({ parsed }) => {
+    const [chartStyle, setChartStyle] = React.useState('Line');
+
     const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
     console.log(numitems)
     let data = {}
@@ -49,17 +51,21 @@ const DataGraph = ({ parsed }) => {
     return (
         numfields.length === 0 ? null :
             <>
-                <ReactChartjs2.Line
-                    data={data}
-                />
-                {/* <ToggleButtonGroup>
-                    <ToggleButton>
-                        Lines
-                    </ToggleButton>
-                    <ToggleButton>
-                        Bars
-                    </ToggleButton>
-                </ToggleButtonGroup> */}
+                <Select
+                    value={chartStyle}
+                    onChange={setChartStyle}
+                >
+                    <MenuItem value={'Bar'}>Bar</MenuItem>
+                    <MenuItem value={'Line'}>Line</MenuItem>
+                </Select>
+                {(chartStyle === 'Line') ?
+                    <ReactChartjs2.Line
+                        data={data}
+                    /> :
+                    <ReactChartjs2.Bar
+                        data={data}
+                    />
+                }
             </>
     )
 }

@@ -56,7 +56,9 @@ const DataShow = ({ name, showtable = true }) => {
     return (
         <>
             {!showtable && !state.parsed.length ? null :
-                <h2>{name[0].toUpperCase() + name.substr(1)}</h2>
+                <h2 style={{ marginBlockEnd: 0 }}>
+                    {name[0].toUpperCase() + name.substr(1)}
+                </h2>
             }
             <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
@@ -74,7 +76,7 @@ const DataShowCharts = ({ names }) => (
             name={'patientsPerDate'}
             showtable={false}
         />
-        <Grid container>
+        <Grid container key={'chartGrid'}>
             {[
                 'infectedPerDate',
                 'deadPatientsPerDate',
@@ -85,7 +87,7 @@ const DataShowCharts = ({ names }) => (
                 'deadWeekly_computed',
                 'deadDelta_computed'
             ].map(name =>
-                <Grid item xs={6}>
+                <Grid item xs={6} key={name}>
                     <DataShow
                         key={name}
                         name={name}
