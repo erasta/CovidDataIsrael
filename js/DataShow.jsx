@@ -56,9 +56,11 @@ const DataShow = ({ name, showtable = true }) => {
     return (
         <>
             {!showtable && !state.parsed.length ? null :
-                <h2 style={{ marginBlockEnd: 0 }}>
-                    {name[0].toUpperCase() + name.substr(1)}
-                </h2>
+                <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
+                    <h2 style={{ marginBlockEnd: 0 }}>
+                        {name[0].toUpperCase() + name.substr(1)}
+                    </h2>
+                </a>
             }
             <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
