@@ -92,6 +92,7 @@ const TableShow = ({ parsed }) => {
                         <TableRow>
                             {columns.map((column, i) => (
                                 <TableCell
+                                    style={{ backgroundColor: 'lightgrey' }}
                                     key={i}
                                 >
                                     <TableSortLabel
@@ -111,7 +112,9 @@ const TableShow = ({ parsed }) => {
                     </TableHead>
                     <TableBody>
                         {rows.map((row, ridx) => (
-                            <TableRow key={ridx}>
+                            <TableRow
+                                key={ridx}
+                            >
                                 {columns.map((column, cidx) => (
                                     <TableCell key={cidx}>
                                         {convertToShow(convertToType(row[column]))}
