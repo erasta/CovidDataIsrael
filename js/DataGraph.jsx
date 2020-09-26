@@ -169,7 +169,7 @@ const DataGraph = ({ parsed }) => {
                     valueLabelFormat={(val, side) => {
                         if (!dates.length) return val;
                         const d = dates[Math.round(val / 100 * (dates.length - 1))]
-                        return (d.getMonth() + 1) + '.' + d.getDate()
+                        return d.getDate() + '.' + (d.getMonth() + 1)
                     }}
                 />
                 <Select
