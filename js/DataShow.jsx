@@ -1,3 +1,7 @@
+const {
+    Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell
+} = MaterialUI;
+
 const TableFromObjects = ({ parsed }) => {
     const ref = React.useRef()
     React.useEffect(() => {
@@ -42,6 +46,55 @@ const TableFromObjects = ({ parsed }) => {
     />
 }
 
+const convertToType = (item) => {
+    const trimmed = item.trim();
+    const num = parseFloat(trimmed);
+    if ('' + num === trimmed) return num;
+    const date = new Date(trimmed);
+    if (!isNaN(date.getTime())) {
+        if (!date.getUTCHours()) {
+            return date.toLocaleDateString();
+        } else {
+            return date.toLocaleString();
+        }
+    }
+    return trimmed;
+}
+
+const TableShow = ({ parsed }) => {
+    const columns = parsed.length ? Object.keys(parsed[0]) : [];
+    return (
+        <Paper >
+            <TableContainer style={{ maxHeight: 1000 }}>
+                <Table stickyHeader size="small">
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column, i) => (
+                                <TableCell
+                                    key={i}
+                                >
+                                    {column}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {parsed.map((row, ridx) => (
+                            <TableRow key={ridx}>
+                                {columns.map((column, cidx) => (
+                                    <TableCell key={cidx}>
+                                        {convertToType(row[column])}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Paper>
+    )
+}
+
 const DataShow = ({ name, showtable = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
@@ -65,7 +118,7 @@ const DataShow = ({ name, showtable = true }) => {
             <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
             {!showtable ? null :
-                <TableFromObjects parsed={state.parsed} />
+                <TableShow parsed={state.parsed} />
             }
         </>
     )
