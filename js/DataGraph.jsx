@@ -111,6 +111,7 @@ const DataGraph = ({ parsed }) => {
                     borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(' + color + ',0.6)',
                     // hoverBorderColor: 'rgba(' + color + ',1)',
+                    pointRadius: 1,
                     data: accumulated ? accumulateNums(field) : field,
                 }
             })
