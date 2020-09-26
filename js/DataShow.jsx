@@ -97,6 +97,10 @@ const DataShow = ({ name, showtable = true }) => {
             setState({ parsed: [], work: true });
             console.log(name);
             const data = await (await fetch(`out/csv/${name}.csv`)).text();
+            if (data.split('\n',1)[0].trim() === "<!DOCTYPE html>") {
+                setState({ parsed: [], work: false });
+                return;
+            }
             const parsed = d3.csv.parse(data);
             setState({ parsed: parsed, work: false });
         })();
