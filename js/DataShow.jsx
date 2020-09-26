@@ -96,7 +96,7 @@ const DataShow = ({ name, showtable = true }) => {
         (async () => {
             setState({ parsed: [], work: true });
             console.log(name);
-            const data = await (await fetch(`out/csv/${name}.csv`)).text();
+            const data = await (await fetch(`out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`)).text();
             if (data.split('\n',1)[0].trim() === "<!DOCTYPE html>") {
                 setState({ parsed: [], work: false });
                 return;
