@@ -141,7 +141,7 @@ const DataGraph = ({ parsed }) => {
     let data = {}
     if (numfields.length) {
         data = {
-            labels: groupdates.slice(fromIndex, toIndex+1).map(d => d.toLocaleDateString()),
+            labels: groupdates.slice(fromIndex, toIndex + 1).map(d => d.toLocaleDateString()),
             datasets: groupnumitems.map((field, i) => {
                 // const color1 = new Array(3).fill().map(() => '' + Math.floor(Math.random() * 256)).join(',')
                 const color = colorByNumber(i, groupnumitems.length + 1);
@@ -153,11 +153,21 @@ const DataGraph = ({ parsed }) => {
                     // hoverBackgroundColor: 'rgba(' + color + ',0.6)',
                     // hoverBorderColor: 'rgba(' + color + ',1)',
                     pointRadius: 1,
-                    data: (accumulated ? accumulateNums(field) : field).slice(fromIndex, toIndex+1),
+                    data: (accumulated ? accumulateNums(field) : field).slice(fromIndex, toIndex + 1),
                 }
             })
         };
     }
+    const options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    min: 0
+                }
+            }]
+        }
+    };
     return (
         numfields.length === 0 ? null :
             <>
@@ -203,9 +213,11 @@ const DataGraph = ({ parsed }) => {
                 {(chartStyle === 'Line') ?
                     <ReactChartjs2.Line
                         data={data}
+                        options={options}
                     /> :
                     <ReactChartjs2.Bar
                         data={data}
+                        options={options}
                     />
                 }
             </>
