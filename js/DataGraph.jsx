@@ -1,5 +1,5 @@
 const {
-    MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox
+    MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox, Typography, Slider
 } = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
@@ -109,17 +109,42 @@ const accumulateNums = (nums) => {
     return nums.map((sum => value => sum += value)(0));
 }
 
+const findDateRangeIndices = (dates, fromDate, toDateInc) => {
+    let i = 0;
+    while (i < dates.length - 1 && dates[i] < fromDate && dates[i + 1] <= fromDate) i++;
+    let j = dates.length - 1;
+    while (j > 0 && dates[j] > toDateInc && dates[j - 1] >= toDateInc) j--;
+    return [i, j];
+}
+
+const dateByPercent = (dates, percent) => {
+    return dates[Math.round(percent / 100 * (dates.length - 1))];
+}
+
 const DataGraph = ({ parsed }) => {
     const [chartStyle, setChartStyle] = React.useState('Line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
+    const [dateRange, setDateRange] = React.useState([0, 100]);
 
     const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
+
     const [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
+
+    let fromIndex = 0, toIndex = -1;
+    console.log(dateRange);
+    if (groupdates && groupdates.length && groupnumitems.length) {
+        const fromDate = dateByPercent(dates, dateRange[0]);
+        const toDateInc = dateByPercent(dates, dateRange[1]);
+        console.log(fromDate.toLocaleDateString(), toDateInc.toLocaleDateString());
+        [fromIndex, toIndex] = findDateRangeIndices(groupdates, fromDate, toDateInc);
+        console.log(fromIndex, toIndex);
+    }
+
     let data = {}
     if (numfields.length) {
         data = {
-            labels: groupdates.map(d => d.toLocaleDateString()),
+            labels: groupdates.slice(fromIndex, toIndex+1).map(d => d.toLocaleDateString()),
             datasets: groupnumitems.map((field, i) => {
                 // const color1 = new Array(3).fill().map(() => '' + Math.floor(Math.random() * 256)).join(',')
                 const color = colorByNumber(i, groupnumitems.length + 1);
@@ -131,7 +156,7 @@ const DataGraph = ({ parsed }) => {
                     // hoverBackgroundColor: 'rgba(' + color + ',0.6)',
                     // hoverBorderColor: 'rgba(' + color + ',1)',
                     pointRadius: 1,
-                    data: accumulated ? accumulateNums(field) : field,
+                    data: (accumulated ? accumulateNums(field) : field).slice(fromIndex, toIndex+1),
                 }
             })
         };
@@ -139,6 +164,17 @@ const DataGraph = ({ parsed }) => {
     return (
         numfields.length === 0 ? null :
             <>
+                <Slider
+                    value={dateRange}
+                    onChange={(e, v) => setDateRange(v)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="date-slider"
+                    valueLabelFormat={(val, side) => {
+                        if (!dates.length) return val;
+                        const d = dates[Math.round(val / 100 * (dates.length - 1))]
+                        return d.getMonth() + '.' + d.getDate()
+                    }}
+                />
                 <Select
                     value={chartStyle}
                     onChange={e => setChartStyle(e.target.value)}
