@@ -1,5 +1,5 @@
 const {
-    Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell
+    Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableSortLabel
 } = MaterialUI;
 
 const TableFromObjects = ({ parsed }) => {
@@ -51,18 +51,39 @@ const convertToType = (item) => {
     const num = parseFloat(trimmed);
     if ('' + num === trimmed) return num;
     const date = new Date(trimmed);
-    if (!isNaN(date.getTime())) {
-        if (!date.getUTCHours()) {
-            return date.toLocaleDateString();
-        } else {
-            return date.toLocaleString();
-        }
-    }
+    if (!isNaN(date.getTime())) return date;
     return trimmed;
 }
 
+const convertToShow = (item) => {
+    if (item instanceof Date) {
+        if (!item.getUTCHours()) {
+            return item.toLocaleDateString();
+        } else {
+            return item.toLocaleString();
+        }
+    }
+    return item;
+}
+
+const sortBy = (rows, column, asc) => {
+    if (rows.length && column) {
+        console.log('sorting by', column, asc);
+        rows = rows.slice();
+        rows.sort((a, b) => {
+            return a[column] - b[column]
+        });
+        if (!asc) {
+            rows.reverse();
+        }
+    }
+    return rows;
+}
+
 const TableShow = ({ parsed }) => {
+    const [order, setOrder] = React.useState({ by: null, asc: 'asc' });
     const columns = parsed.length ? Object.keys(parsed[0]) : [];
+    const rows = sortBy(parsed, order.by, order.asc === 'asc');
     return (
         <Paper >
             <TableContainer style={{ maxHeight: 1000 }}>
@@ -73,17 +94,27 @@ const TableShow = ({ parsed }) => {
                                 <TableCell
                                     key={i}
                                 >
-                                    {column}
+                                    <TableSortLabel
+                                        active={order.by === column}
+                                        direction={order.by === column ? order.asc : 'asc'}
+                                        onClick={(event) => {
+                                            const property = event.target.textContent;
+                                            const isAsc = order.by === property && order.asc === 'asc';
+                                            setOrder({ by: property, asc: isAsc ? 'desc' : 'asc' })
+                                        }}
+                                    >
+                                        {column}
+                                    </TableSortLabel>
                                 </TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {parsed.map((row, ridx) => (
+                        {rows.map((row, ridx) => (
                             <TableRow key={ridx}>
                                 {columns.map((column, cidx) => (
                                     <TableCell key={cidx}>
-                                        {convertToType(row[column])}
+                                        {convertToShow(convertToType(row[column]))}
                                     </TableCell>
                                 ))}
                             </TableRow>
