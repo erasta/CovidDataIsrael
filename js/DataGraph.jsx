@@ -35,9 +35,28 @@ const onlyUnique = (arr) => {
     return arr.filter((x, i) => arr.indexOf(x) === i)
 }
 
+const calcMovingAverage = (dates, nums, span) => {
+    const newnums = dates.map((dt, idx) => {
+        const start = Math.max(0, idx - span);
+        let moving = nums.slice(start, idx + 1);
+        const movingDates = dates.slice(start, idx + 1);
+        moving = moving.filter((_, i) => {
+            return Math.round((dt - movingDates[i]) / 86400000) <= span;
+        });
+        const sum = moving.reduce((a, b) => a + b);
+        return sum / moving.length;
+    });
+    return [dates, newnums];
+}
+
 const groupByTime = (group, dates, nums) => {
     if (group === 'Exact') {
         return [dates, nums];
+    }
+    if (group === '3DayMA') {
+        return calcMovingAverage(dates, nums, 3);
+    } else if (group === '7DayMA') {
+        return calcMovingAverage(dates, nums, 7);
     }
     let weeknums;
     if (group === 'Weekly') {
@@ -131,10 +150,12 @@ const DataGraph = ({ parsed }) => {
                     value={timeGroup}
                     onChange={e => setTimeGroup(e.target.value)}
                 >
-                    <MenuItem value={'Exact'} >No time groupings</MenuItem>
-                    <MenuItem value={'Daily'} >Daily</MenuItem>
-                    <MenuItem value={'Weekly'} >Weekly</MenuItem>
-                    <MenuItem value={'Monthly'} >Monthly</MenuItem>
+                    <MenuItem value={'Exact'} >Exact at time</MenuItem>
+                    {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
+                    <MenuItem value={'3DayMA'} >3 Days moving average</MenuItem>
+                    <MenuItem value={'7DayMA'} >7 days moving average</MenuItem>
+                    <MenuItem value={'Weekly'} >Weekly sums</MenuItem>
+                    <MenuItem value={'Monthly'} >Monthly sums</MenuItem>
                 </Select>
                 <FormControlLabel
                     control={
