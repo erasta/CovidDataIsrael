@@ -38,6 +38,11 @@ const sortBy = (rows, column, asc) => {
 
 const TableShow = ({ parsed }) => {
     const [order, setOrder] = React.useState({ by: null, asc: 'asc' });
+    React.useEffect(() => {
+        if (parsed && parsed.length && parsed[0].hasOwnProperty('date')) {
+            setOrder({ by: 'date', asc: 'desc' });
+        }
+    }, [parsed])
     const columns = parsed.length ? Object.keys(parsed[0]) : [];
     const rows = sortBy(parsed, order.by, order.asc === 'asc');
     return (
