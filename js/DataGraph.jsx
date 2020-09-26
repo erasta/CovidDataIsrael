@@ -132,13 +132,10 @@ const DataGraph = ({ parsed }) => {
     const [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
 
     let fromIndex = 0, toIndex = -1;
-    console.log(dateRange);
     if (groupdates && groupdates.length && groupnumitems.length) {
         const fromDate = dateByPercent(dates, dateRange[0]);
         const toDateInc = dateByPercent(dates, dateRange[1]);
-        console.log(fromDate.toLocaleDateString(), toDateInc.toLocaleDateString());
         [fromIndex, toIndex] = findDateRangeIndices(groupdates, fromDate, toDateInc);
-        console.log(fromIndex, toIndex);
     }
 
     let data = {}
@@ -172,7 +169,7 @@ const DataGraph = ({ parsed }) => {
                     valueLabelFormat={(val, side) => {
                         if (!dates.length) return val;
                         const d = dates[Math.round(val / 100 * (dates.length - 1))]
-                        return d.getMonth() + '.' + d.getDate()
+                        return (d.getMonth() + 1) + '.' + d.getDate()
                     }}
                 />
                 <Select
