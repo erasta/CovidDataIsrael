@@ -2,6 +2,7 @@ import csv
 import json
 import math
 import os
+from datetime import datetime
 
 from xlsxwriter import Workbook
 
@@ -26,10 +27,15 @@ deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'd
 if len(deadPatientsPerDate) > 0:
     sheet2data.append(('deadDelta_computed', utils.computeDelta(deadPatientsPerDate[0], 'out/csv/deadPatientsPerDate.csv')))
 
+histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
+os.makedirs(histdir, exist_ok=True)
 os.makedirs('out/csv', exist_ok=True)
 for i, (sheetname, data) in enumerate(sheet2data):
     data, fields = utils.data2fields(data)
     print(i, sheetname, fields)
 
     with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
+        utils.writeToCsv(data, fields, csvfile)
+
+    with open(histdir + '/' + sheetname + '.csv', 'w') as csvfile:
         utils.writeToCsv(data, fields, csvfile)
