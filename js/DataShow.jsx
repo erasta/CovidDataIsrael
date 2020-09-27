@@ -106,9 +106,7 @@ const fetchTableAndHistory = async (name, historyDate) => {
     const hist = await fetchTable(name, `out/history/${historyDate}/${name[0].toLowerCase() + name.substr(1)}.csv`);
     if (!hist || !hist.length || !hist[0].date) return parsed;
     const suffixed = suffixFields(hist, '_' + historyDate);
-    console.log(suffixed)
     const merged = mergeTablesByDate(parsed, suffixed);
-    console.log(merged)
     return merged;
 }
 

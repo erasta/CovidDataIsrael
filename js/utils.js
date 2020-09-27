@@ -69,7 +69,7 @@ const convertFieldToType = (rows, key) => {
 
     // Check and convert to numbers
     const nums = items.map(x => (!x || x === "") ? 0 : parseFloat(x))
-    if (nums.filter((x, i) => x + '' !== items[i]).length === 0) {
+    if (nums.filter((x, i) => x !== 0 && x + '' !== items[i]).length === 0) {
         rows.forEach((row, i) => row[key] = nums[i]);
         return rows;
     }
