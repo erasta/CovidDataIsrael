@@ -81,13 +81,13 @@ const mergeTablesByDate = (one, two) => {
     if (!two || !two.length || !two[0].date) return one;
     let dates = one.map(row => row.date).concat(two.map(row => row.date));
     dates.sort((a, b) => a.getTime() - b.getTime());
-    dates = dates.filter((d, i) => i === 0 || Math.abs(d.getTime() - dates[i - 1].getTime()) < 1);
+    dates = dates.filter((d, i) => i === 0 || d.getTime() - dates[i - 1].getTime());
     const keys = Object.keys(one[0]).concat(Object.keys(two[0])).filter(x => x !== 'date');
     return dates.map(d => {
         let item = { 'date': d };
         keys.forEach(key => item[key] = undefined);
-        Object.assign(item, one.find(row => Math.abs(d.getTime() - row.date.getTime()) < 1));
-        Object.assign(item, two.find(row => Math.abs(d.getTime() - row.date.getTime()) < 1));
+        Object.assign(item, one.find(row => d.getTime() === row.date.getTime()));
+        Object.assign(item, two.find(row => d.getTime() === row.date.getTime()));
         return item;
     });
 }
