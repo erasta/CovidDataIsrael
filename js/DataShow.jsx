@@ -90,6 +90,17 @@ const TableShow = ({ parsed }) => {
     )
 }
 
+const computeForTable = (name, data) => {
+    if (name === 'testResultsPerDate') {
+        data.forEach(row => {
+            const amount = parseFloat(row['amount']);
+            const positive = parseFloat(row['positiveAmount']);
+            row['positiveRatio'] = '' + (amount > 0 ? positive / amount : 0);
+        });
+    }
+    return data;
+}
+
 const DataShow = ({ name, showtable = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
@@ -97,11 +108,12 @@ const DataShow = ({ name, showtable = true }) => {
             setState({ parsed: [], work: true });
             console.log(name);
             const data = await (await fetch(`out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`)).text();
-            if (data.split('\n',1)[0].trim() === "<!DOCTYPE html>") {
+            if (data.split('\n', 1)[0].trim() === "<!DOCTYPE html>") {
                 setState({ parsed: [], work: false });
                 return;
             }
-            const parsed = d3.csv.parse(data);
+            const parsed2 = d3.csv.parse(data);
+            const parsed = computeForTable(name, parsed2);
             setState({ parsed: parsed, work: false });
         })();
     }, [name])
