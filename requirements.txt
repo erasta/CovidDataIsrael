@@ -2,6 +2,8 @@ autopep8==1.5.4
 certifi==2020.6.20
 chardet==3.0.4
 idna==2.10
+jupyter==1.0.0
+matplotlib==3.3.1
 numpy==1.19.2
 pandas==1.1.2
 pycodestyle==2.6.0
