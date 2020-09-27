@@ -45,9 +45,10 @@ const App = ({ name }) => {
             <Grid item xs={3}>
                 <p style={{
                     fontFamily: 'Source Sans Pro, sans-serif',
+                    textAlign: 'left',
                 }}>
                     Last update: {lastUpdate}
-                    </p>
+                </p>
             </Grid>
             <Grid item xs={6}>
                 <h1 style={{
@@ -59,6 +60,14 @@ const App = ({ name }) => {
                 </h1>
             </Grid>
             <Grid item xs={3}>
+                <a href="https://eran.dev/" style={{ textDecoration: 'none' }}>
+                    <p style={{
+                        fontFamily: 'Source Sans Pro, sans-serif',
+                        textAlign: 'right'
+                    }}>
+                        Contact
+                    </p>
+                </a>
             </Grid>
         </Grid>
         <Grid container direction="row">
@@ -70,6 +79,24 @@ const App = ({ name }) => {
                 <ShowByName name={name} names={names.names} />
             </Grid>
         </Grid>
+        <p style={{
+            fontFamily: 'Source Sans Pro, sans-serif',
+            textAlign: 'center',
+        }}>
+            Updated hourly from the&nbsp;
+            <a href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }}>
+                public API of Ministry of Health of Israel
+            </a>
+            <br />
+            Created by&nbsp;
+             <a href="https://eran.dev/" style={{ textDecoration: 'none' }}>
+                © Eran Geva
+            </a>
+            &nbsp;as&nbsp;
+            <a href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }}>
+                open-source code
+            </a>
+        </p>
     </>
 }
 
