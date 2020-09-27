@@ -2,7 +2,7 @@ const {
     MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox, Typography, Slider
 } = MaterialUI;
 
-const HistorySlider = (onHistory) => {
+const HistorySlider = ({onHistory}) => {
     const [dates, setDates] = React.useState([]);
     const [pos, setPos] = React.useState(100);
     React.useEffect(() => {
@@ -26,3 +26,7 @@ const HistorySlider = (onHistory) => {
         }}
     />
 }
+
+// const HistoryLoader = ({name, onHistory}) => {
+//     return
+// }
