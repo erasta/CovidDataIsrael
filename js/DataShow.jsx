@@ -95,7 +95,7 @@ const computeForTable = (name, data) => {
         data.forEach(row => {
             const amount = parseFloat(row['amount']);
             const positive = parseFloat(row['positiveAmount']);
-            row['positiveRatio'] = '' + (amount > 0 ? positive / amount : 0);
+            row['positiveRatio'] = '' + Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
         });
     }
     return data;
