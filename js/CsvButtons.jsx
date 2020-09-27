@@ -22,9 +22,6 @@ const CsvButtons = ({ names }) => (
                 <CsvLink key={name} name={name} downloadlink={`out/csv/${name}.csv`} showlink={`?sheet=${name}`} />
             ))
         }
-        {names.length ? <hr></hr> : null}
-        <CsvLink key={'xlsx'} name='Xls file' downloadlink='out/covid.xlsx' />
-        <CsvLink key={'all'} name='Csv containing all' downloadlink='out/covid.csv' showlink='?sheet=all' />
     </div>
 )
 

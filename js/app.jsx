@@ -7,7 +7,7 @@ sheetname = sheetname || 'showcharts';
 console.log(sheetname);
 
 const ShowByName = ({ name, names }) => {
-    if (name === 'all') return <DataShowRaw fileshow={'out/covid.csv'} />
+    // if (name === 'all') return <DataShowRaw fileshow={'out/covid.csv'} />
     if (name === 'showcharts') return <DataShowCharts names={names} />
     return <DataShow name={name} />
 }

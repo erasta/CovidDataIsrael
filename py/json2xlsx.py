@@ -26,19 +26,10 @@ deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'd
 if len(deadPatientsPerDate) > 0:
     sheet2data.append(('deadDelta_computed', utils.computeDelta(deadPatientsPerDate[0], 'out/csv/deadPatientsPerDate.csv')))
 
-os.makedirs('out', exist_ok=True)
 os.makedirs('out/csv', exist_ok=True)
-with open('out/covid.csv', 'w') as csvall:
-    with Workbook('out/covid.xlsx') as workbook:
-        for i, (sheetname, data) in enumerate(sheet2data):
-            data, fields = utils.data2fields(data)
-            print(i, sheetname, fields)
+for i, (sheetname, data) in enumerate(sheet2data):
+    data, fields = utils.data2fields(data)
+    print(i, sheetname, fields)
 
-            xlscolumn.write_data_worksheet(data, fields, workbook, sheetname)
-
-            with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
-                utils.writeToCsv(data, fields, csvfile)
-
-            print(f'{("-" * len(sheetname))}\n{sheetname}\n{("-" * len(sheetname))}', file=csvall)
-            utils.writeToCsv(data, fields, csvall)
-            print('\n', file=csvall)
+    with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
+        utils.writeToCsv(data, fields, csvfile)
