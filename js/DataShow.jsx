@@ -75,18 +75,21 @@ const fetchCsv = async (url) => {
     return d3.csv.parse(data);
 }
 
+const fetchTable = async (name) => {
+    console.log(name);
+    const parsed = await fetchCsv(`out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`);
+    if (parsed === undefined) {
+        return [];
+    }
+    return computeForTable(name, parsed);
+}
+
 const DataShow = ({ name, showtable = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
         (async () => {
             setState({ parsed: [], work: true });
-            console.log(name);
-            const parsed1 = await fetchCsv(`out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`);
-            if (parsed1 === undefined) {
-                setState({ parsed: [], work: false });
-                return;
-            }
-            const parsed = computeForTable(name, parsed1);
+            const parsed = await fetchTable(name);
             setState({ parsed: parsed, work: false });
         })();
     }, [name])
