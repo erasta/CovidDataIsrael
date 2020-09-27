@@ -138,21 +138,29 @@ const DataGraph = ({ parsed }) => {
     return (
         numfields.length === 0 ? null :
             <>
-                <Slider
+                <Grid container
+                    spacing={2}
                     style={{
                         marginLeft: '5%',
                         width: '90%'
-                    }}
-                    value={dateRange}
-                    onChange={(e, v) => setDateRange(v)}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="date-slider"
-                    valueLabelFormat={(val, side) => {
-                        if (!dates.length) return val;
-                        const d = dates[Math.round(val / 100 * (dates.length - 1))]
-                        return d.getDate() + '.' + (d.getMonth() + 1)
-                    }}
-                />
+                    }}>
+                    <Grid item>
+                        <Icon>settings_ethernet</Icon>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            value={dateRange}
+                            onChange={(e, v) => setDateRange(v)}
+                            valueLabelDisplay="auto"
+                            aria-labelledby="date-slider"
+                            valueLabelFormat={(val, side) => {
+                                if (!dates.length) return val;
+                                const d = dates[Math.round(val / 100 * (dates.length - 1))]
+                                return d.getDate() + '.' + (d.getMonth() + 1)
+                            }}
+                        />
+                    </Grid>
+                </Grid>
                 <Select
                     value={chartStyle}
                     onChange={e => setChartStyle(e.target.value)}
