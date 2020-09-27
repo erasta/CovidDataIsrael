@@ -131,7 +131,9 @@ const DataShow = ({ name, showtable = true }) => {
                     </h2>
                 </a>
             }
-            <HistorySlider onHistory={v => setShowHistory(v)} />
+            {!showtable ? null :
+                <HistorySlider onHistory={v => setShowHistory(v)} />
+            }
             <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
             {!showtable ? null :
