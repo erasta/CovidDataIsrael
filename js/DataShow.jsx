@@ -86,6 +86,7 @@ const fetchTable = async (name) => {
 
 const DataShow = ({ name, showtable = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
+    // const [showHistory, setShowHistory] = React.useState(falses);
     React.useEffect(() => {
         (async () => {
             setState({ parsed: [], work: true });

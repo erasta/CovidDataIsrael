@@ -75,36 +75,93 @@
         },
         {
             "id": "10",
-            "parameters": {},
-            "queryName": "isolatedDoctorsAndNurses",
-            "single": true
+            "parameters": {
+                "ageSections": [
+                    0,
+                    10,
+                    20,
+                    30,
+                    40,
+                    50,
+                    60,
+                    70,
+                    80,
+                    90
+                ]
+            },
+            "queryName": "breatheByAgeAndGenderPublic",
+            "single": false
         },
         {
             "id": "11",
-            "parameters": {},
-            "queryName": "contagionDataPerCityPublic",
+            "parameters": {
+                "ageSections": [
+                    0,
+                    10,
+                    20,
+                    30,
+                    40,
+                    50,
+                    60,
+                    70,
+                    80,
+                    90
+                ]
+            },
+            "queryName": "severeByAgeAndGenderPublic",
             "single": false
         },
         {
             "id": "12",
-            "parameters": {},
-            "queryName": "hospitalStatus",
+            "parameters": {
+                "ageSections": [
+                    0,
+                    10,
+                    20,
+                    30,
+                    40,
+                    50,
+                    60,
+                    70,
+                    80,
+                    90
+                ]
+            },
+            "queryName": "deadByAgeAndGenderPublic",
             "single": false
         },
         {
             "id": "13",
             "parameters": {},
+            "queryName": "isolatedDoctorsAndNurses",
+            "single": true
+        },
+        {
+            "id": "14",
+            "parameters": {},
+            "queryName": "contagionDataPerCityPublic",
+            "single": false
+        },
+        {
+            "id": "15",
+            "parameters": {},
+            "queryName": "hospitalStatus",
+            "single": false
+        },
+        {
+            "id": "16",
+            "parameters": {},
             "queryName": "doublingRate",
             "single": false
         },
         {
-            "id": "14",
+            "id": "17",
             "parameters": {},
             "queryName": "CalculatedVerified",
             "single": false
         },
         {
-            "id": "15",
+            "id": "18",
             "parameters": {},
             "queryName": "otherHospitalizedStaff",
             "single": false
