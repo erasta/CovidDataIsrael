@@ -39,3 +39,8 @@ for i, (sheetname, data) in enumerate(sheet2data):
 
     with open(histdir + '/' + sheetname + '.csv', 'w') as csvfile:
         utils.writeToCsv(data, fields, csvfile)
+
+with open('out/history/dates.json', 'w') as datesfile:
+    histdirs = sorted(next(os.walk('out/history'))[1])
+    str = json.dumps(histdirs, sort_keys=True, indent=2)
+    datesfile.write(str)
