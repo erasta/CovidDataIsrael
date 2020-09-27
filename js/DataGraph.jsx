@@ -28,7 +28,7 @@ const extractDateAndNumbers = (parsed) => {
 
 const weekNum = (datequery) => {
     let onejan = new Date(1990, 0, 1);
-    return Math.ceil((((datequery.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+    return Math.ceil((((datequery.getTime() - onejan.getTime()) / 86400000) + onejan.getDay()) / 7);
 }
 
 const onlyUnique = (arr) => {
@@ -47,6 +47,10 @@ const calcMovingAverage = (dates, nums, span) => {
         return sum / moving.length;
     });
     return [dates, newnums];
+}
+
+const daystr = (date) => {
+    return new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(date);
 }
 
 const groupByTime = (group, dates, nums) => {
