@@ -43,14 +43,20 @@ const App = ({ name }) => {
     return <>
         <Grid container direction="row">
             <Grid item xs={3}>
-                <p>Last update: {lastUpdate}</p>
+                <p style={{
+                    fontFamily: 'Source Sans Pro, sans-serif',
+                }}>
+                    Last update: {lastUpdate}
+                    </p>
             </Grid>
             <Grid item xs={6}>
                 <h1 style={{
                     fontFamily: 'Source Sans Pro, sans-serif',
                     textAlign: 'center',
                     fontSize: 'xx-large'
-                }}>נתוני קורונה ישראל</h1>
+                }}>
+                    Covid-19 Data Israel
+                </h1>
             </Grid>
             <Grid item xs={3}>
             </Grid>
