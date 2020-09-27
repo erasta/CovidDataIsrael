@@ -23,9 +23,9 @@ datas = list(map(lambda x: x['data'], dashjson))
 
 sheet2data = utils.group_sheet_data(sheets, datas)
 
-deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'deadPatientsPerDate']
-if len(deadPatientsPerDate) > 0:
-    sheet2data.append(('deadDelta_computed', utils.computeDelta(deadPatientsPerDate[0], 'out/csv/deadPatientsPerDate.csv')))
+# deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'deadPatientsPerDate']
+# if len(deadPatientsPerDate) > 0:
+#     sheet2data.append(('deadDelta_computed', utils.computeDelta(deadPatientsPerDate[0], 'out/csv/deadPatientsPerDate.csv')))
 
 histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
 os.makedirs(histdir, exist_ok=True)
