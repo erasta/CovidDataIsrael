@@ -2,40 +2,6 @@ const {
     Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableSortLabel
 } = MaterialUI;
 
-const convertToType = (item) => {
-    const trimmed = item.trim();
-    const num = parseFloat(trimmed);
-    if ('' + num === trimmed) return num;
-    const date = new Date(trimmed);
-    if (!isNaN(date.getTime())) return date;
-    return trimmed;
-}
-
-const convertToShow = (item) => {
-    if (item instanceof Date) {
-        if (!item.getUTCHours()) {
-            return item.toLocaleDateString();
-        } else {
-            return item.toLocaleString();
-        }
-    }
-    return item;
-}
-
-const sortBy = (rows, column, asc) => {
-    if (rows.length && column) {
-        console.log('sorting by', column, asc);
-        rows = rows.slice();
-        rows.sort((a, b) => {
-            return a[column] - b[column]
-        });
-        if (!asc) {
-            rows.reverse();
-        }
-    }
-    return rows;
-}
-
 const TableShow = ({ parsed }) => {
     const [order, setOrder] = React.useState({ by: null, asc: 'asc' });
     React.useEffect(() => {
@@ -157,7 +123,6 @@ const DataShowCharts = ({ names }) => (
                 'testResultsPerDate',
                 'doublingRate',
                 'calculatedVerified',
-                'deadWeekly_computed',
                 'deadDelta_computed'
             ].map(name =>
                 <Grid item xs={6} key={name}>

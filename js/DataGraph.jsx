@@ -26,29 +26,6 @@ const extractDateAndNumbers = (parsed) => {
     return [numitems, numfields, dates];
 }
 
-const weekNum = (datequery) => {
-    let onejan = new Date(1990, 0, 1);
-    return Math.ceil((((datequery.getTime() - onejan.getTime()) / 86400000) + onejan.getDay()) / 7);
-}
-
-const onlyUnique = (arr) => {
-    return arr.filter((x, i) => arr.indexOf(x) === i)
-}
-
-const calcMovingAverage = (dates, nums, span) => {
-    const newnums = dates.map((dt, idx) => {
-        const start = Math.max(0, idx - span);
-        let moving = nums.slice(start, idx + 1);
-        const movingDates = dates.slice(start, idx + 1);
-        moving = moving.filter((_, i) => {
-            return Math.round((dt - movingDates[i]) / 86400000) <= span;
-        });
-        const sum = moving.reduce((a, b) => a + b);
-        return sum / moving.length;
-    });
-    return [dates, newnums];
-}
-
 const daystr = (date) => {
     return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
 }
