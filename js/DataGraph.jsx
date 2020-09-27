@@ -6,23 +6,9 @@ const extractDateAndNumbers = (parsed) => {
     if (!parsed.length || !Object.keys(parsed[0]).includes('date')) {
         return [[], []];
     }
-    parsed = parsed.filter(row => row['date'].trim() !== '');
-    const strDates = parsed.map(row => row['date'].trim());
-    const dates = strDates.map(row => new Date(row));
-    const invalidDates = dates.filter(x => isNaN(x.getTime()));
-    if (invalidDates.length > 0) {
-        return [[], []];
-    }
-    const checkedfields = Object.keys(parsed[0]).filter(key => key !== 'date');
-    const numfields = checkedfields.filter(key => {
-        const strs = parsed.map(row => row[key].trim()).filter(x => x != '');
-        if (strs.length === 0) return false;
-        const nans = strs.filter(val => val !== '' + parseFloat(val));
-        return nans.length === 0;
-    });
-    const numitems = numfields.map(key => {
-        return parsed.map(row => parseFloat(row[key].trim()));
-    })
+    const numfields = Object.keys(parsed[0]).filter(key => Number.isFinite(parsed[0][key]));
+    const numitems = numfields.map(key => parsed.map(row => row[key]));
+    const dates = parsed.map(row => row['date']);
     return [numitems, numfields, dates];
 }
 

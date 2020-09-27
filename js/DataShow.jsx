@@ -44,7 +44,7 @@ const TableShow = ({ parsed }) => {
                             >
                                 {columns.map((column, cidx) => (
                                     <TableCell key={cidx}>
-                                        {convertToShow(convertToType(row[column]))}
+                                        {convertToShow(row[column])}
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -65,14 +65,6 @@ const computeForTable = (name, data) => {
         });
     }
     return data;
-}
-
-const fetchCsv = async (url) => {
-    const data = await (await fetch(url)).text();
-    if (data.split('\n', 1)[0].trim() === "<!DOCTYPE html>") {
-        return undefined;
-    }
-    return d3.csv.parse(data);
 }
 
 const fetchTable = async (name) => {

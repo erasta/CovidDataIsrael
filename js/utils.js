@@ -62,3 +62,42 @@ const fetchFile = async (url) => {
     }
     return data;
 }
+
+const convertFieldToType = (rows, key) => {
+    if (rows.length === 0) return rows;
+    const items = rows.map(row => row[key].trim());
+
+    // Check and convert to numbers
+    const nums = items.map(x => (!x || x === "") ? 0 : parseFloat(x))
+    if (nums.filter((x, i) => x + '' !== items[i]).length === 0) {
+        rows.forEach((row, i) => row[key] = nums[i]);
+        return rows;
+    }
+
+    // Check and convert to dates
+    const dates = items.map(x => x.length ? new Date(x) : new Date(1999, 0, 1));
+    if (dates.filter(d => isNaN(d.getTime())).length === 0) {
+        rows.forEach((row, i) => row[key] = dates[i]);
+        return rows;
+    }
+
+    // It is a string field
+    return rows;
+}
+
+const convertRowsToTypes = (rows) => {
+    if (rows.length === 0) return rows;
+    Object.keys(rows[0]).map(key => convertFieldToType(rows, key));
+    return rows;
+}
+
+const fetchCsv = async (url) => {
+    const data = await fetchFile(url);
+    if (!data) {
+        return undefined;
+    }
+    const parsed = d3.csv.parse(data);
+    const converted = convertRowsToTypes(parsed);
+    return converted;
+}
+

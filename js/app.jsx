@@ -33,10 +33,8 @@ const App = ({ name }) => {
 
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
-        console.log('last', last)
-        if (last && last.length && last[0]['lastUpdate']) {
-            const lastDate = new Date(last[0]['lastUpdate'])
-            setLastUpdate(lastDate.toLocaleTimeString());
+        if (last && last.length && last[0].lastUpdate) {
+            setLastUpdate(last[0].lastUpdate.toLocaleTimeString());
         }
     })();
 
