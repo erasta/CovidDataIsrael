@@ -50,7 +50,7 @@ const calcMovingAverage = (dates, nums, span) => {
 }
 
 const daystr = (date) => {
-    return new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(date);
+    return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
 }
 
 const groupByTime = (group, dates, nums) => {
@@ -176,6 +176,10 @@ const DataGraph = ({ parsed }) => {
         numfields.length === 0 ? null :
             <>
                 <Slider
+                    style={{
+                        marginLeft: '5%',
+                        width: '90%'
+                    }}
                     value={dateRange}
                     onChange={(e, v) => setDateRange(v)}
                     valueLabelDisplay="auto"
