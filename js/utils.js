@@ -55,3 +55,10 @@ const calcMovingAverage = (dates, nums, span) => {
     return [dates, newnums];
 }
 
+const fetchFile = async (url) => {
+    const data = await (await fetch(url)).text();
+    if (data.split('\n', 1)[0].trim() === "<!DOCTYPE html>") {
+        return undefined;
+    }
+    return data;
+}
