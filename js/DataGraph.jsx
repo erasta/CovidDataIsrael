@@ -95,16 +95,6 @@ const DataGraph = ({ parsed }) => {
             })
         };
     }
-    const options = {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    min: 0
-                }
-            }]
-        }
-    };
     return (
         numfields.length === 0 ? null :
             <>
@@ -147,7 +137,7 @@ const DataGraph = ({ parsed }) => {
                     // legend={false}
                     data={data}
                     type={chartStyle}
-                    options={options}
+                    options={{ scales: { yAxes: [{ ticks: { min: 0 } }] } }}
                 />
             </>
     )
