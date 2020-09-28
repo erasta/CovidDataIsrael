@@ -136,7 +136,7 @@ const DataGraph = ({ parsed }) => {
                     label="Sum"
                     labelPlacement="start"
                 />
-                <div>
+                <Grid container justify="center">
                     {
                         numfields.map((field, i) =>
                             <Chip
@@ -145,7 +145,7 @@ const DataGraph = ({ parsed }) => {
                                 label={field}
                                 clickable
                                 style={{
-                                    margin: 2,
+                                    margin: 1,
                                     backgroundColor: mutedFields.includes(field) ? 'lightgrey' : colors[i]
                                 }}
                                 onClick={() => {
@@ -158,7 +158,7 @@ const DataGraph = ({ parsed }) => {
                             />
                         )
                     }
-                </div>
+                </Grid>
                 <ReactChartjs2.default
                     legend={false}
                     data={data}
