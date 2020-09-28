@@ -115,7 +115,7 @@ const DataShow = ({ name, showtable = true }) => {
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
         (async () => {
-            setState({ parsed: [], work: true });
+            setState({ parsed: state.parsed, work: true });
             const parsed = await fetchTableAndHistory(name, showHistory);
             setState({ parsed: parsed, work: false });
         })();
@@ -132,8 +132,8 @@ const DataShow = ({ name, showtable = true }) => {
             {!showtable ? null :
                 <HistorySlider onHistory={v => setShowHistory(v)} />
             }
-            <CircularWorkGif work={state.work} />
             <DataGraph parsed={state.parsed} />
+            <CircularWorkGif work={state.work} />
             {!showtable ? null :
                 <TableShow parsed={state.parsed} />
             }
