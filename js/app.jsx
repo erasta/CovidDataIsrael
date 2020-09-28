@@ -27,6 +27,11 @@ const App = ({ name }) => {
             const json2 = await response2.json();
             newnames = newnames.concat(json2)
 
+            const response3 = await fetch('jsons/mohfiles.json');
+            const json3 = await response3.json();
+            const mohnames = json3.map(r => r.name);
+            newnames = newnames.concat(mohnames)
+
             setNames({ names: newnames, work: false });
             console.log(newnames);
         })();
