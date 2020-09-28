@@ -101,3 +101,31 @@ const fetchCsv = async (url) => {
     return converted;
 }
 
+const colorByNumber = (t, amount) => {
+    const scheme = d3.schemeSet1.concat(d3.schemeSet2).concat(d3.schemeSet3);
+    if (t < scheme.length) {
+        return scheme[t];
+    }
+    return d3.interpolateRainbow((t - scheme.length) / (amount - scheme.length))
+}
+
+const accumulateNums = (nums) => {
+    return nums.map((sum => value => sum += value)(0));
+}
+
+const daystr = (date) => {
+    return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+}
+
+const attachAlpha = (color, alpha) => {
+    if (color.startsWith('rgb')) {
+        const arr = color.split(')')[0].split('(')[1].split(',');
+        const justNumsComma = arr.map(x => x.trim()).join(',');
+        return 'rgba(' + justNumsComma + ',' + alpha + ')'
+    } else {
+        let alphahex = parseInt(Math.floor(alpha * 255), 16);
+        while (alphahex.length < 2) alphahex = '0' + alphahex;
+        return color + alphahex;
+    }
+}
+
