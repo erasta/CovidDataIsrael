@@ -1,5 +1,4 @@
-const DateRangeSlider = ({ dates, onChange }) => {
-    const [dateRange, setDateRange] = React.useState([0, 100]);
+const DateRangeSlider = ({ dates, dateRange, onChangeDateRange }) => {
     return (
         <Grid container
             spacing={2}
@@ -14,8 +13,7 @@ const DateRangeSlider = ({ dates, onChange }) => {
                 <Slider
                     value={dateRange}
                     onChange={(e, v) => {
-                        onChange(v);
-                        setDateRange(v);
+                        onChangeDateRange(v);
                     }}
                     valueLabelDisplay="auto"
                     aria-labelledby="date-slider"

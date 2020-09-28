@@ -110,7 +110,8 @@ const DataGraph = ({ parsed }) => {
             <>
                 <DateRangeSlider
                     dates={dates}
-                    onChange={(v) => setDateRange(v)}
+                    dateRange={dateRange}
+                    onChangeDateRange={(v) => setDateRange(v)}
                 />
                 <Select
                     value={chartStyle}
