@@ -26,8 +26,9 @@ const HistorySlider = ({ onHistory }) => {
                 disabled={!dates.length}
                 value={pos}
                 onChange={(e, v) => {
+                    const d = v === 100 ? false : dates[Math.round(v / 100 * (dates.length - 1))];
+                    onHistory(d);
                     setPos(v);
-                    onHistory(v === 100 ? false : dates[Math.round(v / 100 * (dates.length - 1))]);
                 }}
                 step={dates.length ? 100 / dates.length : undefined}
                 valueLabelDisplay="auto"
