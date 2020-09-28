@@ -22,6 +22,10 @@ const groupByTime = (group, dates, nums) => {
         return calcMovingAverage(dates, nums, 3);
     } else if (group === '7DayMA') {
         return calcMovingAverage(dates, nums, 7);
+    } else if (group === '14DayMA') {
+        return calcMovingAverage(dates, nums, 14);
+    } else if (group === '28DayMA') {
+        return calcMovingAverage(dates, nums, 28);
     }
     let weeknums;
     if (group === 'Weekly') {
@@ -125,6 +129,8 @@ const DataGraph = ({ parsed }) => {
                     {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
                     <MenuItem value={'3DayMA'} >3 Days moving average</MenuItem>
                     <MenuItem value={'7DayMA'} >7 days moving average</MenuItem>
+                    <MenuItem value={'14DayMA'} >14 days moving average</MenuItem>
+                    <MenuItem value={'28DayMA'} >28 days moving average</MenuItem>
                     <MenuItem value={'Weekly'} >Weekly sums</MenuItem>
                     <MenuItem value={'Monthly'} >Monthly sums</MenuItem>
                 </Select>
