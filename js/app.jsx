@@ -35,7 +35,7 @@ const App = ({ name }) => {
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
         if (last && last.length && last[0].lastUpdate) {
-            setLastUpdate(last[0].lastUpdate.toLocaleTimeString());
+            setLastUpdate(last[0].lastUpdate.toLocaleString());
         }
     })();
 
@@ -46,7 +46,8 @@ const App = ({ name }) => {
                     fontFamily: 'Source Sans Pro, sans-serif',
                     textAlign: 'left',
                 }}>
-                    Last update: {lastUpdate}
+                    Last update:<br />
+                    {lastUpdate}
                 </p>
             </Grid>
             <Grid item xs={6}>
