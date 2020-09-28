@@ -1,5 +1,5 @@
 const {
-    MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox, Typography, Slider
+    MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox, Typography, Slider, Chip
 } = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
@@ -65,10 +65,12 @@ const DataGraph = ({ parsed }) => {
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
     const [dateRange, setDateRange] = React.useState([0, 100]);
+    const [mutedFields, setMutedFields] = React.useState([]);
 
     const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
 
     const [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
+
 
     let fromIndex = 0, toIndex = -1;
     if (groupdates && groupdates.length && groupnumitems.length) {
@@ -83,6 +85,7 @@ const DataGraph = ({ parsed }) => {
         data = {
             labels: groupdates.slice(fromIndex, toIndex + 1).map(d => d.toLocaleDateString()),
             datasets: groupnumitems.map((field, i) => {
+                if (mutedFields.includes(numfields[i])) return null; // filter is done afterwards to preserve colors
                 return {
                     type: chartStyle,
                     label: numfields[i],
@@ -92,7 +95,7 @@ const DataGraph = ({ parsed }) => {
                     pointRadius: 1,
                     data: (accumulated ? accumulateNums(field) : field).slice(fromIndex, toIndex + 1),
                 }
-            })
+            }).filter(x => x)
         };
     }
     return (
@@ -133,8 +136,31 @@ const DataGraph = ({ parsed }) => {
                     label="Sum"
                     labelPlacement="start"
                 />
+                <div>
+                    {
+                        numfields.map((field, i) =>
+                            <Chip
+                                key={field}
+                                size="small"
+                                label={field}
+                                clickable
+                                style={{
+                                    margin: 2,
+                                    backgroundColor: mutedFields.includes(field) ? 'lightgrey' : colors[i]
+                                }}
+                                onClick={() => {
+                                    if (mutedFields.includes(field)) {
+                                        setMutedFields(mutedFields.filter(f => f !== field));
+                                    } else {
+                                        setMutedFields(mutedFields.concat([field]));
+                                    }
+                                }}
+                            />
+                        )
+                    }
+                </div>
                 <ReactChartjs2.default
-                    // legend={false}
+                    legend={false}
                     data={data}
                     type={chartStyle}
                     options={{ scales: { yAxes: [{ ticks: { min: 0 } }] } }}
