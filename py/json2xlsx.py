@@ -2,6 +2,7 @@ import csv
 import json
 import math
 import os
+import urllib
 from datetime import datetime
 
 from xlsxwriter import Workbook
@@ -9,6 +10,21 @@ from xlsxwriter import Workbook
 import utils
 import xlscolumn
 from dashreq import get_dash_data, get_dash_req
+
+with open('jsons/mohfiles.json') as f:
+    mohfiles = json.load(f)
+    for moh in mohfiles:
+        print(moh['name'], moh['asset'])
+        try:
+            url = "https://data.gov.il/api/3/action/datastore_search?resource_id=" + moh["asset"] + "&limit=9999"
+            text = urllib.request.urlopen(url).read().decode('utf-8')
+            jsonobj = json.loads(text)
+            data = jsonobj['result']['records']
+            data, fields = utils.data2fields(data)
+            with open('out/csv/' + moh['name'] + '.csv', 'w') as csvfile:
+                utils.writeToCsv(data, fields, csvfile)
+        finally:
+            pass
 
 dashrequest = get_dash_req()
 for r in dashrequest['requests']:
