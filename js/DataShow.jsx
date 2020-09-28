@@ -73,6 +73,12 @@ const fetchTable = async (name, url) => {
     if (parsed === undefined) {
         return [];
     }
+    if (parsed.length && !parsed[0].hasOwnProperty('date') && parsed[0].hasOwnProperty('תאריך')) {
+        parsed.forEach(row => {
+            row['date'] = row['תאריך'];
+            delete row['תאריך'];
+        })
+    }
     return computeForTable(name, parsed);
 }
 
