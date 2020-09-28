@@ -180,7 +180,7 @@ const DataShowComputedDeath = ({ showtable = true }) => {
                     value={multiplyDead}
                     step={0.01}
                     min={0.01}
-                    max={1000}
+                    max={300}
                     onChange={(e, v) => setMultiplyDead(v)}
                 />
             </Grid>

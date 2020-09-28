@@ -64,7 +64,7 @@ const App = ({ name }) => {
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'right'
                     }}>
-                        Contact
+                        eran.dev
                     </p>
                 </a>
             </Grid>
