@@ -12,8 +12,7 @@ const DataShowCharts = ({ names }) => (
                 'recoveredPerDay',
                 'testResultsPerDate',
                 'doublingRate',
-                'calculatedVerified',
-                'deadDelta_computed'
+                'calculatedVerified'
             ].map(name =>
                 <Grid item xs={6} key={name}>
                     <DataShow
