@@ -89,7 +89,7 @@ const dateByPercent = (dates, percent) => {
 }
 
 const DataGraph = ({ parsed }) => {
-    const [chartStyle, setChartStyle] = React.useState('Line');
+    const [chartStyle, setChartStyle] = React.useState('line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
     const [dateRange, setDateRange] = React.useState([0, 100]);
@@ -105,20 +105,18 @@ const DataGraph = ({ parsed }) => {
         [fromIndex, toIndex] = findDateRangeIndices(groupdates, fromDate, toDateInc);
     }
 
+    const colors = groupnumitems.map((_, i) => colorByNumber(i, groupnumitems.length + 1));
     let data = {}
     if (numfields.length) {
         data = {
             labels: groupdates.slice(fromIndex, toIndex + 1).map(d => d.toLocaleDateString()),
             datasets: groupnumitems.map((field, i) => {
-                // const color1 = new Array(3).fill().map(() => '' + Math.floor(Math.random() * 256)).join(',')
-                const color = colorByNumber(i, groupnumitems.length + 1);
                 return {
+                    type: chartStyle,
                     label: numfields[i],
-                    backgroundColor: attachAlpha(color, 0.2),
-                    borderColor: attachAlpha(color, 1),
+                    backgroundColor: attachAlpha(colors[i], 0.2),
+                    borderColor: attachAlpha(colors[i], 1),
                     borderWidth: 1,
-                    // hoverBackgroundColor: 'rgba(' + color + ',0.6)',
-                    // hoverBorderColor: 'rgba(' + color + ',1)',
                     pointRadius: 1,
                     data: (accumulated ? accumulateNums(field) : field).slice(fromIndex, toIndex + 1),
                 }
@@ -165,8 +163,10 @@ const DataGraph = ({ parsed }) => {
                     value={chartStyle}
                     onChange={e => setChartStyle(e.target.value)}
                 >
-                    <MenuItem value={'Bar'} >Bars Chart</MenuItem>
-                    <MenuItem value={'Line'} >Lines Chart </MenuItem>
+                    <MenuItem value={'bar'} >Bars Chart</MenuItem>
+                    <MenuItem value={'line'} >Lines Chart</MenuItem>
+                    <MenuItem value={'scatter'} >Scatter</MenuItem>
+                    <MenuItem value={'bubble'} >Bubble</MenuItem>
                 </Select>
                 <Select
                     value={timeGroup}
@@ -189,16 +189,12 @@ const DataGraph = ({ parsed }) => {
                     label="Sum"
                     labelPlacement="start"
                 />
-                {(chartStyle === 'Line') ?
-                    <ReactChartjs2.Line
-                        data={data}
-                        options={options}
-                    /> :
-                    <ReactChartjs2.Bar
-                        data={data}
-                        options={options}
-                    />
-                }
+                <ReactChartjs2.default
+                    // legend={false}
+                    data={data}
+                    type={chartStyle}
+                    options={options}
+                />
             </>
     )
 }
