@@ -17,6 +17,7 @@ const CsvLink = ({ name, downloadlink, showlink }) => {
 const CsvButtons = ({ names }) => (
     <div>
         <CsvLink key={'showcharts'} name='ShowCharts'  showlink='?sheet=showcharts'/>
+        <CsvLink key={'infectedVsDead'} name='infectedVsDead'  showlink='?sheet=infectedVsDead'/>
         {
             names.map(name => (
                 <CsvLink key={name} name={name} downloadlink={`out/csv/${name}.csv`} showlink={`?sheet=${name}`} />

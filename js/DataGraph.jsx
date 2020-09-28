@@ -6,8 +6,10 @@ const extractDateAndNumbers = (parsed) => {
     if (!parsed.length || !Object.keys(parsed[0]).includes('date')) {
         return [[], []];
     }
-    const numfields = Object.keys(parsed[0]).filter(key => Number.isFinite(parsed[0][key]));
-    const numitems = numfields.map(key => parsed.map(row => row[key]));
+    const numfields = Object.keys(parsed[0]).filter(key => {
+        return parsed.find(row => Number.isFinite(row[key]))
+    });
+    const numitems = numfields.map(key => parsed.map(row => row[key] || 0));
     const dates = parsed.map(row => row['date']);
     return [numitems, numfields, dates];
 }

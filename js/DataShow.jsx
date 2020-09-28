@@ -141,3 +141,33 @@ const DataShow = ({ name, showtable = true }) => {
     )
 }
 
+const DataShowComputedDeath = ({ showtable = true }) => {
+    const [state, setState] = React.useState({ parsed: [], work: true });
+    React.useEffect(() => {
+        (async () => {
+            setState({ parsed: state.parsed, work: true });
+            let infected = await fetchTableAndHistory('infectedPerDate');
+            let dead = await fetchTableAndHistory('deadPatientsPerDate');
+            console.log(infected, dead)
+            infected = suffixFields(infected, '_infected');
+            dead = suffixFields(dead, '_dead');
+            console.log(infected, dead)
+            const parsed = mergeTablesByDate(infected, dead);
+            console.log(parsed)
+            setState({ parsed: parsed, work: false });
+        })();
+    }, [])
+    return (
+        <>
+            <h2 style={{ marginBlockEnd: 0 }}>
+                Infected vs. Dead
+            </h2>
+            <DataGraph parsed={state.parsed} />
+            <CircularWorkGif work={state.work} />
+            {!showtable ? null :
+                <TableShow parsed={state.parsed} />
+            }
+        </>
+    )
+}
+

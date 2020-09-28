@@ -9,6 +9,7 @@ console.log(sheetname);
 const ShowByName = ({ name, names }) => {
     // if (name === 'all') return <DataShowRaw fileshow={'out/covid.csv'} />
     if (name === 'showcharts') return <DataShowCharts names={names} />
+    if (name === 'infectedVsDead') return <DataShowComputedDeath showtable={true} />
     return <DataShow name={name} />
 }
 
