@@ -2,8 +2,9 @@ const {
     ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress
 } = MaterialUI;
 
-const CsvLink = ({ name, downloadlink, showlink }) => {
-    const showname = camelCaseToSnake(name).replace(/_/g, " ");
+const CsvLink = ({ name, downloadlink, showlink, lang }) => {
+    // const showname = camelCaseToSnake(name).replace(/_/g, " ");
+    const showname = lang && lang[name] ? lang[name] : name;
     return <div style={{ margin: 3 }}>
         <ButtonGroup disableElevation variant="contained" color="primary">
             <Button href={showlink} disabled={!showlink}>{showname}</Button>
@@ -14,13 +15,13 @@ const CsvLink = ({ name, downloadlink, showlink }) => {
     </div>;
 }
 
-const CsvButtons = ({ names }) => (
+const CsvButtons = ({ names, lang }) => (
     <div>
-        <CsvLink key={'showcharts'} name='ShowCharts'  showlink='?sheet=showcharts'/>
-        <CsvLink key={'infectedVsDead'} name='infectedVsDead'  showlink='?sheet=infectedVsDead'/>
+        <CsvLink key={'showcharts'} name='ShowCharts' showlink='?sheet=showcharts' lang={lang} />
+        <CsvLink key={'infectedVsDead'} name='infectedVsDead' showlink='?sheet=infectedVsDead' lang={lang} />
         {
             names.map(name => (
-                <CsvLink key={name} name={name} downloadlink={`out/csv/${name}.csv`} showlink={`?sheet=${name}`} />
+                <CsvLink key={name} name={name} downloadlink={`out/csv/${name}.csv`} showlink={`?sheet=${name}`} lang={lang} />
             ))
         }
     </div>

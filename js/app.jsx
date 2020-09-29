@@ -13,11 +13,16 @@ const ShowByName = ({ name, names }) => {
     return <DataShow name={name} />
 }
 
+
 const App = ({ name }) => {
     const [names, setNames] = React.useState({ names: [], work: true });
     const [lastUpdate, setLastUpdate] = React.useState('...');
+    const [language, setLanguage] = React.useState('he');
+    const [languages, setLanguages] = React.useState({});
     React.useEffect(() => {
         (async () => {
+            setLanguages(await (await fetch('jsons/lang.json')).json());
+
             const response = await fetch('jsons/dashreq.json');
             const json = await response.json();
             let newnames = json.requests.map(j => j.queryName);
@@ -47,13 +52,18 @@ const App = ({ name }) => {
     return <>
         <Grid container direction="row">
             <Grid item xs={3}>
-                <p style={{
-                    fontFamily: 'Source Sans Pro, sans-serif',
-                    textAlign: 'left',
-                }}>
-                    Last update:<br />
-                    {lastUpdate}
-                </p>
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                    <IconButton onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}>
+                        <img width={32} height={32} src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}></img>
+                    </IconButton>
+                    <p style={{
+                        fontFamily: 'Source Sans Pro, sans-serif',
+                        textAlign: 'left',
+                    }}>
+                        Last update:<br />
+                        {lastUpdate}
+                    </p>
+                </Grid>
             </Grid>
             <Grid item xs={6}>
                 <h1 style={{
@@ -68,7 +78,8 @@ const App = ({ name }) => {
                 <a href="https://eran.dev/" style={{ textDecoration: 'none' }}>
                     <p style={{
                         fontFamily: 'Source Sans Pro, sans-serif',
-                        textAlign: 'right'
+                        textAlign: 'right',
+                        marginRight: 10
                     }}>
                         Contact
                     </p>
@@ -77,7 +88,7 @@ const App = ({ name }) => {
         </Grid>
         <Grid container direction="row">
             <Grid item xs={3}>
-                <CsvButtons names={names.names} />
+                <CsvButtons names={names.names} lang={languages[language]} />
                 <CircularWorkGif work={names.work} />
             </Grid>
             <Grid item xs={9}>
