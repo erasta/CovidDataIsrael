@@ -26,7 +26,7 @@ const extractDateAndNumbers = (parsed) => {
     const dates = parsed.map(row => row['date']);
     const numfields = [], numitems = [];
     Object.keys(parsed[0]).forEach(key => {
-        if (key === 'id' || key === '_id') return false;
+        if (['id', '_id'].includes(key.toLowerCase())) return false;
         let good = true
         const items = parsed.map(row => {
             const x = row[key];
