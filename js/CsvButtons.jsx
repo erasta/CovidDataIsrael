@@ -4,10 +4,9 @@ const {
 
 const CsvLink = ({ name, downloadlink, showlink, lang }) => {
     // const showname = camelCaseToSnake(name).replace(/_/g, " ");
-    const showname = lang && lang[name] ? lang[name] : name;
     return <div style={{ margin: 3 }}>
         <ButtonGroup disableElevation variant="contained" color="primary">
-            <Button href={showlink} disabled={!showlink}>{showname}</Button>
+            <Button href={showlink} disabled={!showlink}>{trans(lang, name)}</Button>
             {downloadlink ?
                 <Button href={downloadlink}><Icon>get_app</Icon></Button>
                 : null}

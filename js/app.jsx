@@ -13,6 +13,13 @@ const ShowByName = ({ name, names }) => {
     return <DataShow name={name} />
 }
 
+const trans = (lang, text) => {
+    if (!lang) return text;
+    if (lang[text]) return lang[text];
+    const nospaces = lang[text.replace(/[ _]/g, '')];
+    if (lang[nospaces]) return lang[nospaces];
+    return text;
+}
 
 const App = ({ name }) => {
     const [names, setNames] = React.useState({ names: [], work: true });
@@ -49,6 +56,8 @@ const App = ({ name }) => {
         }
     })();
 
+    const lang = languages[language];
+
     return <>
         <Grid container direction="row">
             <Grid item xs={3}>
@@ -60,18 +69,19 @@ const App = ({ name }) => {
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'left',
                     }}>
-                        Last update:<br />
+                        {trans(lang, 'lastUpdate')}<br />
                         {lastUpdate}
                     </p>
                 </Grid>
             </Grid>
             <Grid item xs={6}>
                 <h1 style={{
-                    fontFamily: 'Source Sans Pro, sans-serif',
+                    // fontFamily: 'Source Sans Pro, sans-serif',
+                    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                     textAlign: 'center',
                     fontSize: 'xx-large'
                 }}>
-                    Covid-19 Data Israel
+                    {trans(lang, 'Covid-19 Data Israel')}
                 </h1>
             </Grid>
             <Grid item xs={3}>
@@ -81,14 +91,14 @@ const App = ({ name }) => {
                         textAlign: 'right',
                         marginRight: 10
                     }}>
-                        Contact
+                        {trans(lang, 'Contact')}
                     </p>
                 </a>
             </Grid>
         </Grid>
         <Grid container direction="row">
             <Grid item xs={3}>
-                <CsvButtons names={names.names} lang={languages[language]} />
+                <CsvButtons names={names.names} lang={lang} />
                 <CircularWorkGif work={names.work} />
             </Grid>
             <Grid item xs={9}>
