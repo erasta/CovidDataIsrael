@@ -7,12 +7,18 @@ const convertToType = (item) => {
     return trimmed;
 }
 
+const truncateDigits = (item) => {
+    if (item === 0) {
+        return item;
+    }
+    const log = Math.log10(Math.abs(item));
+    const factor = log > 3 ? 100 : Math.pow(10, 6 - Math.ceil(log));
+    return Math.round(item * factor) / factor;
+}
+
 const convertToShow = (item) => {
     if (Number.isFinite(item)) {
-        if (item === 0) return item;
-        const log = Math.log10(Math.abs(item));
-        const factor = log > 3 ? 100 : Math.pow(10, 6 - Math.ceil(log));
-        return Math.round(item * factor) / factor;
+        return truncateDigits(item);
     }
     if (item instanceof Date) {
         if (!item.getUTCHours()) {
@@ -20,6 +26,10 @@ const convertToShow = (item) => {
         } else {
             return item.toLocaleString();
         }
+    }
+    const asNum = parseFloat(item);
+    if (Number.isFinite(asNum)) {
+        return truncateDigits(asNum);
     }
     return item;
 }
