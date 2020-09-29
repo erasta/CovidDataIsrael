@@ -144,29 +144,12 @@ const DataGraph = ({ parsed }) => {
                     label="Sum"
                     labelPlacement="start"
                 />
-                <Grid container justify="center">
-                    {
-                        numfields.map((field, i) =>
-                            <Chip
-                                key={field}
-                                size="small"
-                                label={field}
-                                clickable
-                                style={{
-                                    margin: 1,
-                                    backgroundColor: mutedFields.includes(field) ? 'lightgrey' : colors[i]
-                                }}
-                                onClick={() => {
-                                    if (mutedFields.includes(field)) {
-                                        setMutedFields(mutedFields.filter(f => f !== field));
-                                    } else {
-                                        setMutedFields(mutedFields.concat([field]));
-                                    }
-                                }}
-                            />
-                        )
-                    }
-                </Grid>
+                <FieldChips
+                    fieldNames={numfields}
+                    colors={colors}
+                    mutedFields={mutedFields}
+                    setMutedFields={setMutedFields}
+                />
                 <ReactChartjs2.default
                     legend={false}
                     data={data}
