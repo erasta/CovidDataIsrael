@@ -14,7 +14,7 @@ const ShowByName = ({ name, names, lang }) => {
 }
 
 const trans = (lang, text) => {
-    if (!lang) return text;
+    if (!lang) return '';
     if (lang[text]) return lang[text];
     const nospaces = lang[text.replace(/[ _]/g, '')];
     if (lang[nospaces]) return lang[nospaces];
