@@ -67,19 +67,27 @@ const computeForTable = (name, data) => {
     return data;
 }
 
+const renameField = (rows, oldname, newname) => {
+    if (rows.length) {
+        if (!rows[0].hasOwnProperty(newname) && rows[0].hasOwnProperty(oldname)) {
+            rows.forEach(row => {
+                row[newname] = row[oldname];
+                delete row[oldname];
+            })
+        }
+    }
+    return rows;
+}
+
 const fetchTable = async (name, url) => {
     console.log(name);
     const parsed = await fetchCsv(url);
     if (parsed === undefined) {
         return [];
     }
+    renameField(parsed, 'תאריך', 'date');
+    renameField(parsed, 'Date', 'date');
     if (parsed.length) {
-        if (!parsed[0].hasOwnProperty('date') && parsed[0].hasOwnProperty('תאריך')) {
-            parsed.forEach(row => {
-                row['date'] = row['תאריך'];
-                delete row['תאריך'];
-            })
-        }
         if (parsed[0].hasOwnProperty('date')) {
             parsed.sort((a, b) => a.date.getTime() - b.date.getTime());
         }

@@ -7,11 +7,32 @@ const extractDateAndNumbers = (parsed) => {
         return [[], []];
     }
     const dates = parsed.map(row => row['date']);
-    const numfields = Object.keys(parsed[0]).filter(key => {
-        if (key === 'id' ||key === '_id') return false;
-        return parsed.find(row => Number.isFinite(row[key]))
+    const numfields = [], numitems = [];
+    Object.keys(parsed[0]).forEach(key => {
+        if (key === 'id' || key === '_id') return false;
+        let good = true
+        const items = parsed.map(row => {
+            const x = row[key];
+            if (!x) return 0;
+            if (Number.isFinite(x)) return row[key];
+            const num = parseFloat(x);
+            if (Number.isFinite(num)) return num;
+            if (x === '<15') return 14;
+            const splitted = (x + '').split('-');
+            if (splitted.length === 2) {
+                const one = parseFloat(splitted[0]), two = parseFloat(splitted[1]);
+                if (Number.isFinite(one) && Number.isFinite(two)) {
+                    return (one + two) / 2;
+                }
+            }
+            good = false;
+            return undefined;
+        });
+        if (good) {
+            numfields.push(key);
+            numitems.push(items);
+        }
     });
-    const numitems = numfields.map(key => parsed.map(row => row[key] || 0));
     return [numitems, numfields, dates];
 }
 
