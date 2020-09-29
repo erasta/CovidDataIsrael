@@ -167,7 +167,7 @@ const DataShow = ({ name, showtable = true, lang }) => {
                 {!showtable && !state.parsed.length ? null :
                     <CardContent>
                         <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
-                            <Typography gutterBottom variant="h5" component="h5" style={{ marginBlockEnd: 0 }}>
+                            <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
                                 {trans(lang, name)}
                             </Typography>
                         </a>

@@ -23,9 +23,11 @@ const DataShowComputedDeath = ({ lang, showtable = true }) => {
     if (offsetDate < 0) changed = changed.slice(-offsetDate);
     return (
         <>
-            <h2 style={{ marginBlockEnd: 0 }}>
-                {trans(lang, 'infectedVsDead')}
-            </h2>
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
+                    {trans(lang, 'infectedVsDead')}
+                </Typography>
+            </CardContent>
             <Grid container direction="row">
                 <Typography id="dead-slider" gutterBottom>
                     Multiply dead
