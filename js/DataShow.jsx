@@ -1,5 +1,14 @@
 const {
-    Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableSortLabel
+    Paper,
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableBody,
+    TableCell,
+    TableSortLabel,
+    CardContent,
+    Typography,
 } = MaterialUI;
 
 const TableShow = ({ parsed }) => {
@@ -156,11 +165,13 @@ const DataShow = ({ name, showtable = true }) => {
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 {!showtable && !state.parsed.length ? null :
-                    <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
-                        <h2 style={{ marginBlockEnd: 0 }}>
-                            {fixName(name)}
-                        </h2>
-                    </a>
+                    <CardContent>
+                        <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
+                            <Typography gutterBottom variant="h5" component="h5" style={{ marginBlockEnd: 0 }}>
+                                    {fixName(name).replace('Moh ', 'MOH ')}
+                            </Typography>
+                        </a>
+                    </CardContent>
                 }
                 {!showtable ? null :
                     <HistorySlider onHistory={v => setShowHistory(v)} />
