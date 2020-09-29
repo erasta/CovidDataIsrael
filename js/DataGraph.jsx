@@ -89,11 +89,17 @@ const dateByPercent = (dates, percent) => {
 }
 
 const DataGraph = ({ parsed }) => {
-    const [chartStyle, setChartStyle] = React.useState('line');
+    const [chartStyle, setChartStyle] = React.useState(localStorage.getItem('chartStyle') || 'line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
     const [dateRange, setDateRange] = React.useState([0, 100]);
     const [mutedFields, setMutedFields] = React.useState([]);
+
+    React.useEffect(() => {
+        if (['line', 'bar'].includes(chartStyle)) { // scatter and bubble don't switch well
+            localStorage.setItem('chartStyle', chartStyle);
+        }
+    }, [chartStyle]);
 
     const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
 
@@ -140,8 +146,8 @@ const DataGraph = ({ parsed }) => {
                 >
                     <MenuItem value={'bar'} >Bars Chart</MenuItem>
                     <MenuItem value={'line'} >Lines Chart</MenuItem>
-                    <MenuItem value={'scatter'} >Scatter</MenuItem>
                     <MenuItem value={'bubble'} >Bubble</MenuItem>
+                    <MenuItem value={'scatter'} >Scatter</MenuItem>
                 </Select>
                 <Select
                     value={timeGroup}
