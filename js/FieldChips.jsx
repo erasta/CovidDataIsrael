@@ -12,7 +12,7 @@ const FieldChips = ({ fieldNames, colors, mutedFields, setMutedFields }) => {
                         clickable
                         style={{
                             margin: 1,
-                            backgroundColor: mutedFields.includes(fieldname) ? 'lightgrey' : colors[i]
+                            backgroundColor: mutedFields.includes(field) ? 'lightgrey' : colors[i]
                         }}
                         onClick={() => {
                             if (mutedFields.includes(field)) {
