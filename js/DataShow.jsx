@@ -80,7 +80,7 @@ const renameField = (rows, oldname, newname) => {
 }
 
 const fetchTable = async (name, url) => {
-    console.log(name);
+    // console.log(name);
     const parsed = await fetchCsv(url);
     if (parsed === undefined) {
         return [];

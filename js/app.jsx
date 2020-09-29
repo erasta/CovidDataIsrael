@@ -33,7 +33,7 @@ const App = ({ name }) => {
             newnames = newnames.concat(mohnames)
 
             setNames({ names: newnames, work: false });
-            console.log(newnames);
+            // console.log(newnames);
         })();
     }, []);
 

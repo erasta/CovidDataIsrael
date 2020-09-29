@@ -1,18 +1,16 @@
 const DataShowCharts = ({ names }) => (
     <>
-        <DataShow
-            key={'patientsPerDate'}
-            name={'patientsPerDate'}
-            showtable={false}
-        />
         <Grid container key={'chartGrid'}>
             {[
+                'patientsPerDate',
+                'moh_corona_medical_staff',
                 'infectedPerDate',
                 'deadPatientsPerDate',
                 'recoveredPerDay',
                 'testResultsPerDate',
+                'moh_corona_hospitalization',
+                'moh_corona_isolation_per_day',
                 'doublingRate',
-                'calculatedVerified'
             ].map(name =>
                 <Grid item xs={6} key={name}>
                     <DataShow

@@ -1,7 +1,6 @@
 const { Grid, Chip } = MaterialUI;
 
 const FieldChips = ({ fieldNames, colors, mutedFields, setMutedFields }) => {
-    console.log(mutedFields);
     return (
         <Grid container justify="center">
             {
