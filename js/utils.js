@@ -145,3 +145,6 @@ const attachAlpha = (color, alpha) => {
     }
 }
 
+const camelCaseToSnake = (str) => {
+    return str.replace(/(?:^|\.?)([A-Z])/g, function (x, y) { return "_" + y }).replace(/^_/, "");
+}

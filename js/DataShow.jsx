@@ -92,6 +92,16 @@ const fetchTable = async (name, url) => {
             parsed.sort((a, b) => a.date.getTime() - b.date.getTime());
         }
     }
+    Object.keys(parsed[0]).forEach(key => {
+        if (key === 'date') return;
+        const orig = key;
+        key = camelCaseToSnake(key).replace(/_/g, " ");
+        if (key.toLowerCase().startsWith('count')) {
+            key = 'count ' + key.substr(5);
+        }
+        key = key.split(' ').filter(x => x.length).map(x => x[0].toUpperCase() + x.substr(1)).join(' ');
+        renameField(parsed, orig, key);
+    })
     return computeForTable(name, parsed);
 }
 

@@ -3,7 +3,7 @@ const {
 } = MaterialUI;
 
 const CsvLink = ({ name, downloadlink, showlink }) => {
-    const showname = name.replace(/(?:^|\.?)([A-Z])/g, function (x, y) { return "_" + y }).replace(/^_/, "").replace(/_/g, " ");
+    const showname = camelCaseToSnake(name).replace(/_/g, " ");
     return <div style={{ margin: 3 }}>
         <ButtonGroup disableElevation variant="contained" color="primary">
             <Button href={showlink} disabled={!showlink}>{showname}</Button>
