@@ -1,6 +1,6 @@
 const DataShowCharts = ({ names }) => (
     <>
-        <Grid container key={'chartGrid'}>
+        <Grid container key={'chartGrid'} direction="row" justify="center" alignItems="stretch">
             {[
                 'patientsPerDate',
                 'moh_corona_medical_staff',

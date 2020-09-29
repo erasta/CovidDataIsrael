@@ -1,5 +1,22 @@
 const {
-    MenuItem, Select, InputLabel, FormHelperText, FormControlLabel, Switch, Checkbox, Typography, Slider, Chip
+    MenuItem,
+    Select,
+    InputLabel,
+    FormHelperText,
+    FormControlLabel,
+    Switch,
+    Checkbox,
+    Typography,
+    Slider,
+    Chip,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Card,
+    makeStyles,
+    IconButton,
+    CardActions,
+    Collapse,
 } = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
