@@ -6,11 +6,11 @@ let sheetname = new URL(window.location.href).searchParams.get("sheet");
 sheetname = sheetname || 'showcharts';
 console.log(sheetname);
 
-const ShowByName = ({ name, names }) => {
+const ShowByName = ({ name, names, lang }) => {
     // if (name === 'all') return <DataShowRaw fileshow={'out/covid.csv'} />
-    if (name === 'showcharts') return <DataShowCharts names={names} />
-    if (name === 'infectedVsDead') return <DataShowComputedDeath showtable={true} />
-    return <DataShow name={name} />
+    if (name === 'showcharts') return <DataShowCharts names={names} lang={lang} />
+    if (name === 'infectedVsDead') return <DataShowComputedDeath showtable={true} lang={lang} />
+    return <DataShow name={name} lang={lang} />
 }
 
 const trans = (lang, text) => {
@@ -102,7 +102,7 @@ const App = ({ name }) => {
                 <CircularWorkGif work={names.work} />
             </Grid>
             <Grid item xs={9}>
-                <ShowByName name={name} names={names.names} />
+                <ShowByName name={name} names={names.names} lang={lang} />
             </Grid>
         </Grid>
         <p style={{

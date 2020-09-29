@@ -1,4 +1,4 @@
-const DataShowCharts = ({ names }) => (
+const DataShowCharts = ({ lang, names }) => (
     <>
         <Grid container key={'chartGrid'} direction="row" justify="center" alignItems="stretch">
             {[
@@ -17,6 +17,7 @@ const DataShowCharts = ({ names }) => (
                         key={name}
                         name={name}
                         showtable={false}
+                        lang={lang}
                     />
                 </Grid>
             )}

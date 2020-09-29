@@ -1,4 +1,4 @@
-const DataShowComputedDeath = ({ showtable = true }) => {
+const DataShowComputedDeath = ({ lang, showtable = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [multiplyDead, setMultiplyDead] = React.useState(1);
     const [offsetDate, setOffsetDate] = React.useState(0);
@@ -24,7 +24,7 @@ const DataShowComputedDeath = ({ showtable = true }) => {
     return (
         <>
             <h2 style={{ marginBlockEnd: 0 }}>
-                Infected vs. Dead
+                {trans(lang, 'infectedVsDead')}
             </h2>
             <Grid container direction="row">
                 <Typography id="dead-slider" gutterBottom>

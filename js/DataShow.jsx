@@ -151,7 +151,7 @@ const fetchTableAndHistory = async (name, historyDate) => {
     return merged;
 }
 
-const DataShow = ({ name, showtable = true }) => {
+const DataShow = ({ name, showtable = true, lang }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
@@ -168,7 +168,7 @@ const DataShow = ({ name, showtable = true }) => {
                     <CardContent>
                         <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
                             <Typography gutterBottom variant="h5" component="h5" style={{ marginBlockEnd: 0 }}>
-                                    {fixName(name).replace('Moh ', 'MOH ')}
+                                {trans(lang, name)}
                             </Typography>
                         </a>
                     </CardContent>
