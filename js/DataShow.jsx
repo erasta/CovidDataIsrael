@@ -154,18 +154,20 @@ const DataShow = ({ name, showtable = true }) => {
     }, [name, showHistory])
     return (
         <>
-            {!showtable && !state.parsed.length ? null :
-                <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
-                    <h2 style={{ marginBlockEnd: 0 }}>
-                        {fixName(name)}
-                    </h2>
-                </a>
-            }
-            {!showtable ? null :
-                <HistorySlider onHistory={v => setShowHistory(v)} />
-            }
-            <DataGraph parsed={state.parsed} />
-            <CircularWorkGif work={state.work} />
+            <Card elevation={3} style={{ margin: 5, padding: 5 }}>
+                {!showtable && !state.parsed.length ? null :
+                    <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
+                        <h2 style={{ marginBlockEnd: 0 }}>
+                            {fixName(name)}
+                        </h2>
+                    </a>
+                }
+                {!showtable ? null :
+                    <HistorySlider onHistory={v => setShowHistory(v)} />
+                }
+                <DataGraph parsed={state.parsed} />
+                <CircularWorkGif work={state.work} />
+            </Card>
             {!showtable ? null :
                 <TableShow parsed={state.parsed} />
             }
