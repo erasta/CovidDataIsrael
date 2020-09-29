@@ -88,6 +88,8 @@ const dateByPercent = (dates, percent) => {
     return dates[Math.round(percent / 100 * (dates.length - 1))];
 }
 
+var image = new Image();
+image.src = "images/eran.dev.water.png";
 const DataGraph = ({ parsed }) => {
     const [chartStyle, setChartStyle] = React.useState(localStorage.getItem('chartStyle') || 'line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
@@ -182,7 +184,12 @@ const DataGraph = ({ parsed }) => {
                     legend={false}
                     data={data}
                     type={chartStyle}
-                    options={{ scales: { yAxes: [{ ticks: { min: 0 } }] } }}
+                    options={{
+                        scales: { yAxes: [{ ticks: { min: 0 } }] },
+                        watermark: {
+                            image: image, opacity: 0.07, alignToChartArea: true
+                        }
+                    }}
                 />
             </>
     )

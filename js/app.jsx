@@ -70,7 +70,7 @@ const App = ({ name }) => {
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'right'
                     }}>
-                        eran.dev
+                        Contact
                     </p>
                 </a>
             </Grid>
