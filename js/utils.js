@@ -8,6 +8,12 @@ const convertToType = (item) => {
 }
 
 const convertToShow = (item) => {
+    if (Number.isFinite(item)) {
+        if (item === 0) return item;
+        const log = Math.log10(Math.abs(item));
+        const factor = log > 3 ? 100 : Math.pow(10, 6 - Math.ceil(log));
+        return Math.round(item * factor) / factor;
+    }
     if (item instanceof Date) {
         if (!item.getUTCHours()) {
             return item.toLocaleDateString();
