@@ -73,11 +73,16 @@ const fetchTable = async (name, url) => {
     if (parsed === undefined) {
         return [];
     }
-    if (parsed.length && !parsed[0].hasOwnProperty('date') && parsed[0].hasOwnProperty('תאריך')) {
-        parsed.forEach(row => {
-            row['date'] = row['תאריך'];
-            delete row['תאריך'];
-        })
+    if (parsed.length) {
+        if (!parsed[0].hasOwnProperty('date') && parsed[0].hasOwnProperty('תאריך')) {
+            parsed.forEach(row => {
+                row['date'] = row['תאריך'];
+                delete row['תאריך'];
+            })
+        }
+        if (parsed[0].hasOwnProperty('date')) {
+            parsed.sort((a, b) => a.date.getTime() - b.date.getTime());
+        }
     }
     return computeForTable(name, parsed);
 }
@@ -87,7 +92,7 @@ const mergeTablesByDate = (one, two) => {
     if (!two || !two.length || !two[0].date) return one;
     let dates = one.map(row => row.date).concat(two.map(row => row.date));
     dates.sort((a, b) => a.getTime() - b.getTime());
-    dates = dates.filter((d, i) => i === 0 || d.getTime() - dates[i - 1].getTime());
+    dates = dates.filter((d, i) => i === 0 || d.getTime() !== dates[i - 1]);
     const keys = Object.keys(one[0]).concat(Object.keys(two[0])).filter(x => x !== 'date');
     return dates.map(d => {
         let item = { 'date': d };
