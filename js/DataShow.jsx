@@ -79,6 +79,16 @@ const renameField = (rows, oldname, newname) => {
     return rows;
 }
 
+const fixName = (key) => {
+    if (key === 'date') return key;
+    key = camelCaseToSnake(key).replace(/_/g, " ");
+    if (key.toLowerCase().startsWith('count')) {
+        key = 'count ' + key.substr(5);
+    }
+    key = key.split(' ').filter(x => x.length).map(x => x[0].toUpperCase() + x.substr(1)).join(' ');
+    return key
+}
+
 const fetchTable = async (name, url) => {
     // console.log(name);
     const parsed = await fetchCsv(url);
@@ -93,15 +103,8 @@ const fetchTable = async (name, url) => {
         }
     }
     Object.keys(parsed[0]).forEach(key => {
-        if (key === 'date') return;
-        const orig = key;
-        key = camelCaseToSnake(key).replace(/_/g, " ");
-        if (key.toLowerCase().startsWith('count')) {
-            key = 'count ' + key.substr(5);
-        }
-        key = key.split(' ').filter(x => x.length).map(x => x[0].toUpperCase() + x.substr(1)).join(' ');
-        renameField(parsed, orig, key);
-    })
+        renameField(parsed, key, fixName(key));
+    });
     return computeForTable(name, parsed);
 }
 
@@ -154,7 +157,7 @@ const DataShow = ({ name, showtable = true }) => {
             {!showtable && !state.parsed.length ? null :
                 <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
                     <h2 style={{ marginBlockEnd: 0 }}>
-                        {name[0].toUpperCase() + name.substr(1)}
+                        {fixName(name)}
                     </h2>
                 </a>
             }
