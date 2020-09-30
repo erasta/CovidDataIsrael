@@ -28,8 +28,6 @@ const App = ({ name }) => {
     const [lastUpdate, setLastUpdate] = React.useState('...');
     const [language, setLanguage] = React.useState('he');
 
-    console.log(names);
-
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
         if (last && last.length && last[0].lastUpdate) {
@@ -107,22 +105,16 @@ const App = ({ name }) => {
 }
 
 (async () => {
-    languages = await (await fetch('jsons/lang.json')).json();
+    let [langs1, names1, names2, names3] = await Promise.all([
+        await (await fetch('jsons/lang.json')).json(),
+        await (await fetch('jsons/dashreq.json')).json(),
+        await (await fetch('jsons/dashcomputed.json')).json(),
+        await (await fetch('jsons/mohfiles.json')).json()
+    ]);
 
-    const response = await fetch('jsons/dashreq.json');
-    const json = await response.json();
-    names = json.requests.map(j => j.queryName);
+    languages = langs1;
+    names = names1.requests.map(j => j.queryName).concat(names2).concat(names3.map(r => r.name));
 
-    const response2 = await fetch('jsons/dashcomputed.json');
-    const json2 = await response2.json();
-    names = names.concat(json2)
-
-    const response3 = await fetch('jsons/mohfiles.json');
-    const json3 = await response3.json();
-    const mohnames = json3.map(r => r.name);
-    names = names.concat(mohnames)
-
-    console.log(names);
     ReactDOM.render(
         <App name={sheetname} />,
         document.getElementById('root')
