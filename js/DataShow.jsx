@@ -168,22 +168,22 @@ const DataShow = ({ name, showtable = true, lang }) => {
     }, [name, showHistory])
     return (
         <>
-            <Link href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
-                <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                    {!showtable && !state.parsed.length ? null :
+            <Card elevation={3} style={{ margin: 5, padding: 5 }}>
+                {!showtable && !state.parsed.length ? null :
+                    <Link href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
                                 {trans(lang, name)}
                             </Typography>
                         </CardContent>
-                    }
-                    <DataGraph parsed={state.parsed} showControls={showtable} />
-                    {!showtable ? null :
-                        <HistorySlider onHistory={v => setShowHistory(v)} />
-                    }
-                    <CircularWorkGif work={state.work} />
-                </Card>
-            </Link>
+                    </Link>
+                }
+                <DataGraph parsed={state.parsed} showControls={showtable} />
+                {!showtable ? null :
+                    <HistorySlider onHistory={v => setShowHistory(v)} />
+                }
+                <CircularWorkGif work={state.work} />
+            </Card>
             {!showtable ? null :
                 <TableShow parsed={state.parsed} />
             }
