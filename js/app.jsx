@@ -1,5 +1,5 @@
 const {
-    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress
+    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress, Link
 } = MaterialUI;
 
 let sheetname = new URL(window.location.href).searchParams.get("sheet");
@@ -85,7 +85,7 @@ const App = ({ name }) => {
                 </h1>
             </Grid>
             <Grid item xs={3}>
-                <a href="https://eran.dev/" style={{ textDecoration: 'none' }}>
+                <Link href="https://eran.dev/" style={{ textDecoration: 'none' }}>
                     <p style={{
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'right',
@@ -93,7 +93,7 @@ const App = ({ name }) => {
                     }}>
                         {trans(lang, 'Contact')}
                     </p>
-                </a>
+                </Link>
             </Grid>
         </Grid>
         <Grid container direction="row">
@@ -110,18 +110,18 @@ const App = ({ name }) => {
             textAlign: 'center',
         }}>
             Updated hourly from the&nbsp;
-            <a href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }}>
+            <Link href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }}>
                 public API of Ministry of Health of Israel
-            </a>
+            </Link>
             <br />
             Created by&nbsp;
-             <a href="https://eran.dev/" style={{ textDecoration: 'none' }}>
+             <Link href="https://eran.dev/" style={{ textDecoration: 'none' }}>
                 © Eran Geva
-            </a>
+            </Link>
             &nbsp;as&nbsp;
-            <a href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }}>
+            <Link href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }}>
                 open-source code
-            </a>
+            </Link>
         </p>
     </>
 }

@@ -9,6 +9,7 @@ const {
     TableSortLabel,
     CardContent,
     Typography,
+    Link
 } = MaterialUI;
 
 const TableShow = ({ parsed }) => {
@@ -170,11 +171,11 @@ const DataShow = ({ name, showtable = true, lang }) => {
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 {!showtable && !state.parsed.length ? null :
                     <CardContent>
-                        <a href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
+                        <Link href={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
                             <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
                                 {trans(lang, name)}
                             </Typography>
-                        </a>
+                        </Link>
                     </CardContent>
                 }
                 {!showtable ? null :
