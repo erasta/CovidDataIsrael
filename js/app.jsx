@@ -13,6 +13,9 @@ const ShowByName = ({ name, names, lang }) => {
     return <DataShow name={name} lang={lang} />
 }
 
+let languages;
+let names = [];
+
 const trans = (lang, text) => {
     if (!lang) return '';
     if (lang[text]) return lang[text];
@@ -22,32 +25,10 @@ const trans = (lang, text) => {
 }
 
 const App = ({ name }) => {
-    const [names, setNames] = React.useState({ names: [], work: true });
     const [lastUpdate, setLastUpdate] = React.useState('...');
     const [language, setLanguage] = React.useState('he');
-    const [languages, setLanguages] = React.useState({});
-    React.useEffect(() => {
-        (async () => {
-            setLanguages(await (await fetch('jsons/lang.json')).json());
 
-            const response = await fetch('jsons/dashreq.json');
-            const json = await response.json();
-            let newnames = json.requests.map(j => j.queryName);
-            setNames({ names: newnames, work: true });
-
-            const response2 = await fetch('jsons/dashcomputed.json');
-            const json2 = await response2.json();
-            newnames = newnames.concat(json2)
-
-            const response3 = await fetch('jsons/mohfiles.json');
-            const json3 = await response3.json();
-            const mohnames = json3.map(r => r.name);
-            newnames = newnames.concat(mohnames)
-
-            setNames({ names: newnames, work: false });
-            // console.log(newnames);
-        })();
-    }, []);
+    console.log(names);
 
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
@@ -98,11 +79,10 @@ const App = ({ name }) => {
         </Grid>
         <Grid container direction="row">
             <Grid item xs={3}>
-                <CsvButtons names={names.names} lang={lang} />
-                <CircularWorkGif work={names.work} />
+                <CsvButtons names={names} lang={lang} />
             </Grid>
             <Grid item xs={9}>
-                <ShowByName name={name} names={names.names} lang={lang} />
+                <ShowByName name={name} names={names} lang={lang} />
             </Grid>
         </Grid>
         <p style={{
@@ -126,7 +106,25 @@ const App = ({ name }) => {
     </>
 }
 
-ReactDOM.render(
-    <App name={sheetname} />,
-    document.getElementById('root')
-);
+(async () => {
+    languages = await (await fetch('jsons/lang.json')).json();
+
+    const response = await fetch('jsons/dashreq.json');
+    const json = await response.json();
+    names = json.requests.map(j => j.queryName);
+
+    const response2 = await fetch('jsons/dashcomputed.json');
+    const json2 = await response2.json();
+    names = names.concat(json2)
+
+    const response3 = await fetch('jsons/mohfiles.json');
+    const json3 = await response3.json();
+    const mohnames = json3.map(r => r.name);
+    names = names.concat(mohnames)
+
+    console.log(names);
+    ReactDOM.render(
+        <App name={sheetname} />,
+        document.getElementById('root')
+    );
+})()
