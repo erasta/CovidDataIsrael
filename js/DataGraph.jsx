@@ -160,53 +160,6 @@ const DataGraph = ({ parsed, showControls }) => {
     return (
         numfields.length === 0 ? null :
             <>
-                {!showControls ? null :
-                    <>
-                        <DateRangeSlider
-                            dates={dates}
-                            dateRange={dateRange}
-                            onChangeDateRange={(v) => setDateRange(v)}
-                        />
-                        <Select
-                            value={chartStyle}
-                            onChange={e => setChartStyle(e.target.value)}
-                        >
-                            <MenuItem value={'bar'} >Bars Chart</MenuItem>
-                            <MenuItem value={'line'} >Lines Chart</MenuItem>
-                            <MenuItem value={'bubble'} >Bubble</MenuItem>
-                            <MenuItem value={'scatter'} >Scatter</MenuItem>
-                        </Select>
-                        <Select
-                            value={timeGroup}
-                            onChange={e => setTimeGroup(e.target.value)}
-                        >
-                            <MenuItem value={'Exact'} >Exact at time</MenuItem>
-                            {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
-                            <MenuItem value={'3DayMA'} >3 Days moving average</MenuItem>
-                            <MenuItem value={'7DayMA'} >7 days moving average</MenuItem>
-                            <MenuItem value={'14DayMA'} >14 days moving average</MenuItem>
-                            <MenuItem value={'28DayMA'} >28 days moving average</MenuItem>
-                            <MenuItem value={'Weekly'} >Weekly sums</MenuItem>
-                            <MenuItem value={'Monthly'} >Monthly sums</MenuItem>
-                        </Select>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={accumulated}
-                                    onChange={e => setAccumulated(e.target.checked)}
-                                    color="primary"
-                                />}
-                            label="Sum"
-                            labelPlacement="start"
-                        />
-                        <FieldChips
-                            fieldNames={numfields}
-                            colors={colors}
-                            mutedFields={mutedFields}
-                            setMutedFields={setMutedFields}
-                        />
-                    </>
-                }
                 <ReactChartjs2.default
                     legend={false}
                     data={data}
@@ -218,6 +171,57 @@ const DataGraph = ({ parsed, showControls }) => {
                         }
                     }}
                 />
+                {!showControls ? null :
+                    <>
+                        <FieldChips
+                            fieldNames={numfields}
+                            colors={colors}
+                            mutedFields={mutedFields}
+                            setMutedFields={setMutedFields}
+                        />
+                        <DateRangeSlider
+                            dates={dates}
+                            dateRange={dateRange}
+                            onChangeDateRange={(v) => setDateRange(v)}
+                        />
+                        <Grid container justify='center' spacing={3}>
+                            <Select
+                                value={chartStyle}
+                                onChange={e => setChartStyle(e.target.value)}
+                                // variant='outlined'
+                            >
+                                <MenuItem value={'bar'} >Bars Chart</MenuItem>
+                                <MenuItem value={'line'} >Lines Chart</MenuItem>
+                                <MenuItem value={'bubble'} >Bubble</MenuItem>
+                                <MenuItem value={'scatter'} >Scatter</MenuItem>
+                            </Select>
+                            <Select
+                                value={timeGroup}
+                                onChange={e => setTimeGroup(e.target.value)}
+                                // variant='outlined'
+                            >
+                                <MenuItem value={'Exact'} >Exact at time</MenuItem>
+                                {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
+                                <MenuItem value={'3DayMA'} >3 Days moving average</MenuItem>
+                                <MenuItem value={'7DayMA'} >7 days moving average</MenuItem>
+                                <MenuItem value={'14DayMA'} >14 days moving average</MenuItem>
+                                <MenuItem value={'28DayMA'} >28 days moving average</MenuItem>
+                                <MenuItem value={'Weekly'} >Weekly sums</MenuItem>
+                                <MenuItem value={'Monthly'} >Monthly sums</MenuItem>
+                            </Select>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={accumulated}
+                                        onChange={e => setAccumulated(e.target.checked)}
+                                        color="primary"
+                                    />}
+                                label="Sum"
+                                labelPlacement="start"
+                            />
+                        </Grid>
+                    </>
+                }
             </>
     )
 }

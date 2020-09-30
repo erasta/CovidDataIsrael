@@ -177,10 +177,10 @@ const DataShow = ({ name, showtable = true, lang }) => {
                             </Typography>
                         </CardContent>
                     }
+                    <DataGraph parsed={state.parsed} showControls={showtable} />
                     {!showtable ? null :
                         <HistorySlider onHistory={v => setShowHistory(v)} />
                     }
-                    <DataGraph parsed={state.parsed} showControls={showtable} />
                     <CircularWorkGif work={state.work} />
                 </Card>
             </Link>
