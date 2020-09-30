@@ -22,9 +22,9 @@ const convertToShow = (item) => {
     }
     if (item instanceof Date) {
         if (!item.getUTCHours()) {
-            return item.toLocaleDateString();
+            return item.toLocaleDateString('en-GB');
         } else {
-            return item.toLocaleString();
+            return item.toLocaleString('en-GB', { hour12: false });
         }
     }
     const asNum = parseFloat(item);
