@@ -58,7 +58,7 @@ const DataShowComputedDeath = ({ lang, showtable = true }) => {
                     onChange={(e, v) => setOffsetDate(v)}
                 />
             </Grid>
-            <DataGraph parsed={changed} />
+            <DataGraph parsed={changed} showControls={true} />
             <CircularWorkGif work={state.work} />
             {/* {!showtable ? null :
                 <TableShow parsed={state.parsed} />
