@@ -68,9 +68,9 @@ const TableShow = ({ parsed }) => {
 const computeForTable = (name, data) => {
     if (name === 'testResultsPerDate') {
         data.forEach(row => {
-            const amount = parseFloat(row['amount']);
-            const positive = parseFloat(row['positiveAmount']);
-            row['positiveRatio'] = '' + Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
+            const amount = parseFloat(row['Amount']);
+            const positive = parseFloat(row['Positive Amount']);
+            row['Positive Ratio'] = Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
         });
     }
     return data;
