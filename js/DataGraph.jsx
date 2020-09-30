@@ -107,7 +107,7 @@ const dateByPercent = (dates, percent) => {
 
 var image = new Image();
 image.src = "images/eran.dev.water.png";
-const DataGraph = ({ parsed }) => {
+const DataGraph = ({ parsed, showControls }) => {
     const [chartStyle, setChartStyle] = React.useState(localStorage.getItem('chartStyle') || 'line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
@@ -133,10 +133,16 @@ const DataGraph = ({ parsed }) => {
     }
 
     const colors = groupnumitems.map((_, i) => colorByNumber(i, groupnumitems.length + 1));
+
+    const convertDate = (d) => {
+        if (showControls) return d.toLocaleDateString('en-GB');
+        return d.getMonth() + '/' + d.getDate();
+    }
+
     let data = {}
     if (numfields.length) {
         data = {
-            labels: groupdates.slice(fromIndex, toIndex + 1).map(d => d.toLocaleDateString()),
+            labels: groupdates.slice(fromIndex, toIndex + 1).map(convertDate),
             datasets: groupnumitems.map((field, i) => {
                 if (mutedFields.includes(numfields[i])) return null; // filter is done afterwards to preserve colors
                 return {
@@ -154,49 +160,53 @@ const DataGraph = ({ parsed }) => {
     return (
         numfields.length === 0 ? null :
             <>
-                <DateRangeSlider
-                    dates={dates}
-                    dateRange={dateRange}
-                    onChangeDateRange={(v) => setDateRange(v)}
-                />
-                <Select
-                    value={chartStyle}
-                    onChange={e => setChartStyle(e.target.value)}
-                >
-                    <MenuItem value={'bar'} >Bars Chart</MenuItem>
-                    <MenuItem value={'line'} >Lines Chart</MenuItem>
-                    <MenuItem value={'bubble'} >Bubble</MenuItem>
-                    <MenuItem value={'scatter'} >Scatter</MenuItem>
-                </Select>
-                <Select
-                    value={timeGroup}
-                    onChange={e => setTimeGroup(e.target.value)}
-                >
-                    <MenuItem value={'Exact'} >Exact at time</MenuItem>
-                    {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
-                    <MenuItem value={'3DayMA'} >3 Days moving average</MenuItem>
-                    <MenuItem value={'7DayMA'} >7 days moving average</MenuItem>
-                    <MenuItem value={'14DayMA'} >14 days moving average</MenuItem>
-                    <MenuItem value={'28DayMA'} >28 days moving average</MenuItem>
-                    <MenuItem value={'Weekly'} >Weekly sums</MenuItem>
-                    <MenuItem value={'Monthly'} >Monthly sums</MenuItem>
-                </Select>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={accumulated}
-                            onChange={e => setAccumulated(e.target.checked)}
-                            color="primary"
-                        />}
-                    label="Sum"
-                    labelPlacement="start"
-                />
-                <FieldChips
-                    fieldNames={numfields}
-                    colors={colors}
-                    mutedFields={mutedFields}
-                    setMutedFields={setMutedFields}
-                />
+                {!showControls ? null :
+                    <>
+                        <DateRangeSlider
+                            dates={dates}
+                            dateRange={dateRange}
+                            onChangeDateRange={(v) => setDateRange(v)}
+                        />
+                        <Select
+                            value={chartStyle}
+                            onChange={e => setChartStyle(e.target.value)}
+                        >
+                            <MenuItem value={'bar'} >Bars Chart</MenuItem>
+                            <MenuItem value={'line'} >Lines Chart</MenuItem>
+                            <MenuItem value={'bubble'} >Bubble</MenuItem>
+                            <MenuItem value={'scatter'} >Scatter</MenuItem>
+                        </Select>
+                        <Select
+                            value={timeGroup}
+                            onChange={e => setTimeGroup(e.target.value)}
+                        >
+                            <MenuItem value={'Exact'} >Exact at time</MenuItem>
+                            {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
+                            <MenuItem value={'3DayMA'} >3 Days moving average</MenuItem>
+                            <MenuItem value={'7DayMA'} >7 days moving average</MenuItem>
+                            <MenuItem value={'14DayMA'} >14 days moving average</MenuItem>
+                            <MenuItem value={'28DayMA'} >28 days moving average</MenuItem>
+                            <MenuItem value={'Weekly'} >Weekly sums</MenuItem>
+                            <MenuItem value={'Monthly'} >Monthly sums</MenuItem>
+                        </Select>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={accumulated}
+                                    onChange={e => setAccumulated(e.target.checked)}
+                                    color="primary"
+                                />}
+                            label="Sum"
+                            labelPlacement="start"
+                        />
+                        <FieldChips
+                            fieldNames={numfields}
+                            colors={colors}
+                            mutedFields={mutedFields}
+                            setMutedFields={setMutedFields}
+                        />
+                    </>
+                }
                 <ReactChartjs2.default
                     legend={false}
                     data={data}
