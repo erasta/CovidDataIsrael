@@ -85,7 +85,7 @@ const App = ({ name }) => {
                 </h1>
             </Grid>
             <Grid item xs={3}>
-                <Link href="https://eran.dev/" style={{ textDecoration: 'none' }}>
+                <Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
                     <p style={{
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'right',
@@ -110,16 +110,16 @@ const App = ({ name }) => {
             textAlign: 'center',
         }}>
             Updated hourly from the&nbsp;
-            <Link href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }}>
+            <Link href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
                 public API of Ministry of Health of Israel
             </Link>
             <br />
             Created by&nbsp;
-             <Link href="https://eran.dev/" style={{ textDecoration: 'none' }}>
+             <Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
                 © Eran Geva
             </Link>
             &nbsp;as&nbsp;
-            <Link href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }}>
+            <Link href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
                 open-source code
             </Link>
         </p>
