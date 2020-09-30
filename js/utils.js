@@ -72,11 +72,13 @@ const calcMovingAverage = (dates, nums, span) => {
 }
 
 const fetchFile = async (url) => {
-    const data = await (await fetch(url)).text();
-    if (data.split('\n', 1)[0].trim() === "<!DOCTYPE html>") {
+    try {
+        const response = await fetch(url);
+        const text = await response.text();
+        return response.ok ? text : undefined;
+    } catch (e) {
         return undefined;
     }
-    return data;
 }
 
 const convertFieldToType = (rows, key) => {
