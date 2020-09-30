@@ -122,7 +122,7 @@ const mergeTablesByDate = (one, two) => {
     if (!two || !two.length || !two[0].date) return one;
     let dates = one.map(row => row.date).concat(two.map(row => row.date));
     dates.sort((a, b) => a.getTime() - b.getTime());
-    dates = dates.filter((d, i) => i === 0 || d.getTime() !== dates[i - 1]);
+    dates = dates.filter((d, i) => i === 0 || d.getTime() !== dates[i - 1].getTime());
     const keys = Object.keys(one[0]).concat(Object.keys(two[0])).filter(x => x !== 'date');
     return dates.map(d => {
         let item = { 'date': d };
