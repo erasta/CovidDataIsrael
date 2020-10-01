@@ -39,7 +39,8 @@ const App = () => {
         window.ga('send', 'pageview');
     }, [location]);
 
-    const name = new URLSearchParams(location.search).get("sheet");
+    let name = new URLSearchParams(location.search).get("sheet");
+    if (!name || !name.length) name = 'showcharts';
 
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
