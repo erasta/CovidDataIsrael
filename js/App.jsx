@@ -35,10 +35,8 @@ const App = () => {
     const location = useLocation();
     React.useEffect(() => {
         console.log(location.pathname + location.search)
-        window.ga('set', 'hitType', 'pageview', 'page', location.pathname + location.search);
-        window.ga('send', 'pageview');
-        // ReactGA.initialize('UA-000000-01');
-        // ReactGA.pageview(window.location.pathname + window.location.search);
+        window.ga.getAll()[0].set('page', location.pathname + location.search);
+        window.ga.getAll()[0].send('pageview')
     }, [location]);
 
     let name = new URLSearchParams(location.search).get("sheet");
