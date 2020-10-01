@@ -10,13 +10,12 @@ const {
         await (await fetch('jsons/mohfiles.json')).json()
     ]);
 
-    languages = langs1;
-    names = names1.requests.map(j => j.queryName).concat(names2).concat(names3.map(r => r.name));
+    const languages = langs1;
+    const names = names1.requests.map(j => j.queryName).concat(names2).concat(names3.map(r => r.name));
 
     ReactDOM.render(
         (<BrowserRouter>
-            <App name={'showcharts'} />
+            <App names={names} languages={languages}/>
         </BrowserRouter>),
-        // <App name={'showcharts'} />
         document.getElementById('root'))
 })()

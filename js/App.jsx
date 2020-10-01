@@ -6,9 +6,6 @@ const {
     BrowserRouter, Switch, Route, Link, useLocation
 } = ReactRouterDOM;
 
-let languages;
-let names = [];
-
 const trans = (lang, text) => {
     if (!text || text === "") return text;
     if (!lang) return '';
@@ -18,7 +15,7 @@ const trans = (lang, text) => {
     return text;
 }
 
-const App = () => {
+const App = ({ names, languages }) => {
     const [language, setLanguage] = React.useState('he');
 
     const location = useLocation();
@@ -85,5 +82,5 @@ const App = () => {
                 </MaterialUI.Link>
             </p>
         </>
-    )
+    );
 }
