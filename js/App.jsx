@@ -1,10 +1,14 @@
 const {
-    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress, Link
+    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress
 } = MaterialUI;
 
-let sheetname = new URL(window.location.href).searchParams.get("sheet");
-sheetname = sheetname || 'showcharts';
-console.log(sheetname);
+const {
+    BrowserRouter, Switch, Route, Link, useLocation
+} = ReactRouterDOM;
+
+// let sheetname = new URL(window.location.href).searchParams.get("sheet");
+// sheetname = sheetname || 'showcharts';
+// console.log(sheetname);
 
 const ShowByName = ({ name, names, lang }) => {
     if (name === 'showcharts') return <DataShowCharts names={names} lang={lang} />
@@ -16,16 +20,19 @@ let languages;
 let names = [];
 
 const trans = (lang, text) => {
+    if (!text || text === "") return text;
     if (!lang) return '';
     if (lang[text]) return lang[text];
-    const nospaces = lang[text.replace(/[ _]/g, '')];
+    const nospaces = text.replace(/[ _]/g, '');
     if (lang[nospaces]) return lang[nospaces];
     return text;
 }
 
-const App = ({ name }) => {
+const App = ( ) => {
     const [lastUpdate, setLastUpdate] = React.useState('...');
     const [language, setLanguage] = React.useState('he');
+
+    const name = new URLSearchParams(useLocation().search).get("sheet");
 
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
@@ -63,7 +70,7 @@ const App = ({ name }) => {
                 </h1>
             </Grid>
             <Grid item xs={3}>
-                <Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
+                <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
                     <p style={{
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'right',
@@ -71,7 +78,7 @@ const App = ({ name }) => {
                     }}>
                         {trans(lang, 'Contact')}
                     </p>
-                </Link>
+                </MaterialUI.Link>
             </Grid>
         </Grid>
         <Grid container direction="row">
@@ -87,18 +94,18 @@ const App = ({ name }) => {
             textAlign: 'center',
         }}>
             Updated hourly from the&nbsp;
-            <Link href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
+            <MaterialUI.Link href='https://www.health.gov.il/English/Pages/HomePage.aspx' style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
                 public API of Ministry of Health of Israel
-            </Link>
+            </MaterialUI.Link>
             <br />
             Created by&nbsp;
-             <Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
+             <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
                 © Eran Geva
-            </Link>
+            </MaterialUI.Link>
             &nbsp;as&nbsp;
-            <Link href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
+            <MaterialUI.Link href='https://github.com/erasta/CovidDataIsrael' style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
                 open-source code
-            </Link>
+            </MaterialUI.Link>
         </p>
     </>
 }
@@ -115,7 +122,9 @@ const App = ({ name }) => {
     names = names1.requests.map(j => j.queryName).concat(names2).concat(names3.map(r => r.name));
 
     ReactDOM.render(
-        <App name={sheetname} />,
-        document.getElementById('root')
-    );
+        (<BrowserRouter>
+            <App name={'showcharts'} />
+        </BrowserRouter>),
+        // <App name={'showcharts'} />
+        document.getElementById('root'))
 })()
