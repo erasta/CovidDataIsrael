@@ -28,11 +28,18 @@ const trans = (lang, text) => {
     return text;
 }
 
-const App = ( ) => {
+const App = () => {
     const [lastUpdate, setLastUpdate] = React.useState('...');
     const [language, setLanguage] = React.useState('he');
 
-    const name = new URLSearchParams(useLocation().search).get("sheet");
+    const location = useLocation();
+    React.useEffect(() => {
+        console.log(location.pathname + location.search)
+        window.ga('set', 'page', location.pathname + location.search);
+        window.ga('send', 'pageview');
+    }, [location]);
+
+    const name = new URLSearchParams(location.search).get("sheet");
 
     (async () => {
         const last = await fetchCsv(`out/csv/lastUpdate.csv`);
