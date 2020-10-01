@@ -88,10 +88,18 @@ const suffixFields = (rows, suffix) => {
     })
 }
 
+const tableFileName = (name, historyDate) => {
+    if (!historyDate) {
+        return `out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`;
+    } else {
+        return `out/history/${historyDate}/${name[0].toLowerCase() + name.substr(1)}.csv`;
+    }
+}
+
 const fetchTableAndHistory = async (name, historyDate) => {
-    const parsed = await fetchTable(name, `out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`);
+    const parsed = await fetchTable(name, tableFileName(name));
     if (!historyDate) return parsed;
-    const hist = await fetchTable(name, `out/history/${historyDate}/${name[0].toLowerCase() + name.substr(1)}.csv`);
+    const hist = await fetchTable(name, tableFileName(name, historyDate));
     if (!hist || !hist.length) {
         if (parsed && parsed.length && parsed[0].date) return parsed; // merge with empty
         return []; // no merge
