@@ -44,14 +44,14 @@ const computeForTable = async (name, data) => {
         if (population) {
             data.forEach(row => {
                 const citypop = population.find(poprow => poprow['city'] === row['City']);
-                row['City Code'] = citypop ? citypop['code'] : 0;
                 const pop = citypop ? citypop['population'] : 0;
-                row['Population'] = Math.round(pop);
                 row['Infect Per10000'] = pop ? convertLT15(row['Sick Count']) / pop * 10000 : 0;
                 row['Actual Sick Per 10000'] = pop ? convertLT15(row['Actual Sick']) / pop * 10000 : 0;
                 row['Verified Last7 Days Per 10000'] = pop ? convertLT15(row['Verified Last7 Days']) / pop * 10000 : 0;
                 // if (isNaN(row['Verified Last7 Days Per 10000'])) debugger
                 row['Test Last7 Days Per 10000'] = pop ? convertLT15(row['Test Last7 Days']) / pop * 10000 : 0;
+                row['Population'] = Math.round(pop);
+                row['City Code'] = citypop ? citypop['code'] : 0;
             });
         }
     }
