@@ -51,7 +51,7 @@ const computeForTable = async (name, data) => {
             data.forEach(row => {
                 const citypop = population.find(poprow => poprow['city'] === row['City']);
                 const pop = citypop ? citypop['population'] : 0;
-                row['Infect Per10000'] = pop ? truncPer10000(convertLT15(row['Sick Count']) / pop * 10000) : 0;
+                row['Infected Per 10000'] = pop ? truncPer10000(convertLT15(row['Sick Count']) / pop * 10000) : 0;
                 row['Actual Sick Per 10000'] = pop ? truncPer10000(convertLT15(row['Actual Sick']) / pop * 10000) : 0;
                 row['Verified Last 7 Days Per 10000'] = pop ? truncPer10000(convertLT15(row['Verified Last7 Days']) / pop * 10000) : 0;
                 row['Test Last 7 Days Per 10000'] = pop ? truncPer10000(convertLT15(row['Test Last7 Days']) / pop * 10000) : 0;
