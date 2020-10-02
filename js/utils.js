@@ -83,7 +83,7 @@ const fetchFile = async (url) => {
 
 const convertFieldToType = (rows, key) => {
     if (rows.length === 0) return rows;
-    const items = rows.map(row => row[key].trim());
+    const items = rows.map(row => (row[key] === undefined) ? '' : row[key].trim());
 
     // Check and convert to numbers
     const nums = items.map(x => (!x || x === "") ? 0 : parseFloat(x))

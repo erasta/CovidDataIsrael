@@ -12,13 +12,48 @@ const {
     Link
 } = MaterialUI;
 
-const computeForTable = (name, data) => {
+let popTable = undefined;
+
+const getPopulationTable = async () => {
+    if (!popTable) {
+        popTable = await fetchCsv('jsons/cbs_city_pop_code.csv');
+    }
+    return popTable;
+}
+
+const convertLT15 = (text) => {
+    if (!text.trim) return text;
+    const num = parseFloat(text);
+    if (Number.isFinite(num)) return num;
+    const trimmed = text.trim();
+    if (trimmed === 'קטן מ-15') return 14;
+    const splitted = trimmed.split('-')
+    if (splitted === 2) return (parseFloat(splitted[0]) + parseFloat(splitted[1])) / 2;
+    return trimmed;
+}
+
+const computeForTable = async (name, data) => {
     if (name === 'testResultsPerDate') {
         data.forEach(row => {
             const amount = parseFloat(row['Amount']);
             const positive = parseFloat(row['Positive Amount']);
             row['Positive Ratio'] = Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
         });
+    } else if (name === 'contagionDataPerCityPublic') {
+        const population = await getPopulationTable();
+        if (population) {
+            data.forEach(row => {
+                const citypop = population.find(poprow => poprow['city'] === row['City']);
+                row['City Code'] = citypop ? citypop['code'] : 0;
+                const pop = citypop ? citypop['population'] : 0;
+                row['Population'] = Math.round(pop);
+                row['Infect Per10000'] = pop ? convertLT15(row['Sick Count']) / pop * 10000 : 0;
+                row['Actual Sick Per 10000'] = pop ? convertLT15(row['Actual Sick']) / pop * 10000 : 0;
+                row['Verified Last7 Days Per 10000'] = pop ? convertLT15(row['Verified Last7 Days']) / pop * 10000 : 0;
+                // if (isNaN(row['Verified Last7 Days Per 10000'])) debugger
+                row['Test Last7 Days Per 10000'] = pop ? convertLT15(row['Test Last7 Days']) / pop * 10000 : 0;
+            });
+        }
     }
     return data;
 }
@@ -61,7 +96,7 @@ const fetchTable = async (name, url) => {
     Object.keys(parsed[0]).forEach(key => {
         renameField(parsed, key, fixName(key));
     });
-    return computeForTable(name, parsed);
+    return await computeForTable(name, parsed);
 }
 
 const mergeTablesByDate = (one, two) => {
