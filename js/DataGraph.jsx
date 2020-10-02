@@ -167,7 +167,7 @@ const DataGraph = ({ parsed, showControls }) => {
                     options={{
                         scales: { yAxes: [{ ticks: { min: 0 } }] },
                         watermark: {
-                            image: image, opacity: 0.07, alignToChartArea: true, width: 70, height: 30
+                            image: image, opacity: 0.07, alignToChartArea: true, width: 50, height: 20
                         }
                     }}
                 />
