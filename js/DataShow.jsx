@@ -32,6 +32,12 @@ const convertLT15 = (text) => {
     return trimmed;
 }
 
+const truncPer10000 = (num) => {
+    if (num > 30) return Math.round(num * 10) / 10;
+    if (num > 3) return Math.round(num * 100) / 100;
+    return Math.round(num * 1000) / 1000;
+}
+
 const computeForTable = async (name, data) => {
     if (name === 'testResultsPerDate') {
         data.forEach(row => {
@@ -45,11 +51,11 @@ const computeForTable = async (name, data) => {
             data.forEach(row => {
                 const citypop = population.find(poprow => poprow['city'] === row['City']);
                 const pop = citypop ? citypop['population'] : 0;
-                row['Infect Per10000'] = pop ? convertLT15(row['Sick Count']) / pop * 10000 : 0;
-                row['Actual Sick Per 10000'] = pop ? convertLT15(row['Actual Sick']) / pop * 10000 : 0;
-                row['Verified Last7 Days Per 10000'] = pop ? convertLT15(row['Verified Last7 Days']) / pop * 10000 : 0;
+                row['Infect Per10000'] = pop ? truncPer10000(convertLT15(row['Sick Count']) / pop * 10000) : 0;
+                row['Actual Sick Per 10000'] = pop ? truncPer10000(convertLT15(row['Actual Sick']) / pop * 10000) : 0;
+                row['Verified Last 7 Days Per 10000'] = pop ? truncPer10000(convertLT15(row['Verified Last7 Days']) / pop * 10000) : 0;
+                row['Test Last 7 Days Per 10000'] = pop ? truncPer10000(convertLT15(row['Test Last7 Days']) / pop * 10000) : 0;
                 // if (isNaN(row['Verified Last7 Days Per 10000'])) debugger
-                row['Test Last7 Days Per 10000'] = pop ? convertLT15(row['Test Last7 Days']) / pop * 10000 : 0;
                 row['Population'] = Math.round(pop);
                 row['City Code'] = citypop ? citypop['code'] : 0;
             });
