@@ -93,7 +93,7 @@ const convertFieldToType = (rows, key) => {
     }
 
     // Check and convert to dates
-    const dates = items.map(x => x.length ? new Date(x) : new Date(1999, 0, 1));
+    const dates = items.map(x => x.length ? new Date(x) : new Date(2020, 0, 1));
     if (dates.filter(d => isNaN(d.getTime())).length === 0) {
         rows.forEach((row, i) => row[key] = dates[i]);
         return rows;
