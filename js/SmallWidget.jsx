@@ -1,3 +1,15 @@
+const WidgetItem = ({ lang, name, data }) => {
+    return (
+        <Card variant="outlined">
+            <Typography variant="h5" component="h2">
+                {data}
+            </Typography>
+            <Typography variant="body2" component="p">
+                {name}
+            </Typography>
+        </Card>
+    )
+}
 const SmallWidget = ({ lang }) => {
     const [data, setData] = React.useState({
         infectedTotal: '',
@@ -11,15 +23,16 @@ const SmallWidget = ({ lang }) => {
     });
     React.useEffect(() => {
         (async () => {
-            const [table1, table2] = await Promise.all([
+            const [patients, infected, deadTable] = await Promise.all([
                 await fetchCsv(`out/csv/patientsPerDate.csv`),
-                await fetchCsv(`out/csv/infectedPerDate.csv`)
+                await fetchCsv(`out/csv/infectedPerDate.csv`),
+                await fetchCsv(`out/csv/deadPatientsPerDate.csv`)
             ]);
-            const last = table1[table1.length - 1];
-            console.log('patientsPerDate', last);
-            const sum = table2.map(row => row['amount']).reduce((a, b) => a + b);
-            const yester = table2[table2.length - 2]['amount'];
-            console.log('infectedPerDate', sum, yester)
+            const last = patients[patients.length - 1];
+            const sum = infected.map(row => row['amount']).reduce((a, b) => a + b);
+            const yester = infected[infected.length - 2]['amount'];
+            const sumdead = deadTable.map(row => row['amount']).reduce((a, b) => a + b);
+            console.log(sum, yester, sumdead, last);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
                 infectedYesterday: yester,
@@ -27,16 +40,19 @@ const SmallWidget = ({ lang }) => {
                 medium: last['CountMediumStatus'],
                 breathe: last['CountBreath'],
                 hard: last['CountHardStatus'],
-                dead: last['CountDeath'],
+                dead: sumdead,
                 hospital: last['Counthospitalized'],
             }));
         })();
     }, [])
     return (
         <>
-            <p>נדבקים: {data.infectedTotal}</p>
-            <p>פעילים: {data.infectedNow}</p>
-            <p>אתמול: {data.infectedYesterday}</p>
+            <Card elevation={3} style={{ margin: 5, padding: 5 }}>
+                {/* <WidgetItem  */}
+                <p>נדבקים: {data.infectedTotal}</p>
+                <p>פעילים: {data.infectedNow}</p>
+                <p>אתמול: {data.infectedYesterday}</p>
+            </Card>
             <DataShow
                 name={'patientsPerDate'}
                 lang={lang}
@@ -48,11 +64,13 @@ const SmallWidget = ({ lang }) => {
                     fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath"]
                 }}
             />
-            <p>מאושפזים: {data.hospital}</p>
-            <p>קשה: {data.hard}</p>
-            <p>בינוני: {data.medium}</p>
-            <p>מונשמים: {data.breathe}</p>
-            <p>נפטרים: {data.dead}</p>
+            <Card elevation={3} style={{ margin: 5, padding: 5 }}>
+                <p>מאושפזים: {data.hospital}</p>
+                <p>קשה: {data.hard}</p>
+                <p>בינוני: {data.medium}</p>
+                <p>מונשמים: {data.breathe}</p>
+                <p>נפטרים: {data.dead}</p>
+            </Card>
             <DataShow
                 name={'deadPatientsPerDate'}
                 lang={lang}
