@@ -126,13 +126,16 @@ const DataGraph = ({ parsed, showControls }) => {
         numitems = numitems.map(field => accumulateNums(field));
     }
 
-    const [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
+    let [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
 
     let fromIndex = 0, toIndex = -1;
     if (groupdates && groupdates.length && groupnumitems.length) {
         const fromDate = dateByPercent(dates, dateRange[0]);
         const toDateInc = dateByPercent(dates, dateRange[1]);
         [fromIndex, toIndex] = findDateRangeIndices(groupdates, fromDate, toDateInc);
+
+        groupdates = groupdates.slice(fromIndex, toIndex + 1);
+        groupnumitems = groupnumitems.map(field => field.slice(fromIndex, toIndex + 1));
     }
 
     const colors = groupnumitems.map((_, i) => colorByNumber(i, groupnumitems.length + 1));
@@ -145,7 +148,7 @@ const DataGraph = ({ parsed, showControls }) => {
     let data = {}
     if (numfields.length) {
         data = {
-            labels: groupdates.slice(fromIndex, toIndex + 1).map(convertDate),
+            labels: groupdates.map(convertDate),
             datasets: groupnumitems.map((field, i) => {
                 if (mutedFields.includes(numfields[i])) return null; // filter is done afterwards to preserve colors
                 return {
@@ -155,7 +158,7 @@ const DataGraph = ({ parsed, showControls }) => {
                     borderColor: attachAlpha(colors[i], 1),
                     borderWidth: 1,
                     pointRadius: 1,
-                    data: field.slice(fromIndex, toIndex + 1),
+                    data: field,
                 }
             }).filter(x => x)
         };
