@@ -93,7 +93,7 @@ const SmallWidget = ({ lang }) => {
                 lang={lang}
                 showtable={false}
                 title={
-                    <Typography variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
+                    <Typography variant="h6" component="h6" align='center' style={{ marginBlockEnd: 0 }}>
                         {'נפטרים בשבוע האחרון ' + data.deadThisWeek}
                     </Typography>
                 }
