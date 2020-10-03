@@ -150,7 +150,6 @@ const DataGraph = ({ parsed, showControls }) => {
         data = {
             labels: groupdates.map(convertDate),
             datasets: groupnumitems.map((field, i) => {
-                if (mutedFields.includes(numfields[i])) return null; // filter is done afterwards to preserve colors
                 return {
                     type: chartStyle,
                     label: numfields[i],
@@ -159,8 +158,9 @@ const DataGraph = ({ parsed, showControls }) => {
                     borderWidth: 1,
                     pointRadius: 1,
                     data: field,
+                    hidden: mutedFields.includes(numfields[i])
                 }
-            }).filter(x => x)
+            })
         };
     }
     return (
