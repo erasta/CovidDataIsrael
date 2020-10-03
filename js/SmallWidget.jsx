@@ -1,13 +1,13 @@
 const WidgetItem = ({ lang, name, data }) => {
     return (
-        <Card variant="outlined">
+        <Paper>
             <Typography variant="h5" component="h2">
                 {data}
             </Typography>
             <Typography variant="body2" component="p">
                 {name}
             </Typography>
-        </Card>
+        </Paper>
     )
 }
 const SmallWidget = ({ lang }) => {
@@ -48,10 +48,11 @@ const SmallWidget = ({ lang }) => {
     return (
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                {/* <WidgetItem  */}
-                <p>נדבקים: {data.infectedTotal}</p>
-                <p>פעילים: {data.infectedNow}</p>
-                <p>אתמול: {data.infectedYesterday}</p>
+                <Grid container direction="row" justify="space-between" alignItems="center">
+                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={4}/>
+                    <WidgetItem name={'פעילים'} data={data.infectedNow} xs={4}/>
+                    <WidgetItem name={'נדבקים'} data={data.infectedTotal} xs={4} />
+                </Grid>
             </Card>
             <DataShow
                 name={'patientsPerDate'}
@@ -65,11 +66,13 @@ const SmallWidget = ({ lang }) => {
                 }}
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                <p>מאושפזים: {data.hospital}</p>
-                <p>קשה: {data.hard}</p>
-                <p>בינוני: {data.medium}</p>
-                <p>מונשמים: {data.breathe}</p>
-                <p>נפטרים: {data.dead}</p>
+                <Grid container direction="row" justify="space-between" alignItems="center">
+                    <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3}/>
+                    <WidgetItem name={'קשה'} data={data.hard} xs={3}/>
+                    <WidgetItem name={'בינוני'} data={data.medium}xs={3} />
+                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3}/>
+                    <WidgetItem name={'נפטרים'} data={data.dead} />
+                </Grid>
             </Card>
             <DataShow
                 name={'deadPatientsPerDate'}
