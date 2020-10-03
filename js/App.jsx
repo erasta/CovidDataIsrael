@@ -21,6 +21,9 @@ const App = ({ names, languages }) => {
     let name = new URLSearchParams(location.search).get("sheet");
     if (!name || !name.length) name = 'showcharts';
 
+    if (name === 'widget') {
+        return <SmallWidget lang={lang} />
+    }
     return (
         <>
             <Header language={language} setLanguage={setLanguage} lang={lang} />

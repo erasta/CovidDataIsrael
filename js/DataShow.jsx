@@ -151,7 +151,7 @@ const fetchTableAndHistory = async (name, historyDate) => {
     return merged;
 }
 
-const DataShow = ({ name, showtable = true, lang }) => {
+const DataShow = ({ name, showtable = true, lang, enforceStyle }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
@@ -173,7 +173,7 @@ const DataShow = ({ name, showtable = true, lang }) => {
                         </CardContent>
                     </Link>
                 }
-                <DataGraph parsed={state.parsed} showControls={showtable} />
+                <DataGraph parsed={state.parsed} showControls={showtable} enforceStyle={enforceStyle} />
                 {!showtable ? null :
                     <HistorySlider onHistory={v => setShowHistory(v)} />
                 }

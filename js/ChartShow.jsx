@@ -52,7 +52,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, fr
                     ]
                 },
                 watermark: {
-                    image: image, opacity: 0.07, alignToChartArea: true, width: 50, height: 20
+                    image: image, opacity: 0.08, alignToChartArea: true, width: 50, height: 20
                 }
             }}
         />
