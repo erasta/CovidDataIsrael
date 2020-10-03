@@ -1,17 +1,43 @@
 const SmallWidget = ({ lang }) => {
-    const infectedTotal = 0;
-    const infectedNow = 0;
-    const infectedYesterday = 0;
-    const hospital = 0;
-    const hard = 0;
-    const medium = 0;
-    const breathe = 0;
-    const dead = 0;
+    const [data, setData] = React.useState({
+        infectedTotal: '',
+        infectedYesterday: '',
+        infectedNow: '',
+        hospital: '',
+        hard: '',
+        medium: '',
+        breathe: '',
+        dead: '',
+    });
+    React.useEffect(() => {
+        (async () => {
+            const table1 = await fetchCsv(`out/csv/patientsPerDate.csv`);
+            const table2 = await fetchCsv(`out/csv/sickPerDateTwoDays.csv`);
+            const table3 = await fetchCsv(`out/csv/infectedPerDate.csv`);
+            const last = table1[table1.length - 1];
+            console.log('patientsPerDate', last);
+            const infectedNow = table2.map(row => row['amount']).reduce((a, b) => a + b);
+            console.log('sickPerDateTwoDays', infectedNow)
+            const sum = table3.map(row => row['amount']).reduce((a, b) => a + b);
+            const yester = table3[table3.length - 2]['amount'];
+            console.log('infectedPerDate', sum, yester)
+            setData(Object.assign({}, data, {
+                infectedTotal: sum,
+                infectedYesterday: yester,
+                infectedNow: infectedNow,
+                medium: last['CountMediumStatus'],
+                breathe: last['CountBreath'],
+                hard: last['CountHardStatus'],
+                dead: last['CountDeath'],
+                hospital: last['Counthospitalized'],
+            }));
+        })();
+    }, [])
     return (
         <>
-            <p>נדבקים: {infectedTotal}</p>
-            <p>פעילים: {infectedNow}</p>
-            <p>אתמול: {infectedYesterday}</p>
+            <p>נדבקים: {data.infectedTotal}</p>
+            <p>פעילים: {data.infectedNow}</p>
+            <p>אתמול: {data.infectedYesterday}</p>
             <DataShow
                 name={'patientsPerDate'}
                 lang={lang}
@@ -23,11 +49,11 @@ const SmallWidget = ({ lang }) => {
                     fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath"]
                 }}
             />
-            <p>מאושפזים: {hospital}</p>
-            <p>קשה: {hard}</p>
-            <p>בינוני: {medium}</p>
-            <p>מונשמים: {breathe}</p>
-            <p>נפטרים: {dead}</p>
+            <p>מאושפזים: {data.hospital}</p>
+            <p>קשה: {data.hard}</p>
+            <p>בינוני: {data.medium}</p>
+            <p>מונשמים: {data.breathe}</p>
+            <p>נפטרים: {data.dead}</p>
             <DataShow
                 name={'deadPatientsPerDate'}
                 lang={lang}
