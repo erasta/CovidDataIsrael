@@ -11,20 +11,19 @@ const SmallWidget = ({ lang }) => {
     });
     React.useEffect(() => {
         (async () => {
-            const table1 = await fetchCsv(`out/csv/patientsPerDate.csv`);
-            const table2 = await fetchCsv(`out/csv/sickPerDateTwoDays.csv`);
-            const table3 = await fetchCsv(`out/csv/infectedPerDate.csv`);
+            const [table1, table2] = await Promise.all([
+                await fetchCsv(`out/csv/patientsPerDate.csv`),
+                await fetchCsv(`out/csv/infectedPerDate.csv`)
+            ]);
             const last = table1[table1.length - 1];
             console.log('patientsPerDate', last);
-            const infectedNow = table2.map(row => row['amount']).reduce((a, b) => a + b);
-            console.log('sickPerDateTwoDays', infectedNow)
-            const sum = table3.map(row => row['amount']).reduce((a, b) => a + b);
-            const yester = table3[table3.length - 2]['amount'];
+            const sum = table2.map(row => row['amount']).reduce((a, b) => a + b);
+            const yester = table2[table2.length - 2]['amount'];
             console.log('infectedPerDate', sum, yester)
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
                 infectedYesterday: yester,
-                infectedNow: infectedNow,
+                infectedNow: last['Counthospitalized'] + last['patients_home'] + last['patients_hotel'],
                 medium: last['CountMediumStatus'],
                 breathe: last['CountBreath'],
                 hard: last['CountHardStatus'],
