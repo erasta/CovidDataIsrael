@@ -45,6 +45,10 @@ const SmallWidget = ({ lang }) => {
             }));
         })();
     }, [])
+    const now = new Date();
+    now.setHours(12);
+    const weekago = new Date(now - 7 * 24 * 3600 * 1000);
+    weekago.setHours(12);
     return (
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
@@ -81,7 +85,7 @@ const SmallWidget = ({ lang }) => {
                 showTitle={false}
                 enforceChart={{
                     style: 'bar',
-                    bounds: [new Date() - 7 * 24 * 3600 * 1000]
+                    bounds: [weekago, now]
                 }}
             />
         </>
