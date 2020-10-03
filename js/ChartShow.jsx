@@ -5,7 +5,9 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
     if (!dates.length || !fieldNames.length) return null;
 
     if (enforceChart) {
-        if (enforceChart.style) chartStyle = enforceChart.style || chartStyle;
+        if (enforceChart.style) chartStyle = enforceChart.style;
+        if (enforceChart.bounds) dateBounds = enforceChart.bounds;
+        if (enforceChart.fields) mutedFields = fieldNames.filter(f => !enforceChart.fields.includes(f));
     }
 
     const data = {

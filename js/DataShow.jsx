@@ -151,7 +151,7 @@ const fetchTableAndHistory = async (name, historyDate) => {
     return merged;
 }
 
-const DataShow = ({ name, showtable = true, lang, enforceChart }) => {
+const DataShow = ({ name, showtable = true, lang, enforceChart, showTitle = true }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
@@ -164,7 +164,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart }) => {
     return (
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                {!showtable && !state.parsed.length ? null :
+                {!showTitle || (!showtable && !state.parsed.length) ? null :
                     <Link to={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
