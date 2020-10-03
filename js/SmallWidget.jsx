@@ -85,7 +85,8 @@ const SmallWidget = ({ lang }) => {
                 showTitle={false}
                 enforceChart={{
                     style: 'bar',
-                    bounds: [weekago, now]
+                    bounds: [weekago, now],
+                    numberOnTop: true
                 }}
             />
         </>

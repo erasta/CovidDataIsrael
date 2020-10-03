@@ -2,6 +2,8 @@ const {
     BrowserRouter, Switch, Route, Link, useLocation
 } = ReactRouterDOM;
 
+Chart.plugins.unregister(ChartDataLabels);
+
 (async () => {
     let [langs1, names1, names2, names3] = await Promise.all([
         await (await fetch('jsons/lang.json')).json(),

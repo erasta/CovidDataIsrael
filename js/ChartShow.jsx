@@ -32,6 +32,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
             legend={false}
             data={data}
             type={chartStyle}
+            plugins={enforceChart && enforceChart.numberOnTop ? [ChartDataLabels] : []}
             options={{
                 scales: {
                     yAxes: [
