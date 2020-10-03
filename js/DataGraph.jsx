@@ -128,27 +128,18 @@ const DataGraph = ({ parsed, showControls }) => {
 
     let [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
 
-    let fromIndex = 0, toIndex = -1;
+    let fromDate = undefined, toDateInc = undefined;
     if (groupdates && groupdates.length && groupnumitems.length) {
-        const fromDate = dateByPercent(dates, dateRange[0]);
-        const toDateInc = dateByPercent(dates, dateRange[1]);
-        [fromIndex, toIndex] = findDateRangeIndices(groupdates, fromDate, toDateInc);
-
-        groupdates = groupdates.slice(fromIndex, toIndex + 1);
-        groupnumitems = groupnumitems.map(field => field.slice(fromIndex, toIndex + 1));
+        fromDate = dateByPercent(dates, dateRange[0]);
+        toDateInc = dateByPercent(dates, dateRange[1]);
     }
 
     const colors = groupnumitems.map((_, i) => colorByNumber(i, groupnumitems.length + 1));
 
-    const convertDate = (d) => {
-        if (showControls) return d.toLocaleDateString('en-GB');
-        return d.getMonth() + '/' + d.getDate();
-    }
-
     let data = {}
     if (numfields.length) {
         data = {
-            labels: groupdates.map(convertDate),
+            labels: groupdates,
             datasets: groupnumitems.map((field, i) => {
                 return {
                     type: chartStyle,
@@ -171,7 +162,30 @@ const DataGraph = ({ parsed, showControls }) => {
                     data={data}
                     type={chartStyle}
                     options={{
-                        scales: { yAxes: [{ ticks: { min: 0 } }] },
+                        scales: {
+                            yAxes: [
+                                {
+                                    ticks: {
+                                        beginAtZero: 0,
+                                        min: 0,
+                                    }
+                                }
+                            ],
+                            xAxes: [
+                                {
+                                    ticks: {
+                                        min: fromDate,
+                                        max: toDateInc
+                                    },
+                                    type: 'time',
+                                    time: {
+                                        displayFormats: {
+                                            day: 'D/M'
+                                        }
+                                    }
+                                }
+                            ]
+                        },
                         watermark: {
                             image: image, opacity: 0.07, alignToChartArea: true, width: 50, height: 20
                         }
@@ -194,7 +208,7 @@ const DataGraph = ({ parsed, showControls }) => {
                             <Select
                                 value={chartStyle}
                                 onChange={e => setChartStyle(e.target.value)}
-                                // variant='outlined'
+                            // variant='outlined'
                             >
                                 <MenuItem value={'bar'} >Bars Chart</MenuItem>
                                 <MenuItem value={'line'} >Lines Chart</MenuItem>
@@ -204,7 +218,7 @@ const DataGraph = ({ parsed, showControls }) => {
                             <Select
                                 value={timeGroup}
                                 onChange={e => setTimeGroup(e.target.value)}
-                                // variant='outlined'
+                            // variant='outlined'
                             >
                                 <MenuItem value={'Exact'} >Exact at time</MenuItem>
                                 {/* <MenuItem value={'Daily'} >Daily</MenuItem> */}
