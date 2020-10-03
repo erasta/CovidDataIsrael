@@ -102,6 +102,7 @@ const findDateRangeIndices = (dates, fromDate, toDateInc) => {
 }
 
 const dateByPercent = (dates, percent) => {
+    if (!dates || !dates.length) return undefined;
     return dates[Math.round(percent / 100 * (dates.length - 1))];
 }
 
@@ -126,12 +127,6 @@ const DataGraph = ({ parsed, showControls, enforceStyle }) => {
 
     let [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
 
-    let fromDate = undefined, toDateInc = undefined;
-    if (groupdates && groupdates.length && groupnumitems.length) {
-        fromDate = dateByPercent(dates, dateRange[0]);
-        toDateInc = dateByPercent(dates, dateRange[1]);
-    }
-
     return (
         numfields.length === 0 ? null :
             <>
@@ -141,8 +136,7 @@ const DataGraph = ({ parsed, showControls, enforceStyle }) => {
                     fieldNames={numfields}
                     mutedFields={mutedFields}
                     fieldValues={groupnumitems}
-                    fromDate={fromDate}
-                    toDateInc={toDateInc}
+                    dateBounds={dateRange.map(d => dateByPercent(dates, d))}
                 />
                 {!showControls ? null :
                     <>

@@ -1,7 +1,7 @@
 var image = new Image();
 image.src = "images/eran.dev.water.png";
 
-const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, fromDate, toDateInc }) => {
+const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds }) => {
     if (!dates.length || !fieldNames.length) return null;
 
     const data = {
@@ -39,8 +39,8 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, fr
                     xAxes: [
                         {
                             ticks: {
-                                min: fromDate,
-                                max: toDateInc
+                                min: (dateBounds ? dateBounds[0] : undefined),
+                                max: (dateBounds ? dateBounds[1] : undefined)
                             },
                             type: 'time',
                             time: {
