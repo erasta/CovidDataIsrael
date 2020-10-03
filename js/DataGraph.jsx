@@ -120,10 +120,13 @@ const DataGraph = ({ parsed, showControls }) => {
         }
     }, [chartStyle]);
 
-    const [numitems, numfields, dates] = extractDateAndNumbers(parsed);
+    let [numitems, numfields, dates] = extractDateAndNumbers(parsed);
+
+    if (accumulated) {
+        numitems = numitems.map(field => accumulateNums(field));
+    }
 
     const [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
-
 
     let fromIndex = 0, toIndex = -1;
     if (groupdates && groupdates.length && groupnumitems.length) {
@@ -152,7 +155,7 @@ const DataGraph = ({ parsed, showControls }) => {
                     borderColor: attachAlpha(colors[i], 1),
                     borderWidth: 1,
                     pointRadius: 1,
-                    data: (accumulated ? accumulateNums(field) : field).slice(fromIndex, toIndex + 1),
+                    data: field.slice(fromIndex, toIndex + 1),
                 }
             }).filter(x => x)
         };
