@@ -6,17 +6,10 @@ const {
     BrowserRouter, Switch, Route, Link, useLocation
 } = ReactRouterDOM;
 
-const trans = (lang, text) => {
-    if (!text || text === "") return text;
-    if (!lang) return '';
-    if (lang[text]) return lang[text];
-    const nospaces = text.replace(/[ _]/g, '');
-    if (lang[nospaces]) return lang[nospaces];
-    return text;
-}
-
 const App = ({ names, languages }) => {
     const [language, setLanguage] = React.useState('he');
+
+    const lang = languages[language];
 
     const location = useLocation();
     React.useEffect(() => {
@@ -27,8 +20,6 @@ const App = ({ names, languages }) => {
 
     let name = new URLSearchParams(location.search).get("sheet");
     if (!name || !name.length) name = 'showcharts';
-
-    const lang = languages[language];
 
     return (
         <>

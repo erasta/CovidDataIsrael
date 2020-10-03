@@ -150,3 +150,13 @@ const attachAlpha = (color, alpha) => {
 const camelCaseToSnake = (str) => {
     return str.replace(/(?:^|\.?)([A-Z])/g, function (x, y) { return "_" + y }).replace(/^_/, "");
 }
+
+const trans = (lang, text) => {
+    if (!text || text === "") return text;
+    if (!lang) return '';
+    if (lang[text]) return lang[text];
+    const nospaces = text.replace(/[ _]/g, '');
+    if (lang[nospaces]) return lang[nospaces];
+    return text;
+}
+
