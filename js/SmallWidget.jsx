@@ -12,13 +12,13 @@ const SmallWidget = ({ lang }) => {
             <p>נדבקים: {infectedTotal}</p>
             <p>פעילים: {infectedNow}</p>
             <p>אתמול: {infectedYesterday}</p>
-            <DataShow name={'patientsPerDate'} lang={lang} showtable={false} enforceStyle={'line'} />
+            <DataShow name={'patientsPerDate'} lang={lang} showtable={false} enforceChart={{ style: 'line' }} />
             <p>מאושפזים: {hospital}</p>
             <p>קשה: {hard}</p>
             <p>בינוני: {medium}</p>
             <p>מונשמים: {breathe}</p>
             <p>נפטרים: {dead}</p>
-            <DataShow name={'deadPatientsPerDate'} lang={lang} showtable={false} enforceStyle={'bar'} />
+            <DataShow name={'deadPatientsPerDate'} lang={lang} showtable={false} enforceChart={{ style: 'bar' }} />
         </>
     );
 }

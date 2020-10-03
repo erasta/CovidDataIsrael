@@ -106,7 +106,7 @@ const dateByPercent = (dates, percent) => {
     return dates[Math.round(percent / 100 * (dates.length - 1))];
 }
 
-const DataGraph = ({ parsed, showControls, enforceStyle }) => {
+const DataGraph = ({ parsed, showControls, enforceChart }) => {
     const [chartStyle, setChartStyle] = React.useState(localStorage.getItem('chartStyle') || 'line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
@@ -131,12 +131,13 @@ const DataGraph = ({ parsed, showControls, enforceStyle }) => {
         numfields.length === 0 ? null :
             <>
                 <ChartShow
-                    chartStyle={enforceStyle || chartStyle}
+                    chartStyle={chartStyle}
                     dates={groupdates}
                     fieldNames={numfields}
                     mutedFields={mutedFields}
                     fieldValues={groupnumitems}
                     dateBounds={dateRange.map(d => dateByPercent(dates, d))}
+                    enforceChart={enforceChart}
                 />
                 {!showControls ? null :
                     <>

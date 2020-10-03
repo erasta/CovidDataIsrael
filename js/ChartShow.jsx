@@ -1,8 +1,12 @@
 var image = new Image();
 image.src = "images/eran.dev.water.png";
 
-const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds }) => {
+const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds, enforceChart }) => {
     if (!dates.length || !fieldNames.length) return null;
+
+    if (enforceChart) {
+        if (enforceChart.style) chartStyle = enforceChart.style || chartStyle;
+    }
 
     const data = {
         labels: dates,
