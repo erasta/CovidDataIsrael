@@ -19,7 +19,8 @@ const SmallWidget = ({ lang }) => {
                 showTitle={false}
                 enforceChart={{
                     style: 'line',
-                    bounds: [new Date(2020, 5, 1)]
+                    bounds: [new Date(2020, 5, 1)],
+                    fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath"]
                 }}
             />
             <p>מאושפזים: {hospital}</p>
@@ -34,7 +35,7 @@ const SmallWidget = ({ lang }) => {
                 showTitle={false}
                 enforceChart={{
                     style: 'bar',
-                    bounds: [new Date() - 7 * 24 * 3600 * 1000],
+                    bounds: [new Date() - 7 * 24 * 3600 * 1000]
                 }}
             />
         </>
