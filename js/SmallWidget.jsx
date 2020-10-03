@@ -10,6 +10,11 @@ const WidgetItem = ({ lang, name, data }) => {
         </Paper>
     )
 }
+
+const sumarr = (arr) => {
+    return arr.reduce((a, b) => a + b);
+}
+
 const SmallWidget = ({ lang }) => {
     const [data, setData] = React.useState({
         infectedTotal: '',
@@ -20,7 +25,14 @@ const SmallWidget = ({ lang }) => {
         medium: '',
         breathe: '',
         dead: '',
+        deadThisWeek: '',
     });
+
+    const now = new Date();
+    now.setHours(12);
+    const weekago = new Date(now - 7 * 24 * 3600 * 1000);
+    weekago.setHours(12);
+
     React.useEffect(() => {
         (async () => {
             const [patients, infected, deadTable] = await Promise.all([
@@ -29,9 +41,10 @@ const SmallWidget = ({ lang }) => {
                 await fetchCsv(`out/csv/deadPatientsPerDate.csv`)
             ]);
             const last = patients[patients.length - 1];
-            const sum = infected.map(row => row['amount']).reduce((a, b) => a + b);
+            const sum = sumarr(infected.map(row => row['amount']));
             const yester = infected[infected.length - 2]['amount'];
-            const sumdead = deadTable.map(row => row['amount']).reduce((a, b) => a + b);
+            const sumdead = sumarr(deadTable.map(row => row['amount']));
+            const deadweek = sumarr(deadTable.filter(row => row['date'].getTime() > weekago.getTime()).map(row => row['amount']))
             console.log(sum, yester, sumdead, last);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
@@ -42,19 +55,17 @@ const SmallWidget = ({ lang }) => {
                 hard: last['CountHardStatus'],
                 dead: sumdead,
                 hospital: last['Counthospitalized'],
+                deadThisWeek: deadweek,
             }));
         })();
     }, [])
-    const now = new Date();
-    now.setHours(12);
-    const weekago = new Date(now - 7 * 24 * 3600 * 1000);
-    weekago.setHours(12);
+
     return (
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 <Grid container direction="row" justify="space-between" alignItems="center">
-                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={4}/>
-                    <WidgetItem name={'פעילים'} data={data.infectedNow} xs={4}/>
+                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={4} />
+                    <WidgetItem name={'פעילים'} data={data.infectedNow} xs={4} />
                     <WidgetItem name={'נדבקים'} data={data.infectedTotal} xs={4} />
                 </Grid>
             </Card>
@@ -62,7 +73,6 @@ const SmallWidget = ({ lang }) => {
                 name={'patientsPerDate'}
                 lang={lang}
                 showtable={false}
-                showTitle={false}
                 enforceChart={{
                     style: 'line',
                     bounds: [new Date(2020, 5, 1)],
@@ -71,10 +81,10 @@ const SmallWidget = ({ lang }) => {
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 <Grid container direction="row" justify="space-between" alignItems="center">
-                    <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3}/>
-                    <WidgetItem name={'קשה'} data={data.hard} xs={3}/>
-                    <WidgetItem name={'בינוני'} data={data.medium}xs={3} />
-                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3}/>
+                    <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} />
+                    <WidgetItem name={'קשה'} data={data.hard} xs={3} />
+                    <WidgetItem name={'בינוני'} data={data.medium} xs={3} />
+                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} />
                     <WidgetItem name={'נפטרים'} data={data.dead} />
                 </Grid>
             </Card>
@@ -82,13 +92,23 @@ const SmallWidget = ({ lang }) => {
                 name={'deadPatientsPerDate'}
                 lang={lang}
                 showtable={false}
-                showTitle={false}
+                title={
+                    <Typography variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
+                        {'נפטרים בשבוע האחרון ' + data.deadThisWeek}
+                    </Typography>
+                }
                 enforceChart={{
                     style: 'bar',
                     bounds: [weekago, now],
-                    numberOnTop: true
+                    numberOnTop: true,
                 }}
             />
+            <Typography variant="subtitle2" component="p" align='center'>
+                powered by&nbsp;
+                <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
+                    eran.dev
+                </MaterialUI.Link>
+            </Typography>
         </>
     );
 }
