@@ -1,6 +1,6 @@
 const { Grid, Chip } = MaterialUI;
 
-const FieldChips = ({ fieldNames, colors, mutedFields, setMutedFields }) => {
+const FieldChips = ({ fieldNames, mutedFields, setMutedFields }) => {
     return (
         <Grid container justify="center">
             {
@@ -14,25 +14,28 @@ const FieldChips = ({ fieldNames, colors, mutedFields, setMutedFields }) => {
                 />
             }
             {
-                fieldNames.map((field, i) =>
-                    <Chip
-                        key={field}
-                        size="small"
-                        label={field}
-                        clickable
-                        style={{
-                            margin: 1,
-                            backgroundColor: mutedFields.includes(field) ? 'lightgrey' : colors[i]
-                        }}
-                        onClick={() => {
-                            if (mutedFields.includes(field)) {
-                                setMutedFields(mutedFields.filter(f => f !== field));
-                            } else {
-                                setMutedFields(mutedFields.concat([field]));
-                            }
-                        }}
-                    />
-                )
+                fieldNames.map((field, i) => {
+                    const color = mutedFields.includes(field) ? 'lightgrey' : colorByNumber(i, fieldNames.length + 1);
+                    return (
+                        <Chip
+                            key={field}
+                            size="small"
+                            label={field}
+                            clickable
+                            style={{
+                                margin: 1,
+                                backgroundColor: color
+                            }}
+                            onClick={() => {
+                                if (mutedFields.includes(field)) {
+                                    setMutedFields(mutedFields.filter(f => f !== field));
+                                } else {
+                                    setMutedFields(mutedFields.concat([field]));
+                                }
+                            }}
+                        />
+                    )
+                })
             }
         </Grid>
     )
