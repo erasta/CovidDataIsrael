@@ -1,7 +1,7 @@
 const WidgetItem = ({ lang, name, data }) => {
     return (
         <Paper>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h5">
                 {data}
             </Typography>
             <Typography variant="body2" component="p">
@@ -80,12 +80,20 @@ const SmallWidget = ({ lang }) => {
                 }}
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                <Grid container direction="row" justify="space-between" alignItems="center">
-                    <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} />
-                    <WidgetItem name={'קשה'} data={data.hard} xs={3} />
-                    <WidgetItem name={'בינוני'} data={data.medium} xs={3} />
-                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} />
-                    <WidgetItem name={'נפטרים'} data={data.dead} />
+                <Grid container direction="column" spacing={2}>
+                    <Grid item>
+                        <Grid container direction="row" justify="space-between" alignItems="center">
+                            <WidgetItem name={'קשה'} data={data.hard} xs={3} />
+                            <WidgetItem name={'בינוני'} data={data.medium} xs={3} />
+                            <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} />
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction="row" justify="space-between" alignItems="center">
+                            <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} />
+                            <WidgetItem name={'נפטרים'} data={data.dead} />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Card>
             <DataShow
