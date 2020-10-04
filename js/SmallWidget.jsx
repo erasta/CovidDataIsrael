@@ -4,7 +4,7 @@ const WidgetItem = ({ lang, name, data, color }) => {
             <Typography variant="body2" component="p" style={{ color: color }}>
                 {name}
             </Typography>
-            <Typography variant="h5" component="h5" style={{ color: color }}>
+            <Typography variant="h6" component="h6" style={{ color: color }}>
                 {numberWithCommas(data)}
             </Typography>
         </div>
