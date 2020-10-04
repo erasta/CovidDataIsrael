@@ -1,10 +1,10 @@
-const WidgetItem = ({ lang, name, data,  color }) => {
+const WidgetItem = ({ lang, name, data, color }) => {
     return (
         <div style={{ textAlign: 'right' }}>
-            <Typography variant="body2" component="p" style={{color:color}}>
+            <Typography variant="body2" component="p" style={{ color: color }}>
                 {name}
             </Typography>
-            <Typography variant="h5" component="h5" style={{color:color}}>
+            <Typography variant="h5" component="h5" style={{ color: color }}>
                 {data}
             </Typography>
         </div>
@@ -62,13 +62,12 @@ const SmallWidget = ({ lang }) => {
 
     return (
         <>
+            {/* <MaterialUI.Link style={{ textDecoration: 'none' }} target="_blank"> */}
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 <Grid container direction="column">
-                    <WidgetItem name={'נדבקים'} data={data.infectedTotal} xs={3} />
                     <Grid container direction="row" justify="space-between" alignItems="center">
-                        <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} />
                         <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
-                        <WidgetItem name={'פעילים'} data={data.infectedNow} xs={3} />
+                        <WidgetItem name={'מאובחנים'} data={data.infectedTotal} xs={3} />
                     </Grid>
                 </Grid>
             </Card>
@@ -84,17 +83,22 @@ const SmallWidget = ({ lang }) => {
                 enforceChart={{
                     style: 'line',
                     bounds: [new Date(2020, 5, 1)],
-                    fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath"],
-                    colors: ['#ff0000', '#ffa500', '#008000', '#0000ff'],
+                    fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath", 'Count Hospitalized'],
+                    colors: ['#ff0000', '#ffa500', '#008000', '#0000ff', '#800080'],
+                    fill: false,
                 }}
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 <Grid container direction="row" justify="space-between" alignItems="center">
-                    <WidgetItem name={'נפטרים'} data={data.dead} xs={3} color='black'/>
-                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3}  color='blue'/>
-                    <WidgetItem name={'קשה'} data={data.hard} xs={3}  color='red'/>
-                    <WidgetItem name={'בינוני'} data={data.medium} xs={3}  color='orange'/>
+                    <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
+                    <WidgetItem name={'פעילים'} data={data.infectedNow} xs={3} />
                 </Grid>
+                <Grid container direction="row" justify="space-between" alignItems="center">
+                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
+                    <WidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
+                    <WidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
+                </Grid>
+                <WidgetItem name={'נפטרים'} data={data.dead} xs={3} color='black' />
             </Card>
             <DataShow
                 name={'deadPatientsPerDate'}
@@ -111,6 +115,7 @@ const SmallWidget = ({ lang }) => {
                     numberOnTop: true,
                 }}
             />
+            {/* </MaterialUI.Link> */}
             <Typography variant="subtitle2" component="p" align='center'>
                 powered by&nbsp;
                 <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >

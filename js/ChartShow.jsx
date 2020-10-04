@@ -29,7 +29,8 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                 borderWidth: 1,
                 pointRadius: 1,
                 data: field,
-                hidden: mutedFields.includes(fieldNames[i])
+                hidden: mutedFields.includes(fieldNames[i]),
+                fill: enforceChart && enforceChart.hasOwnProperty('fill') ? enforceChart.fill : true,
             }
         })
     };
