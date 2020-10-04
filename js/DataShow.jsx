@@ -159,7 +159,7 @@ const truncByDateBounds = (data, dateBounds) => {
     return data.filter(row => row['date'] >= dateFrom && row['date'] <= dateToInc);
 }
 
-const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds }) => {
+const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
@@ -188,6 +188,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                     </>
                 }
                 <DataGraph parsed={state.parsed} showControls={showtable} enforceChart={enforceChart} />
+                {!footer ? null : footer}
                 {!showtable ? null :
                     <HistorySlider onHistory={v => setShowHistory(v)} />
                 }

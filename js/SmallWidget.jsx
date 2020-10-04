@@ -73,6 +73,7 @@ const SmallWidget = ({ lang }) => {
                             <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
                             <WidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={3} />
                         </Grid>
+                        <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
                     </Grid>
                 </Card>
             </MaterialUI.Link>
@@ -89,25 +90,19 @@ const SmallWidget = ({ lang }) => {
                     enforceChart={{
                         style: 'line',
                         bounds: [new Date(2020, 5, 1)],
-                        fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath", 'Count Hospitalized'],
-                        colors: ['#ff0000', '#ffa500', '#008000', '#0000ff', '#800080'],
+                        fields: ["Count Hard Status", "Count Medium Status", "Count Breath", 'Count Hospitalized'],
+                        colors: ['#ff0000', '#ffa500', '#0000ff', '#800080'],
                         fill: false,
                     }}
+                    footer={
+                        <Grid container direction="row" justify="space-between" alignItems="center">
+                            <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
+                            <WidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
+                            <WidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
+                            <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
+                        </Grid>
+                    }
                 />
-            </MaterialUI.Link>
-            <MaterialUI.Link href="https://erasta.github.io/CovidDataIsrael" style={{ textDecoration: 'none' }} target="_blank">
-                <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                    <Grid container direction="row" justify="space-between" alignItems="center">
-                        <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
-                        <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
-                    </Grid>
-                    <Grid container direction="row" justify="space-between" alignItems="center">
-                        <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
-                        <WidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
-                        <WidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
-                    </Grid>
-                    <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
-                </Card>
             </MaterialUI.Link>
             <MaterialUI.Link href="https://erasta.github.io/CovidDataIsrael/?sheet=deadPatientsPerDate" style={{ textDecoration: 'none' }} target="_blank">
                 <DataShow
@@ -125,6 +120,9 @@ const SmallWidget = ({ lang }) => {
                         numberOnTop: true,
                     }}
                     dateBounds={[weekago, now]}
+                    footer={
+                        <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
+                    }
                 />
             </MaterialUI.Link>
             <Typography variant="subtitle2" component="p" align='center'>
