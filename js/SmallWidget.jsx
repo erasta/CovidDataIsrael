@@ -66,7 +66,7 @@ const SmallWidget = ({ lang }) => {
 
     return (
         <>
-            <MaterialUI.Link href="/" style={{ textDecoration: 'none' }} target="_blank">
+            <MaterialUI.Link href="https://erasta.github.io/CovidDataIsrael" style={{ textDecoration: 'none' }} target="_blank">
                 <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                     <Grid container direction="column">
                         <Grid container direction="row" justify="space-between" alignItems="center">
