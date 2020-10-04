@@ -1,10 +1,10 @@
-const WidgetItem = ({ lang, name, data }) => {
+const WidgetItem = ({ lang, name, data,  color }) => {
     return (
         <div style={{ textAlign: 'right' }}>
-            <Typography variant="body2" component="p">
+            <Typography variant="body2" component="p" style={{color:color}}>
                 {name}
             </Typography>
-            <Typography variant="h5" component="h5">
+            <Typography variant="h5" component="h5" style={{color:color}}>
                 {data}
             </Typography>
         </div>
@@ -89,10 +89,10 @@ const SmallWidget = ({ lang }) => {
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 <Grid container direction="row" justify="space-between" alignItems="center">
-                    <WidgetItem name={'נפטרים'} data={data.dead} xs={3} />
-                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} />
-                    <WidgetItem name={'קשה'} data={data.hard} xs={3} />
-                    <WidgetItem name={'בינוני'} data={data.medium} xs={3} />
+                    <WidgetItem name={'נפטרים'} data={data.dead} xs={3} color='black'/>
+                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3}  color='blue'/>
+                    <WidgetItem name={'קשה'} data={data.hard} xs={3}  color='red'/>
+                    <WidgetItem name={'בינוני'} data={data.medium} xs={3}  color='orange'/>
                 </Grid>
             </Card>
             <DataShow
