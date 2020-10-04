@@ -25,7 +25,8 @@ const Header = ({language, setLanguage, lang}) => {
                         textAlign: 'right',
                         marginRight: 10
                     }}>
-                        {trans(lang, 'Contact')}
+                        eran.dev
+                        {/* {trans(lang, 'Contact')} */}
                     </p>
                 </MaterialUI.Link>
             </Grid>
