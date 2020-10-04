@@ -1,13 +1,13 @@
 const WidgetItem = ({ lang, name, data }) => {
     return (
-        <Paper>
-            <Typography variant="h5" component="h5">
-                {data}
-            </Typography>
+        <div style={{ textAlign: 'right' }}>
             <Typography variant="body2" component="p">
                 {name}
             </Typography>
-        </Paper>
+            <Typography variant="h5" component="h5">
+                {data}
+            </Typography>
+        </div>
     )
 }
 
@@ -63,16 +63,24 @@ const SmallWidget = ({ lang }) => {
     return (
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                <Grid container direction="row" justify="space-between" alignItems="center">
-                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={4} />
-                    <WidgetItem name={'פעילים'} data={data.infectedNow} xs={4} />
-                    <WidgetItem name={'נדבקים'} data={data.infectedTotal} xs={4} />
+                <Grid container direction="column">
+                    <WidgetItem name={'נדבקים'} data={data.infectedTotal} xs={3} />
+                    <Grid container direction="row" justify="space-between" alignItems="center">
+                        <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} />
+                        <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
+                        <WidgetItem name={'פעילים'} data={data.infectedNow} xs={3} />
+                    </Grid>
                 </Grid>
             </Card>
             <DataShow
                 name={'patientsPerDate'}
                 lang={lang}
                 showtable={false}
+                title={
+                    <Typography variant="h6" component="h6" align='center' style={{ marginBlockEnd: 0 }}>
+                        {'חולים לפי תאריך'}
+                    </Typography>
+                }
                 enforceChart={{
                     style: 'line',
                     bounds: [new Date(2020, 5, 1)],
@@ -80,20 +88,11 @@ const SmallWidget = ({ lang }) => {
                 }}
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                <Grid container direction="column" spacing={2}>
-                    <Grid item>
-                        <Grid container direction="row" justify="space-between" alignItems="center">
-                            <WidgetItem name={'קשה'} data={data.hard} xs={3} />
-                            <WidgetItem name={'בינוני'} data={data.medium} xs={3} />
-                            <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} />
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Grid container direction="row" justify="space-between" alignItems="center">
-                            <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} />
-                            <WidgetItem name={'נפטרים'} data={data.dead} />
-                        </Grid>
-                    </Grid>
+                <Grid container direction="row" justify="space-between" alignItems="center">
+                    <WidgetItem name={'נפטרים'} data={data.dead} xs={3} />
+                    <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} />
+                    <WidgetItem name={'קשה'} data={data.hard} xs={3} />
+                    <WidgetItem name={'בינוני'} data={data.medium} xs={3} />
                 </Grid>
             </Card>
             <DataShow
