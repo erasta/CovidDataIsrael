@@ -165,16 +165,18 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title }) => {
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                 {!showtable && !state.parsed.length ? null :
-                    <Link to={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
+                    <>
                         {title ?
                             title :
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
-                                    {trans(lang, name)}
-                                </Typography>
-                            </CardContent>
+                            <Link to={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
+                                        {trans(lang, name)}
+                                    </Typography>
+                                </CardContent>
+                            </Link>
                         }
-                    </Link>
+                    </>
                 }
                 <DataGraph parsed={state.parsed} showControls={showtable} enforceChart={enforceChart} />
                 {!showtable ? null :
