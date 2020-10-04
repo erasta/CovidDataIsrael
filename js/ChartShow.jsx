@@ -13,10 +13,17 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
     const data = {
         labels: dates,
         datasets: fieldValues.map((field, i) => {
-            const color = colorByNumber(i, fieldNames.length + 1);
+            const fieldName = fieldNames[i];
+            let color = colorByNumber(i, fieldNames.length + 1);
+            if (enforceChart && enforceChart.colors && enforceChart.fields) {
+                const pos = enforceChart.fields.findIndex(f => fieldName === f);
+                if (pos !== -1) {
+                    color = enforceChart.colors[pos];
+                }
+            }
             return {
                 type: chartStyle,
-                label: fieldNames[i],
+                label: fieldName,
                 backgroundColor: attachAlpha(color, 0.2),
                 borderColor: attachAlpha(color, 1),
                 borderWidth: 1,

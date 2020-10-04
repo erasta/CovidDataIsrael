@@ -84,7 +84,8 @@ const SmallWidget = ({ lang }) => {
                 enforceChart={{
                     style: 'line',
                     bounds: [new Date(2020, 5, 1)],
-                    fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath"]
+                    fields: ["Count Hard Status", "Count Medium Status", "Count Easy Status", "Count Breath"],
+                    colors: ['#ff0000', '#ffa500', '#008000', '#0000ff'],
                 }}
             />
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
