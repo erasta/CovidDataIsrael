@@ -21,10 +21,14 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                     color = enforceChart.colors[pos];
                 }
             }
+            let backColor = attachAlpha(color, 0.2);
+            if (chartStyle === 'bar') {
+                backColor = field.map((_, i) => i === field.length - 1 ? 'rgba(0, 0, 0, 0.3)' : backColor);
+            }
             return {
                 type: chartStyle,
                 label: fieldName,
-                backgroundColor: attachAlpha(color, 0.2),
+                backgroundColor: backColor,
                 borderColor: attachAlpha(color, 1),
                 borderWidth: 1,
                 pointRadius: 1,
