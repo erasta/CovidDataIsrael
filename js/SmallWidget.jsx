@@ -71,7 +71,7 @@ const SmallWidget = ({ lang }) => {
                     <Grid container direction="column">
                         <Grid container direction="row" justify="space-between" alignItems="center">
                             <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
-                            <WidgetItem name={'מאובחנים'} data={data.infectedTotal} xs={3} />
+                            <WidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={3} />
                         </Grid>
                     </Grid>
                 </Card>
@@ -81,7 +81,7 @@ const SmallWidget = ({ lang }) => {
                     showtable={false}
                     title={
                         <Typography variant="h6" component="h6" align='center' style={{ marginBlockEnd: 0 }}>
-                            {'חולים לפי תאריך'}
+                            {'מאושפזים לפי תאריך'}
                         </Typography>
                     }
                     enforceChart={{
@@ -95,14 +95,14 @@ const SmallWidget = ({ lang }) => {
                 <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                     <Grid container direction="row" justify="space-between" alignItems="center">
                         <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
-                        <WidgetItem name={'פעילים'} data={data.infectedNow} xs={3} />
+                        <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
                     </Grid>
                     <Grid container direction="row" justify="space-between" alignItems="center">
                         <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
                         <WidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
                         <WidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
                     </Grid>
-                    <WidgetItem name={'נפטרים'} data={data.dead} xs={3} color='black' />
+                    <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
                 </Card>
                 <DataShow
                     name={'deadPatientsPerDate'}
