@@ -151,13 +151,22 @@ const fetchTableAndHistory = async (name, historyDate) => {
     return merged;
 }
 
-const DataShow = ({ name, showtable = true, lang, enforceChart, title }) => {
+const truncByDateBounds = (data, dateBounds) => {
+    if (!dateBounds || dateBounds.length !== 2 || !data || !data.length || !data[0].hasOwnProperty('date')) {
+        return data;
+    }
+    const [dateFrom, dateToInc] = dateBounds;
+    return data.filter(row => row['date'] >= dateFrom && row['date'] <= dateToInc);
+}
+
+const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
-            const parsed = await fetchTableAndHistory(name, showHistory);
+            let parsed = await fetchTableAndHistory(name, showHistory);
+            parsed = truncByDateBounds(parsed, dateBounds);
             setState({ parsed: parsed, work: false });
         })();
     }, [name, showHistory])

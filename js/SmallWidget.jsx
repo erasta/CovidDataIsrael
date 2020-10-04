@@ -124,6 +124,7 @@ const SmallWidget = ({ lang }) => {
                         bounds: [weekago, now],
                         numberOnTop: true,
                     }}
+                    dateBounds={[weekago, now]}
                 />
             </MaterialUI.Link>
             <Typography variant="subtitle2" component="p" align='center'>
