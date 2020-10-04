@@ -75,6 +75,8 @@ const SmallWidget = ({ lang }) => {
                         </Grid>
                     </Grid>
                 </Card>
+            </MaterialUI.Link>
+            <MaterialUI.Link href="https://erasta.github.io/CovidDataIsrael/?sheet=patientsPerDate" style={{ textDecoration: 'none' }} target="_blank">
                 <DataShow
                     name={'patientsPerDate'}
                     lang={lang}
@@ -92,6 +94,8 @@ const SmallWidget = ({ lang }) => {
                         fill: false,
                     }}
                 />
+            </MaterialUI.Link>
+            <MaterialUI.Link href="https://erasta.github.io/CovidDataIsrael" style={{ textDecoration: 'none' }} target="_blank">
                 <Card elevation={3} style={{ margin: 5, padding: 5 }}>
                     <Grid container direction="row" justify="space-between" alignItems="center">
                         <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
@@ -104,6 +108,8 @@ const SmallWidget = ({ lang }) => {
                     </Grid>
                     <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
                 </Card>
+            </MaterialUI.Link>
+            <MaterialUI.Link href="https://erasta.github.io/CovidDataIsrael/?sheet=deadPatientsPerDate" style={{ textDecoration: 'none' }} target="_blank">
                 <DataShow
                     name={'deadPatientsPerDate'}
                     lang={lang}
