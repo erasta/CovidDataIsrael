@@ -13,9 +13,11 @@ const App = ({ names, languages }) => {
 
     const location = useLocation();
     React.useEffect(() => {
-        console.log(location.pathname + location.search)
-        window.ga.getAll()[0].set('page', location.pathname + location.search);
-        window.ga.getAll()[0].send('pageview')
+        (async () => {
+            console.log(location.pathname + location.search)
+            window.ga.getAll()[0].set('page', location.pathname + location.search);
+            window.ga.getAll()[0].send('pageview')
+        })();
     }, [location]);
 
     let name = new URLSearchParams(location.search).get("sheet");
