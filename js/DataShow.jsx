@@ -167,6 +167,13 @@ const downloadTable = (name, data) => {
     const element = document.createElement("a");
     element.href = 'data:text/csv;charset=UTF16-LE,\uFEFF' + encodeURIComponent(csv);
     element.download = name + ".csv";
+    element.click();
+}
+
+const downloadFile = (name, url) => {
+    const element = document.createElement("a");
+    element.href = url;
+    element.download = name + ".csv";
     // document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
 }
@@ -208,13 +215,16 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
             </Card>
             {!showtable ? null :
                 <>
-                    <Grid container direction="row" justify="flex-end" alignItems="stretch">
-                        <Button variant='contained' color='primary' href={`out/csv/${name}.csv`} style={{ margin: 3 }}>
-                            {trans(lang, 'Download original')}
-                        </Button>
-                        <Button variant='contained' color='primary' onClick={() => downloadTable(name, state.parsed)} style={{ margin: 3 }}>
-                            {trans(lang, 'Download shown')}
-                        </Button>
+                    <Grid container direction="row" justify="flex-start" alignItems="stretch">
+                        <SplitButton
+                            options={[
+                                trans(lang, 'Download shown'),
+                                trans(lang, 'Download original'),
+                            ]}
+                            onClick={(option) => {
+                                option === 0 ? downloadTable(name, state.parsed) : downloadFile(name + '_orig', `out/csv/${name}.csv`);
+                            }}
+                        />
                     </Grid>
                     <TableShow parsed={state.parsed} />
                 </>
