@@ -165,7 +165,7 @@ const downloadTable = (name, data) => {
     const rows = data.map(row => Object.values(row).map(convertToShow).join(','));
     const csv = [heads].concat(rows).join('\n') + '\n';
     const element = document.createElement("a");
-    element.href = 'data:text/csv;charset=utf-8,' + String.fromCharCode(0xFEFF) + encodeURIComponent(csv);
+    element.href = 'data:text/csv;charset=UTF16-LE,\uFEFF' + encodeURIComponent(csv);
     element.download = name + ".csv";
     // document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
