@@ -2,12 +2,16 @@ const Header = ({language, setLanguage, lang}) => {
     return (
         <Grid container direction="row">
             <Grid item xs={3}>
-                <Grid container direction="row" justify="flex-start" alignItems="center">
-                    <IconButton onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}>
-                        <img width={32} height={32} src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}></img>
-                    </IconButton>
-                    <LastUpdate lang={lang} />
-                </Grid>
+                <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
+                    <p style={{
+                        fontFamily: 'Source Sans Pro, sans-serif',
+                        textAlign: 'left',
+                        marginRight: 10
+                    }}>
+                        eran.dev
+                        {/* {trans(lang, 'Contact')} */}
+                    </p>
+                </MaterialUI.Link>
             </Grid>
             <Grid item xs={6}>
                 <h1 style={{
@@ -19,16 +23,12 @@ const Header = ({language, setLanguage, lang}) => {
                 </h1>
             </Grid>
             <Grid item xs={3}>
-                <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
-                    <p style={{
-                        fontFamily: 'Source Sans Pro, sans-serif',
-                        textAlign: 'right',
-                        marginRight: 10
-                    }}>
-                        eran.dev
-                        {/* {trans(lang, 'Contact')} */}
-                    </p>
-                </MaterialUI.Link>
+                <Grid container direction="row" justify="flex-end" alignItems="center">
+                    <LastUpdate lang={lang} />
+                    <IconButton onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}>
+                        <img width={32} height={32} src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}></img>
+                    </IconButton>
+                </Grid>
             </Grid>
         </Grid>
     )

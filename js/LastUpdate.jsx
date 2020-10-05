@@ -11,7 +11,7 @@ const LastUpdate = ({ lang }) => {
     return (
         <p style={{
             fontFamily: 'Source Sans Pro, sans-serif',
-            textAlign: 'left',
+            textAlign: 'right',
         }}>
             {trans(lang, 'lastUpdate')}<br />
             {lastUpdate}

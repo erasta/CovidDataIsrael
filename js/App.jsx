@@ -8,6 +8,7 @@ const {
 
 const App = ({ names, languages }) => {
     const [language, setLanguage] = React.useState('he');
+    const [showSideBar, setShowSideBar] = React.useState(true);
 
     const lang = languages[language];
 
