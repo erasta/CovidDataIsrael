@@ -159,6 +159,19 @@ const truncByDateBounds = (data, dateBounds) => {
     return data.filter(row => row['date'] >= dateFrom && row['date'] <= dateToInc);
 }
 
+const downloadTable = (name, data) => {
+    if (!data || !data.length) return;
+    const heads = Object.keys(data[0]).join(',');
+    const rows = data.map(row => Object.values(row).map(convertToShow).join(','));
+    const dataAsString = [heads].concat(rows).join('\n') + '\n';
+    const element = document.createElement("a");
+    const file = new Blob([dataAsString], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = name + ".csv";
+    // document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+}
+
 const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
@@ -195,7 +208,15 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                 <CircularWorkGif work={state.work} />
             </Card>
             {!showtable ? null :
-                <TableShow parsed={state.parsed} />
+                <>
+                    <Button variant='contained' color='primary' href={`out/csv/${name}.csv`} style={{ margin: 2 }}>
+                        Download original
+                    </Button>
+                    <Button variant='contained' color='primary' onClick={() => downloadTable(name, state.parsed)} style={{ margin: 2 }}>
+                        Download shown
+                    </Button>
+                    <TableShow parsed={state.parsed} />
+                </>
             }
         </>
     )

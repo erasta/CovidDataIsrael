@@ -20,7 +20,7 @@ const convertToShow = (item) => {
     if (Number.isFinite(item)) {
         return truncateDigits(item);
     }
-    if (item instanceof Date) {
+    if (item instanceof Date && !isNaN(item)) {
         if (!item.getUTCHours()) {
             return item.toLocaleDateString('en-GB');
         } else {
