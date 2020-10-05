@@ -12,6 +12,13 @@ const App = ({ names, languages }) => {
     const lang = languages[language];
 
     const location = useLocation();
+    let name = new URLSearchParams(location.search).get("sheet");
+    if (!name || !name.length) name = 'showcharts';
+
+    if (window.covidwidget || name === 'widget') {
+        return <SmallWidget lang={lang} />
+    }
+
     React.useEffect(() => {
         (async () => {
             console.log(location.pathname + location.search)
@@ -20,12 +27,6 @@ const App = ({ names, languages }) => {
         })();
     }, [location]);
 
-    let name = new URLSearchParams(location.search).get("sheet");
-    if (!name || !name.length) name = 'showcharts';
-
-    if (name === 'widget') {
-        return <SmallWidget lang={lang} />
-    }
     return (
         <>
             <Header language={language} setLanguage={setLanguage} lang={lang} />
