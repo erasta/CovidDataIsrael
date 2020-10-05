@@ -1,4 +1,4 @@
-const Header = ({language, setLanguage, lang}) => {
+const Header = ({lang}) => {
     return (
         <Grid container direction="row">
             <Grid item xs={3}>
@@ -25,9 +25,6 @@ const Header = ({language, setLanguage, lang}) => {
             <Grid item xs={3}>
                 <Grid container direction="row" justify="flex-end" alignItems="center">
                     <LastUpdate lang={lang} />
-                    <IconButton onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}>
-                        <img width={32} height={32} src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}></img>
-                    </IconButton>
                 </Grid>
             </Grid>
         </Grid>

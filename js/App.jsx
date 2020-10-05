@@ -30,8 +30,8 @@ const App = ({ names, languages }) => {
 
     return (
         <>
-            <Header language={language} setLanguage={setLanguage} lang={lang} />
-            <MainView name={name} names={names} lang={lang} />
+            <Header lang={lang} />
+            <MainView name={name} names={names} lang={lang} language={language} setLanguage={setLanguage} />
             <Footer />
         </>
     );
