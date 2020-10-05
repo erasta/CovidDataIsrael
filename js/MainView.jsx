@@ -6,11 +6,11 @@ const ShowByName = ({ name, names, lang }) => {
 
 const MainView = ({ names, name, lang }) => (
     <Grid container direction="row">
-        <Grid item xs={3}>
-            <CsvButtons names={names} lang={lang} />
-        </Grid>
         <Grid item xs={9}>
             <ShowByName name={name} names={names} lang={lang} />
+        </Grid>
+        <Grid item xs={3}>
+            <CsvButtons names={names} lang={lang} />
         </Grid>
     </Grid>
 )
