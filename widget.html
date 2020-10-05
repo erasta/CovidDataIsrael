@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta property="og:url" content="http://https://erasta.github.io/CovidDataIsrael" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="נגיף הקורונה בישראל" />
+    <meta property="og:description"
+        content="נתוני מגיפת הקורונה בישראל מפורטים ומונגשים, מתעדכנים אוטומטית ממשרד הבריאות דרך הממשק הרשמי" />
+    <meta property="og:image" content="https://erasta.github.io/CovidDataIsrael/images/ScreenShotMulti.jpg" />
+
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 2px black solid;
+            font: 12px sans-serif;
+        }
+
+        td,
+        th {
+            border: 1px black solid;
+            padding: 5px;
+        }
+    </style>
+    <script>if (window.location.hostname === 'localhost') window['ga-disable-UA-123138137-9'] = true;</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123138137-9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-123138137-9');
+    </script>
+
+    <script src="https://d3js.org/d3.v3.min.js" crossorigin></script>
+    <script src="https://d3js.org/d3-color.v1.min.js" crossorigin></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js" crossorigin></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js" crossorigin></script>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> <!-- Don't use this in production: -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <script>process = { env: { NODE_ENV: "production" } }</script>
+    <link rel="stylesheet" href="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.css" />
+    <script src='https://unpkg.com/moment@2.29.0/min/moment.min.js'></script>
+    <script src='https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js'></script>
+    <script src='https://unpkg.com/react-chartjs-2@2.10.0/dist/react-chartjs-2.js'></script>
+    <script src='https://unpkg.com/clsx@1.1.1/dist/clsx.min.js'></script>
+    <script src='https://unpkg.com/react-router-dom@5.2.0/umd/react-router-dom.min.js'></script>
+    <script src='https://unpkg.com/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js'></script>
+
+    <link rel="icon" href="images/Aha-Soft-Transport-Bike.ico" />
+</head>
+
+<body style="margin: 0">
+    <div id="root"></div>
+    <script type="text/babel" src="js/thirdparty/chartjs-plugin-watermark.js"></script>
+    <script type="text/babel" src="js/utils.js"></script>
+    <script type="text/babel" src="js/CircularWorkGif.jsx"></script>
+    <script type="text/babel" src="js/FieldChips.jsx"></script>
+    <script type="text/babel" src="js/DateRangeSlider.jsx"></script>
+    <script type="text/babel" src="js/HistorySlider.jsx"></script>
+    <script type="text/babel" src="js/ChartShow.jsx"></script>
+    <script type="text/babel" src="js/DataGraph.jsx"></script>
+    <script type="text/babel" src="js/TableShow.jsx"></script>
+    <script type="text/babel" src="js/DataShow.jsx"></script>
+    <script type="text/babel" src="js/DataShowCharts.jsx"></script>
+    <script type="text/babel" src="js/DataShowComputedDeath.jsx"></script>
+    <script type="text/babel" src="js/DataShowRaw.jsx"></script>
+    <script type="text/babel" src="js/CsvButtons.jsx"></script>
+    <script type="text/babel" src="js/MainView.jsx"></script>
+    <script type="text/babel" src="js/LastUpdate.jsx"></script>
+    <script type="text/babel" src="js/Footer.jsx"></script>
+    <script type="text/babel" src="js/Header.jsx"></script>
+    <script type="text/babel" src="js/SmallWidget.jsx"></script>
+    <script type="text/babel" src="js/App.jsx"></script>
+    <script type="text/babel" src="js/index.js"></script>
+    </script>
+</body>
+
+</html>
