@@ -1,4 +1,4 @@
-const Header = ({lang}) => {
+const Header = ({ lang, showSideBar, setShowSideBar }) => {
     return (
         <Grid container direction="row">
             <Grid item xs={3}>
@@ -6,7 +6,7 @@ const Header = ({lang}) => {
                     <p style={{
                         fontFamily: 'Source Sans Pro, sans-serif',
                         textAlign: 'left',
-                        marginRight: 10
+                        marginLeft: 10
                     }}>
                         eran.dev
                         {/* {trans(lang, 'Contact')} */}
@@ -25,6 +25,9 @@ const Header = ({lang}) => {
             <Grid item xs={3}>
                 <Grid container direction="row" justify="flex-end" alignItems="center">
                     <LastUpdate lang={lang} />
+                    <IconButton onClick={()=> setShowSideBar(!showSideBar)}>
+                        {showSideBar ? <Icon>more_vert</Icon> : <Icon>menu</Icon>}
+                    </IconButton>
                 </Grid>
             </Grid>
         </Grid>

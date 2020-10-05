@@ -44,13 +44,16 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => (
 )
 
 
-const MainView = ({ names, name, lang, language, setLanguage }) => (
+const MainView = ({ names, name, lang, language, setLanguage, showSideBar }) => (
     <Grid container direction="row">
-        <Grid item xs={9}>
+        <Grid item xs={showSideBar ? 9 : 12}>
             <ShowByName name={name} names={names} lang={lang} />
         </Grid>
-        <Grid item xs={3}>
-            <CsvButtons names={names} lang={lang} language={language} setLanguage={setLanguage} />
-        </Grid>
+        {
+            !showSideBar ? null :
+                <Grid item xs={3}>
+                    <CsvButtons names={names} lang={lang} language={language} setLanguage={setLanguage} />
+                </Grid>
+        }
     </Grid>
 )
