@@ -2,16 +2,18 @@ const Header = ({ lang, showSideBar, setShowSideBar }) => {
     return (
         <Grid container direction="row">
             <Grid item xs={3}>
-                <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
-                    <p style={{
-                        fontFamily: 'Source Sans Pro, sans-serif',
-                        textAlign: 'left',
-                        marginLeft: 10
-                    }}>
-                        eran.dev
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                    <MaterialUI.Link href="https://eran.dev/" style={{ textDecoration: 'none' }} target="_blank" >
+                        <p style={{
+                            fontFamily: 'Source Sans Pro, sans-serif',
+                            marginLeft: 10,
+                            marginTop: 25
+                        }}>
+                            eran.dev
                         {/* {trans(lang, 'Contact')} */}
-                    </p>
-                </MaterialUI.Link>
+                        </p>
+                    </MaterialUI.Link>
+                </Grid>
             </Grid>
             <Grid item xs={6}>
                 <h1 style={{
@@ -25,7 +27,7 @@ const Header = ({ lang, showSideBar, setShowSideBar }) => {
             <Grid item xs={3}>
                 <Grid container direction="row" justify="flex-end" alignItems="center">
                     <LastUpdate lang={lang} />
-                    <IconButton onClick={()=> setShowSideBar(!showSideBar)}>
+                    <IconButton onClick={() => setShowSideBar(!showSideBar)}>
                         {showSideBar ? <Icon>more_vert</Icon> : <Icon>menu</Icon>}
                     </IconButton>
                 </Grid>

@@ -3,7 +3,7 @@ const {
 } = MaterialUI;
 
 const ShowByName = ({ name, names, lang }) => {
-    if (name === 'showcharts') return <DataShowCharts names={names} lang={lang} />
+    if (name === 'ShowCharts') return <DataShowCharts names={names} lang={lang} />
     if (name === 'infectedVsDead') return <DataShowComputedDeath showtable={true} lang={lang} />
     return <DataShow name={name} lang={lang} />
 }
