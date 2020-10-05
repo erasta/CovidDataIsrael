@@ -41,7 +41,7 @@ const truncPer10000 = (num) => {
 const computeForTable = async (name, data) => {
     if (name === 'testResultsPerDate') {
         data.forEach(row => {
-            const amount = parseFloat(row['Amount']);
+            const amount = parseFloat(row['Amount Virus Diagnosis']);
             const positive = parseFloat(row['Positive Amount']);
             row['Positive Ratio'] = Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
         });
