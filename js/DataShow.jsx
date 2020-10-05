@@ -208,12 +208,14 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
             </Card>
             {!showtable ? null :
                 <>
-                    <Button variant='contained' color='primary' href={`out/csv/${name}.csv`} style={{ margin: 2 }}>
-                        Download original
-                    </Button>
-                    <Button variant='contained' color='primary' onClick={() => downloadTable(name, state.parsed)} style={{ margin: 2 }}>
-                        Download shown
-                    </Button>
+                    <Grid container direction="row" justify="flex-end" alignItems="stretch">
+                        <Button variant='contained' color='primary' href={`out/csv/${name}.csv`} style={{ margin: 3 }}>
+                            {trans(lang, 'Download original')}
+                        </Button>
+                        <Button variant='contained' color='primary' onClick={() => downloadTable(name, state.parsed)} style={{ margin: 3 }}>
+                            {trans(lang, 'Download shown')}
+                        </Button>
+                    </Grid>
                     <TableShow parsed={state.parsed} />
                 </>
             }
