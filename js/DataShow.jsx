@@ -163,11 +163,9 @@ const downloadTable = (name, data) => {
     if (!data || !data.length) return;
     const heads = Object.keys(data[0]).join(',');
     const rows = data.map(row => Object.values(row).map(convertToShow).join(','));
-    const dataAsString = [heads].concat(rows).join('\n') + '\n';
+    const csv = [heads].concat(rows).join('\n') + '\n';
     const element = document.createElement("a");
-    const BOM = "\uFEFF";
-    const file = new Blob([BOM + dataAsString], { type: 'text/csv;utf-8' });
-    element.href = URL.createObjectURL(file);
+    element.href = 'data:text/csv;charset=utf-8,' + String.fromCharCode(0xFEFF) + encodeURIComponent(csv);
     element.download = name + ".csv";
     // document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
