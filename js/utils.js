@@ -93,9 +93,16 @@ const convertFieldToType = (rows, key) => {
     }
 
     // Check and convert to dates
-    const dates = items.map(x => x.length ? new Date(x) : new Date(2020, 0, 1));
+    const firstDate = new Date(2020, 0, 1);
+    const dates = items.map(x => x.length ? new Date(x) : new Date(firstDate));
     if (dates.filter(d => isNaN(d.getTime())).length === 0) {
-        rows.forEach((row, i) => row[key] = dates[i]);
+        rows.forEach((row, i) => {
+            if (dates[i].getTime() <= firstDate.getTime() + 1) { // sometimes when date is unapplicable we get 1999/1/1
+                row[key] = new Date(firstDate); // clone the date just incase
+            } else {
+                row[key] = dates[i];
+            }
+        });
         return rows;
     }
 
