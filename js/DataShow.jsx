@@ -197,8 +197,8 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                         {title ?
                             title :
                             <Link to={`?sheet=${name}`} style={{ textDecoration: 'none' }}>
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
+                                <CardContent style={{ padding: 0 }}>
+                                    <Typography variant="h5" component="h5" align='center' style={{ marginBlockEnd: 0 }}>
                                         {trans(lang, name)}
                                     </Typography>
                                 </CardContent>
