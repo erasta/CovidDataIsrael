@@ -244,12 +244,12 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                 enforceChart={enforceChart}
                 title={title}
                 footer={
-                    showtable ?
                         <>
                             {footer}
+                        {!showtable ? null :
                             <HistorySlider onHistory={v => setShowHistory(v)} />
-                        </> :
-                        footer
+                        }
+                    </>
                 }
             />
         </>
