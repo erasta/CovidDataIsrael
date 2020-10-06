@@ -5,8 +5,8 @@ const DataShowComputedDeath = ({ lang, showtable = true }) => {
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
-            let infected = await fetchTableAndHistory('infectedPerDate');
-            let dead = await fetchTableAndHistory('deadPatientsPerDate');
+            let infected = await fetchTable('infectedPerDate', tableFileName('infectedPerDate'));
+            let dead = await fetchTable('deadPatientsPerDate', tableFileName('deadPatientsPerDate'));
             infected = suffixFields(infected, '_infected');
             dead = suffixFields(dead, '_dead');
             const parsed = mergeTablesByDate(infected, dead);
@@ -16,7 +16,7 @@ const DataShowComputedDeath = ({ lang, showtable = true }) => {
     let changed = state.parsed.map((row, i) => {
         const crow = Object.assign({}, row);
         const index = Math.max(0, Math.min(i + offsetDate, state.parsed.length - 1));
-        crow['amount_dead'] = state.parsed[index]['amount_dead'] * multiplyDead;
+        crow['Amount_dead'] = state.parsed[index]['Amount_dead'] * multiplyDead;
         return crow;
     });
     if (offsetDate > 0) changed = changed.slice(0, changed.length - offsetDate);
