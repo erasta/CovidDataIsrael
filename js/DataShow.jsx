@@ -178,21 +178,11 @@ const downloadFile = (name, url) => {
     element.click();
 }
 
-const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
-    const [state, setState] = React.useState({ parsed: [], work: true });
-    const [showHistory, setShowHistory] = React.useState(false);
-    React.useEffect(() => {
-        (async () => {
-            setState({ parsed: state.parsed, work: true });
-            let parsed = await fetchTableAndHistory(name, showHistory);
-            parsed = truncByDateBounds(parsed, dateBounds);
-            setState({ parsed: parsed, work: false });
-        })();
-    }, [name, showHistory])
+const DataShowView = ({ name, rows, showtable = true, lang, enforceChart, title, footer }) => {
     return (
         <>
             <Card elevation={3} style={{ margin: 5, padding: 5 }}>
-                {!showtable && !state.parsed.length ? null :
+                {!showtable && !rows.length ? null :
                     <>
                         {title ?
                             title :
@@ -206,12 +196,11 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                         }
                     </>
                 }
-                <DataGraph parsed={state.parsed} showControls={showtable} enforceChart={enforceChart} />
+                <DataGraph parsed={rows} showControls={showtable} enforceChart={enforceChart} />
                 {!footer ? null : footer}
-                {!showtable ? null :
+                {/* {!showtable ? null :
                     <HistorySlider onHistory={v => setShowHistory(v)} />
-                }
-                <CircularWorkGif work={state.work} />
+                } */}
             </Card>
             {!showtable ? null :
                 <>
@@ -222,13 +211,47 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                                 trans(lang, 'Download original'),
                             ]}
                             onClick={(option) => {
-                                option === 0 ? downloadTable(name, state.parsed) : downloadFile(name + '_orig', `out/csv/${name}.csv`);
+                                option === 0 ? downloadTable(name, rows) : downloadFile(name + '_orig', `out/csv/${name}.csv`);
                             }}
                         />
                     </Grid>
-                    <TableShow parsed={state.parsed} />
+                    <TableShow parsed={rows} />
                 </>
             }
+        </>
+    )
+}
+
+const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
+    const [state, setState] = React.useState({ parsed: [], work: true });
+    const [showHistory, setShowHistory] = React.useState(false);
+    React.useEffect(() => {
+        (async () => {
+            setState({ parsed: state.parsed, work: true });
+            let parsed = await fetchTableAndHistory(name, showHistory);
+            parsed = truncByDateBounds(parsed, dateBounds);
+            setState({ parsed: parsed, work: false });
+        })();
+    }, [name, showHistory])
+    return (
+        <>
+            <CircularWorkGif work={state.work} />
+            <DataShowView
+                name={name}
+                rows={state.parsed}
+                showtable={showtable}
+                lang={lang}
+                enforceChart={enforceChart}
+                title={title}
+                footer={
+                    showtable ?
+                        <>
+                            {footer}
+                            <HistorySlider onHistory={v => setShowHistory(v)} />
+                        </> :
+                        footer
+                }
+            />
         </>
     )
 }
