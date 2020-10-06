@@ -229,7 +229,7 @@ const DataShowView = ({ name, rows, showtable = true, lang, enforceChart, title,
     )
 }
 
-const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, lang, enforceChart, title, footer }) => {
+const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, lang, enforceChart, title, footer, isDataOnelineTransposed }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
         (async () => {
@@ -239,8 +239,14 @@ const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, 
             const dates = (data ? JSON.parse(data) : []);
             for (let i = 0; i < dates.length; ++i) {
                 const d = dates[i];
-                const hist = await fetchTable(name, tableFileName(name, d))
-                if (hist) {
+                let hist = await fetchTable(name, tableFileName(name, d))
+                if (hist && hist.length) {
+                    if (isDataOnelineTransposed) {
+                        hist = Object.keys(hist[0]).map(key => {
+                            return { 'Name': key, 'Amount': hist[0][key] };
+                        });
+                        timeLineKey = 'Name';
+                    }
                     if (timeLineIndex !== '*all*') {
                         let row = hist.find(r => r[timeLineKey] === timeLineIndex);
                         if (row) {
@@ -295,6 +301,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
         })();
     }, [name, showHistory])
     const dataWithoutDate = state.parsed && state.parsed.length && !state.parsed[0].hasOwnProperty('date');
+    const isDataOnelineTransposed = dataWithoutDate && state.parsed.length === 1 && !state.parsed[0].hasOwnProperty('Amount');
     return (
         <>
             <CircularWorkGif work={state.work} />
@@ -336,6 +343,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                     />
                     :
                     <DataShowTimeLine
+                        isDataOnelineTransposed={isDataOnelineTransposed}
                         timeLineIndex={timeLineIndex}
                         timeLineKey={Object.keys(state.parsed[0])[0]}
                         name={name}
