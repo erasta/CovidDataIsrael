@@ -285,7 +285,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
             <CircularWorkGif work={state.work} />
             {!dataWithoutDate ? null :
                 <Select value={timeLineIndex}>
-                    <MenuItem key={0} value={0} onClick={() => setTimeLineIndex(0)}>ביחרו</MenuItem>
+                    <MenuItem key={0} value={0} onClick={() => setTimeLineIndex(0)}>ביחרו היסטוריה</MenuItem>
                     {
                         state.parsed.map(row => {
                             const val = convertToShow(Object.values(row)[0]);
