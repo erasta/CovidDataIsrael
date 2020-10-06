@@ -241,13 +241,28 @@ const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, 
                 const d = dates[i];
                 const hist = await fetchTable(name, tableFileName(name, d))
                 if (hist) {
-                    let row = hist.find(r => r[timeLineKey] === timeLineIndex);
-                    if (row) {
-                        row = Object.assign({ 'date': new Date(d) }, row);
+                    if (timeLineIndex !== '*all*') {
+                        let row = hist.find(r => r[timeLineKey] === timeLineIndex);
+                        if (row) {
+                            row = Object.assign({ 'date': new Date(d) }, row);
+                            parsed.push(row);
+                        }
+                    } else {
+                        let row = { 'date': new Date(d) }
+                        hist.forEach(histrow => {
+                            const keys = Object.keys(histrow).filter(k => k !== timeLineKey);
+                            keys.forEach(k => {
+                                row[k + '_' + histrow[timeLineKey]] = histrow[k]
+                            });
+                        })
                         parsed.push(row);
                     }
                 }
             }
+            // make sure all keys are on all rows
+            let allkeys = [];
+            parsed.forEach(row => allkeys = onlyUnique(allkeys.concat(Object.keys(row))));
+            parsed.forEach(row => allkeys.forEach(key => row[key] = row[key] || undefined));
             setState({ parsed: parsed, work: false });
         })();
     }, [timeLineIndex, name])
@@ -270,7 +285,7 @@ const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, 
 const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
-    const [timeLineIndex, setTimeLineIndex] = React.useState(0);
+    const [timeLineIndex, setTimeLineIndex] = React.useState('None');
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
@@ -285,7 +300,10 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
             <CircularWorkGif work={state.work} />
             {!dataWithoutDate ? null :
                 <Select value={timeLineIndex}>
-                    <MenuItem key={0} value={0} onClick={() => setTimeLineIndex(0)}>ביחרו היסטוריה</MenuItem>
+                    <MenuItem key={'None'} value={'None'} onClick={() => setTimeLineIndex('None')}>ביחרו היסטוריה</MenuItem>
+                    {name.toLowerCase() === 'contagiondatapercitypublic' ? null :
+                        <MenuItem key={'*all*'} value={'*all*'} onClick={() => setTimeLineIndex('*all*')}>הכל ביחד, זהירות זה כבד</MenuItem>
+                    }
                     {
                         state.parsed.map(row => {
                             const val = convertToShow(Object.values(row)[0]);
