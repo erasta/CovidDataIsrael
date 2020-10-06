@@ -41,6 +41,20 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
         })
     };
 
+    const tmin = dateBounds ? dateBounds[0] : undefined;
+    const tmax = dateBounds ? dateBounds[1] : undefined;
+    const ymax = Math.max(...fieldValues
+        .filter((_, i) => !mutedFields.includes(fieldNames[i]))
+        .map(field => {
+            const vals = field.filter((item, j) => {
+                const d = dates[j];
+                if (tmin && d < tmin) return false;
+                if (tmax && d > tmax) return false;
+                return true;
+            })
+            return Math.max(...vals);
+        }));
+
     return (
         <ReactChartjs2.default
             legend={false}
@@ -48,20 +62,24 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
             type={realChartStyle}
             plugins={enforceChart && enforceChart.numberOnTop ? [ChartDataLabels] : []}
             options={{
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     yAxes: [
                         {
                             ticks: {
                                 beginAtZero: 0,
                                 min: 0,
-                            }
+                                max: ymax
+                            },
+                            // stacked: true
                         }
                     ],
                     xAxes: [
                         {
                             ticks: {
-                                min: (dateBounds ? dateBounds[0] : undefined),
-                                max: (dateBounds ? dateBounds[1] : undefined)
+                                min: tmin,
+                                max: tmax
                             },
                             type: 'time',
                             time: {
