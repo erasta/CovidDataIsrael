@@ -311,7 +311,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                     {name.toLowerCase() === 'contagiondatapercitypublic' ? null :
                         <MenuItem key={'*all*'} value={'*all*'} onClick={() => setTimeLineIndex('*all*')}>הכל ביחד, זהירות זה כבד</MenuItem>
                     }
-                    {
+                    {isDataOnelineTransposed ? null :
                         state.parsed.map(row => {
                             const val = convertToShow(Object.values(row)[0]);
                             return (
