@@ -317,7 +317,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                 </Select>
             }
             {
-                !dataWithoutDate || !timeLineIndex ?
+                !dataWithoutDate || timeLineIndex === 'None' ?
                     <DataShowView
                         name={name}
                         rows={state.parsed}
