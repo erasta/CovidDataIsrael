@@ -160,6 +160,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                             >
                                 <MenuItem value={'bar'} >Bars Chart</MenuItem>
                                 <MenuItem value={'line'} >Lines Chart</MenuItem>
+                                <MenuItem value={'curve'} >Curves Chart</MenuItem>
                                 <MenuItem value={'bubble'} >Bubble</MenuItem>
                                 <MenuItem value={'scatter'} >Scatter</MenuItem>
                             </Select>

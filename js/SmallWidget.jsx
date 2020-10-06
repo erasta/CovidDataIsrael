@@ -88,11 +88,10 @@ const SmallWidget = ({ lang }) => {
                         </Typography>
                     }
                     enforceChart={{
-                        style: 'line',
+                        style: 'curve',
                         bounds: [new Date(2020, 5, 1)],
                         fields: ["Count Hard Status", "Count Medium Status", "Count Breath", 'Count Hospitalized'],
                         colors: ['#ff0000', '#ffa500', '#0000ff', '#800080'],
-                        fill: false,
                     }}
                     footer={
                         <Grid container direction="row" justify="space-between" alignItems="center">

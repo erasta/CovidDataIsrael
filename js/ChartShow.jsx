@@ -26,15 +26,16 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                 backColor = field.map((_, i) => i === field.length - 1 ? 'rgba(0, 0, 0, 0.3)' : backColor);
             }
             return {
-                type: chartStyle,
+                type: chartStyle === 'curve' ? 'line' : chartStyle,
                 label: fieldName,
                 backgroundColor: backColor,
-                borderColor: attachAlpha(color, 1),
+                borderColor: color, //attachAlpha(color, 1),
                 borderWidth: 1,
                 pointRadius: 1,
                 data: field,
                 hidden: mutedFields.includes(fieldNames[i]),
-                fill: enforceChart && enforceChart.hasOwnProperty('fill') ? enforceChart.fill : true,
+                fill: chartStyle !== 'curve',
+                lineTension: 0.1,
             }
         })
     };
