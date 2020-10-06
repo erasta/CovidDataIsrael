@@ -114,7 +114,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
     const [mutedFields, setMutedFields] = React.useState([]);
 
     React.useEffect(() => {
-        if (['line', 'bar'].includes(chartStyle)) { // scatter and bubble don't switch well
+        if (['line', 'bar', 'curve'].includes(chartStyle)) { // scatter and bubble don't switch well
             localStorage.setItem('chartStyle', chartStyle);
         }
     }, [chartStyle]);

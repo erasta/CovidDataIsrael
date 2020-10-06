@@ -10,6 +10,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
         if (enforceChart.fields) mutedFields = fieldNames.filter(f => !enforceChart.fields.includes(f));
     }
 
+    const realChartStyle = chartStyle === 'curve' ? 'line' : chartStyle;
     const data = {
         labels: dates,
         datasets: fieldValues.map((field, i) => {
@@ -26,7 +27,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                 backColor = field.map((_, i) => i === field.length - 1 ? 'rgba(0, 0, 0, 0.3)' : backColor);
             }
             return {
-                type: chartStyle === 'curve' ? 'line' : chartStyle,
+                type: realChartStyle,
                 label: fieldName,
                 backgroundColor: backColor,
                 borderColor: color, //attachAlpha(color, 1),
@@ -44,7 +45,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
         <ReactChartjs2.default
             legend={false}
             data={data}
-            type={chartStyle}
+            type={realChartStyle}
             plugins={enforceChart && enforceChart.numberOnTop ? [ChartDataLabels] : []}
             options={{
                 scales: {
