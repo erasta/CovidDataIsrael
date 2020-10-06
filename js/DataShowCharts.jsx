@@ -12,7 +12,9 @@ const DataShowCharts = ({ lang, names }) => (
                 'moh_corona_isolation_per_day',
                 'doublingRate',
             ].map(name =>
-                <Grid item xs={6} key={name}>
+                <Grid item xs={6} key={name}
+                    style={{ minWidth: 250 }}
+                >
                     <DataShow
                         key={name}
                         name={name}
