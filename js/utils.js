@@ -126,12 +126,15 @@ const fetchCsv = async (url) => {
     return converted;
 }
 
+const colorScheme = d3.schemeSet1.concat(d3.schemeSet2).concat(d3.schemeSet3);
+
 const colorByNumber = (t, amount) => {
-    const scheme = d3.schemeSet1.concat(d3.schemeSet2).concat(d3.schemeSet3);
-    if (t < scheme.length) {
-        return scheme[t];
+    t = t >= 5 ? t + 1 : t;
+    t = t >= 18 ? t + 1 : t;
+    if (t < colorScheme.length) {
+        return colorScheme[t];
     }
-    return d3.interpolateRainbow((t - scheme.length) / (amount - scheme.length))
+    return d3.interpolateRainbow((t - colorScheme.length) / (amount - colorScheme.length))
 }
 
 const accumulateNums = (nums) => {
