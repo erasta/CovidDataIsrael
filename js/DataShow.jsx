@@ -95,9 +95,16 @@ const fixName = (key) => {
 
 const fetchTable = async (name, url) => {
     // console.log(name);
-    const parsed = await fetchCsv(url);
+    let parsed = await fetchCsv(url);
     if (parsed === undefined) {
-        return [];
+        if (name !== 'sickPatientPerLocation') {
+            return [];
+        }
+        const url2 = url.replace('sickPatientPerLocation', 'sickPerLocation');
+        parsed = await fetchCsv(url2);
+        if (parsed === undefined) {
+            return [];
+        }
     }
     renameField(parsed, 'תאריך', 'date');
     renameField(parsed, 'Date', 'date');
