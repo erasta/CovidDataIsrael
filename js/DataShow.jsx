@@ -9,7 +9,9 @@ const {
     TableSortLabel,
     CardContent,
     Typography,
-    Link
+    Link,
+    Select,
+    MenuItem
 } = MaterialUI;
 
 let popTable = undefined;
@@ -38,6 +40,11 @@ const truncPer10000 = (num) => {
     return Math.round(num * 1000) / 1000;
 }
 
+const normalizeToPop = (pop, num) => {
+    if (!pop || !num) return 0;
+    return truncPer10000(convertLT15(num) / pop * 10000);
+}
+
 const computeForTable = async (name, data) => {
     if (name === 'testResultsPerDate') {
         data.forEach(row => {
@@ -51,10 +58,10 @@ const computeForTable = async (name, data) => {
             data.forEach(row => {
                 const citypop = population.find(poprow => poprow['city'] === row['City']);
                 const pop = citypop ? citypop['population'] : 0;
-                row['Infected Per 10000'] = pop ? truncPer10000(convertLT15(row['Sick Count']) / pop * 10000) : 0;
-                row['Actual Sick Per 10000'] = pop ? truncPer10000(convertLT15(row['Actual Sick']) / pop * 10000) : 0;
-                row['Verified Last 7 Days Per 10000'] = pop ? truncPer10000(convertLT15(row['Verified Last7 Days']) / pop * 10000) : 0;
-                row['Test Last 7 Days Per 10000'] = pop ? truncPer10000(convertLT15(row['Test Last7 Days']) / pop * 10000) : 0;
+                row['Infected Per 10000'] = normalizeToPop(pop, row['Sick Count']);
+                row['Actual Sick Per 10000'] = normalizeToPop(pop, row['Actual Sick']);
+                row['Verified Last 7 Days Per 10000'] = normalizeToPop(pop, row['Verified Last7 Days']);
+                row['Test Last 7 Days Per 10000'] = normalizeToPop(pop, row['Test Last7 Days']);
                 // if (isNaN(row['Verified Last7 Days Per 10000'])) debugger
                 row['Population'] = Math.round(pop);
                 row['City Code'] = citypop ? citypop['code'] : 0;
@@ -222,17 +229,28 @@ const DataShowView = ({ name, rows, showtable = true, lang, enforceChart, title,
     )
 }
 
-const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
+const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, lang, enforceChart, title, footer }) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
-    const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
-            let parsed = await fetchTableAndHistory(name, showHistory);
-            parsed = truncByDateBounds(parsed, dateBounds);
+            const data = await fetchFile('out/history/dates.json');
+            const parsed = [];
+            const dates = (data ? JSON.parse(data) : []);
+            for (let i = 0; i < dates.length; ++i) {
+                const d = dates[i];
+                const hist = await fetchTable(name, tableFileName(name, d))
+                if (hist) {
+                    let row = hist.find(r => r[timeLineKey] === timeLineIndex);
+                    if (row) {
+                        row = Object.assign({ 'date': new Date(d) }, row);
+                        parsed.push(row);
+                    }
+                }
+            }
             setState({ parsed: parsed, work: false });
         })();
-    }, [name, showHistory])
+    }, [timeLineIndex, name])
     return (
         <>
             <CircularWorkGif work={state.work} />
@@ -243,15 +261,74 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                 lang={lang}
                 enforceChart={enforceChart}
                 title={title}
-                footer={
-                        <>
-                            {footer}
-                        {!showtable ? null :
-                            <HistorySlider onHistory={v => setShowHistory(v)} />
-                        }
-                    </>
-                }
+                footer={footer}
             />
         </>
     )
 }
+
+const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBounds, footer }) => {
+    const [state, setState] = React.useState({ parsed: [], work: true });
+    const [showHistory, setShowHistory] = React.useState(false);
+    const [timeLineIndex, setTimeLineIndex] = React.useState(0);
+    React.useEffect(() => {
+        (async () => {
+            setState({ parsed: state.parsed, work: true });
+            let parsed = await fetchTableAndHistory(name, showHistory);
+            parsed = truncByDateBounds(parsed, dateBounds);
+            setState({ parsed: parsed, work: false });
+        })();
+    }, [name, showHistory])
+    const dataWithoutDate = state.parsed && state.parsed.length && !state.parsed[0].hasOwnProperty('date');
+    return (
+        <>
+            <CircularWorkGif work={state.work} />
+            {!dataWithoutDate ? null :
+                <Select value={timeLineIndex}>
+                    <MenuItem key={0} value={0} onClick={() => setTimeLineIndex(0)}>ביחרו</MenuItem>
+                    {
+                        state.parsed.map(row => {
+                            const val = convertToShow(Object.values(row)[0]);
+                            return (
+                                <MenuItem value={val} key={val} onClick={() => setTimeLineIndex(val)}>
+                                    {val}
+                                </MenuItem>
+                            )
+                        })
+                    }
+                </Select>
+            }
+            {
+                !dataWithoutDate || !timeLineIndex ?
+                    <DataShowView
+                        name={name}
+                        rows={state.parsed}
+                        showtable={showtable}
+                        lang={lang}
+                        enforceChart={enforceChart}
+                        title={title}
+                        footer={
+                            <>
+                                {footer}
+                                {!showtable ? null :
+                                    <HistorySlider onHistory={v => setShowHistory(v)} />
+                                }
+                            </>
+                        }
+                    />
+                    :
+                    <DataShowTimeLine
+                        timeLineIndex={timeLineIndex}
+                        timeLineKey={Object.keys(state.parsed[0])[0]}
+                        name={name}
+                        showtable={showtable}
+                        lang={lang}
+                        enforceChart={enforceChart}
+                        title={title}
+                        footer={footer}
+                    />
+            }
+        </>
+    )
+}
+
