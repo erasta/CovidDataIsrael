@@ -66,6 +66,12 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
             type={realChartStyle}
             plugins={enforceChart && enforceChart.numberOnTop ? [ChartDataLabels] : []}
             options={{
+                plugins: {
+                    datalabels: {
+                        color: '#000000',
+                        // font: { weight: 'bold' }
+                    }
+                },
                 scales: {
                     yAxes: [
                         {
