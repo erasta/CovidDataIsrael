@@ -11,6 +11,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
     }
 
     const realChartStyle = chartStyle === 'curve' ? 'line' : chartStyle;
+    const isLastToday = dates[dates.length - 1].toDateString() === new Date().toDateString();
     const data = {
         labels: dates,
         datasets: fieldValues.map((field, i) => {
@@ -23,7 +24,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                 }
             }
             let backColor = attachAlpha(color, 0.2);
-            if (chartStyle === 'bar') {
+            if (chartStyle === 'bar' && isLastToday) {
                 backColor = field.map((_, i) => i === field.length - 1 ? 'rgba(0, 0, 0, 0.3)' : backColor);
             }
             return {
