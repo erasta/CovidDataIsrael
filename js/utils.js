@@ -73,7 +73,7 @@ const calcMovingAverage = (dates, nums, span) => {
             ++num;
             sum += nums[j];
         }
-        newnums.push(sum / num);
+        newnums.push(truncateDigits(sum / num));
     }
     return [dates, newnums];
 }
