@@ -57,17 +57,24 @@ const onlyUnique = (arr) => {
     return arr.filter((x, i) => arr.indexOf(x) === i)
 }
 
+const MILLISECOND_PER_DAY = 1000 * 60 * 60 * 24;
+
+const toUtcDay = (a) => {
+    return Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+}
+
 const calcMovingAverage = (dates, nums, span) => {
-    const newnums = dates.map((dt, idx) => {
-        const start = Math.max(0, idx - span);
-        let moving = nums.slice(start, idx + 1);
-        const movingDates = dates.slice(start, idx + 1);
-        moving = moving.filter((_, i) => {
-            return Math.round((dt - movingDates[i]) / 86400000) <= span;
-        });
-        const sum = moving.reduce((a, b) => a + b);
-        return sum / moving.length;
-    });
+    const newnums = []
+    for (let i = 0; i < dates.length; ++i) {
+        let utc = toUtcDay(dates[i]);
+        let num = 1;
+        let sum = nums[i];
+        for (let j = i - 1; j >= 0 && Math.floor((utc - toUtcDay(dates[j])) / MILLISECOND_PER_DAY) < span; --j) {
+            ++num;
+            sum += nums[j];
+        }
+        newnums.push(sum / num);
+    }
     return [dates, newnums];
 }
 
