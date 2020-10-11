@@ -239,7 +239,10 @@ const DataShowView = ({ name, rows, showtable = true, lang, enforceChart, title,
     )
 }
 
-const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, lang, enforceChart, title, footer, isDataOnelineTransposed }) => {
+const DataShowTimeLine = ({
+    timeLineIndex, timeLineKey, timeLineFields,
+    name, showtable = true, lang, enforceChart, title, footer, isDataOnelineTransposed
+}) => {
     const [state, setState] = React.useState({ parsed: [], work: true });
     React.useEffect(() => {
         (async () => {
@@ -258,15 +261,23 @@ const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, 
                         timeLineKey = 'Name';
                     }
                     if (timeLineIndex !== '*all*') {
-                        let row = hist.find(r => r[timeLineKey] === timeLineIndex);
-                        if (row) {
-                            row = Object.assign({ 'date': new Date(d) }, row);
+                        const histrow = hist.find(r => r[timeLineKey] === timeLineIndex);
+                        if (histrow) {
+                            let row = { 'date': new Date(d) };
+                            if (timeLineFields === '*all*') {
+                                Object.assign(row, histrow);
+                            } else {
+                                row[timeLineFields] = histrow[timeLineFields];
+                            }
                             parsed.push(row);
                         }
                     } else {
                         let row = { 'date': new Date(d) }
                         hist.forEach(histrow => {
-                            const keys = Object.keys(histrow).filter(k => k !== timeLineKey);
+                            let keys = Object.keys(histrow).filter(k => k !== timeLineKey);
+                            if (timeLineFields !== '*all*') {
+                                keys = keys.filter(k => k === timeLineFields);
+                            }
                             keys.forEach(k => {
                                 row[k + '_' + histrow[timeLineKey]] = histrow[k]
                             });
@@ -281,7 +292,7 @@ const DataShowTimeLine = ({ timeLineIndex, timeLineKey, name, showtable = true, 
             parsed.forEach(row => allkeys.forEach(key => row[key] = row[key] || undefined));
             setState({ parsed: parsed, work: false });
         })();
-    }, [timeLineIndex, name])
+    }, [timeLineIndex, timeLineFields, name])
     return (
         <>
             <CircularWorkGif work={state.work} />
@@ -302,6 +313,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
     const [state, setState] = React.useState({ parsed: [], work: true });
     const [showHistory, setShowHistory] = React.useState(false);
     const [timeLineIndex, setTimeLineIndex] = React.useState('None');
+    const [timeLineFields, setTimeLineFields] = React.useState('*all*');
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
@@ -312,26 +324,43 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
     }, [name, showHistory])
     const dataWithoutDate = state.parsed && state.parsed.length && !state.parsed[0].hasOwnProperty('date');
     const isDataOnelineTransposed = dataWithoutDate && state.parsed.length === 1 && !state.parsed[0].hasOwnProperty('Amount');
+
+    // Avoid too many fields when orig table has too many columns and rows
+    let timeLineFieldsReal = timeLineFields;
+    if (timeLineIndex === '*all*' && timeLineFields === '*all*') {
+        if (name.toLowerCase() === 'contagiondatapercitypublic') {
+            timeLineFieldsReal = 'Verified/Tests ratio';
+        }
+    }
+
     return (
         <>
             <CircularWorkGif work={state.work} />
             {!dataWithoutDate ? null :
-                <Select value={timeLineIndex}>
-                    <MenuItem key={'None'} value={'None'} onClick={() => setTimeLineIndex('None')}>ביחרו היסטוריה</MenuItem>
-                    {name.toLowerCase() === 'contagiondatapercitypublic' ? null :
+                <>
+                    <Select value={timeLineIndex}>
+                        <MenuItem key={'None'} value={'None'} onClick={() => setTimeLineIndex('None')}>ביחרו היסטוריה</MenuItem>
                         <MenuItem key={'*all*'} value={'*all*'} onClick={() => setTimeLineIndex('*all*')}>הכל ביחד, זהירות זה כבד</MenuItem>
-                    }
-                    {isDataOnelineTransposed ? null :
-                        state.parsed.map(row => {
-                            const val = convertToShow(Object.values(row)[0]);
-                            return (
-                                <MenuItem value={val} key={val} onClick={() => setTimeLineIndex(val)}>
-                                    {val}
-                                </MenuItem>
-                            )
-                        })
-                    }
-                </Select>
+                        {isDataOnelineTransposed ? null :
+                            state.parsed.map(row => {
+                                const val = convertToShow(Object.values(row)[0]);
+                                return (
+                                    <MenuItem value={val} key={val} onClick={() => setTimeLineIndex(val)}>
+                                        {val}
+                                    </MenuItem>
+                                )
+                            })
+                        }
+                    </Select>
+                    <Select value={timeLineFields}>
+                        <MenuItem key={'*all*'} value={'*all*'} onClick={() => setTimeLineIndex('*all*')}>כל השדות</MenuItem>
+                        {Object.keys(state.parsed[0]).filter(key => key !== 'date').map(key => (
+                            <MenuItem value={key} key={key} onClick={() => setTimeLineFields(key)}>
+                                {key}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </>
             }
             {
                 !dataWithoutDate || timeLineIndex === 'None' ?
@@ -356,6 +385,7 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
                         isDataOnelineTransposed={isDataOnelineTransposed}
                         timeLineIndex={timeLineIndex}
                         timeLineKey={Object.keys(state.parsed[0])[0]}
+                        timeLineFields={timeLineFieldsReal}
                         name={name}
                         showtable={showtable}
                         lang={lang}
