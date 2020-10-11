@@ -110,6 +110,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
     const [chartStyle, setChartStyle] = React.useState(localStorage.getItem('chartStyle') || 'line');
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
+    const [logarithmic, setLogarithmic] = React.useState(false);
     const [dateRange, setDateRange] = React.useState([0, 100]);
     const [mutedFields, setMutedFields] = React.useState([]);
 
@@ -137,6 +138,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                     mutedFields={mutedFields}
                     fieldValues={groupnumitems}
                     dateBounds={dateRange.map(d => dateByPercent(dates, d))}
+                    logarithmic={logarithmic}
                     enforceChart={enforceChart}
                 />
                 {!showControls ? null :
@@ -186,6 +188,16 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                                         color="primary"
                                     />}
                                 label="Sum"
+                                labelPlacement="start"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={logarithmic}
+                                        onChange={e => setLogarithmic(e.target.checked)}
+                                        color="primary"
+                                    />}
+                                label="Logarithmic"
                                 labelPlacement="start"
                             />
                         </Grid>

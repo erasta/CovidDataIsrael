@@ -1,7 +1,7 @@
 var image = new Image();
 image.src = "images/eran.dev.water.png";
 
-const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds, enforceChart }) => {
+const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds, logarithmic, enforceChart }) => {
     if (!dates.length || !fieldNames.length) return null;
 
     if (enforceChart) {
@@ -68,51 +68,54 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
             }));
     }
 
+    const options = {
+        plugins: {
+            datalabels: {
+                color: '#000000',
+                // font: { weight: 'bold' }
+            }
+        },
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: 0,
+                        min: 0,
+                        max: ymax,
+                        callback: ((v) => v)
+                    },
+                    type: logarithmic ? 'logarithmic' : 'linear'
+                    // stacked: true
+                }
+            ],
+            xAxes: [
+                {
+                    ticks: {
+                        min: tmin,
+                        max: tmax,
+                    },
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            day: 'D/M',
+                            month: 'M/Y',
+                        },
+                        minUnit: 'day'
+                    }
+                }
+            ]
+        },
+        watermark: {
+            image: image, opacity: 0.08, alignToChartArea: true, width: 50, height: 20
+        }
+    };
     return (
         <ReactChartjs2.default
             legend={false}
             data={data}
             type={realChartStyle}
             plugins={enforceChart && enforceChart.numberOnTop ? [ChartDataLabels] : []}
-            options={{
-                plugins: {
-                    datalabels: {
-                        color: '#000000',
-                        // font: { weight: 'bold' }
-                    }
-                },
-                scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: 0,
-                                min: 0,
-                                max: ymax
-                            },
-                            // stacked: true
-                        }
-                    ],
-                    xAxes: [
-                        {
-                            ticks: {
-                                min: tmin,
-                                max: tmax,
-                            },
-                            type: 'time',
-                            time: {
-                                displayFormats: {
-                                    day: 'D/M',
-                                    month: 'M/Y',
-                                },
-                                minUnit: 'day'
-                            }
-                        }
-                    ]
-                },
-                watermark: {
-                    image: image, opacity: 0.08, alignToChartArea: true, width: 50, height: 20
-                }
-            }}
+            options={options}
         />
     )
 }
