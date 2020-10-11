@@ -92,6 +92,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                             type: 'time',
                             time: {
                                 displayFormats: {
+                                    hour: 'D/M',
                                     day: 'D/M',
                                     month: 'M/Y',
                                 }
