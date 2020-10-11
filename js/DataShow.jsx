@@ -24,6 +24,7 @@ const getPopulationTable = async () => {
 }
 
 const convertLT15 = (text) => {
+    if (!text) return 0;
     if (!text.trim) return text;
     const num = parseFloat(text);
     if (Number.isFinite(num)) return num;
@@ -58,13 +59,15 @@ const computeForTable = async (name, data) => {
             data.forEach(row => {
                 const citypop = population.find(poprow => poprow['city'] === row['City']);
                 const pop = citypop ? citypop['population'] : 0;
+                const test7 = convertLT15(row['Test Last7 Days']);
+                row['Verified/Tests ratio'] = !test7 ? 0 : convertLT15(row['Verified Last7 Days']) / test7;
                 row['Infected Per 10000'] = normalizeToPop(pop, row['Sick Count']);
                 row['Actual Sick Per 10000'] = normalizeToPop(pop, row['Actual Sick']);
                 row['Verified Last 7 Days Per 10000'] = normalizeToPop(pop, row['Verified Last7 Days']);
                 row['Test Last 7 Days Per 10000'] = normalizeToPop(pop, row['Test Last7 Days']);
-                // if (isNaN(row['Verified Last7 Days Per 10000'])) debugger
                 row['Population'] = Math.round(pop);
                 row['City Code'] = citypop ? citypop['code'] : 0;
+                delete row['Patient Diff Population For Ten Thousands'];
             });
         }
     }
