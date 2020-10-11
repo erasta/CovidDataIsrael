@@ -33,9 +33,10 @@ const SmallWidget = ({ lang }) => {
     });
 
     const now = new Date();
-    now.setHours(12);
+    const yesterday = new Date(now);
+    yesterday.setHours(-1, 59, 59);
     const weekago = new Date(now - 7 * 24 * 3600 * 1000);
-    weekago.setHours(12);
+    weekago.setHours(0, 0, 0, 0);
 
     React.useEffect(() => {
         (async () => {
@@ -48,7 +49,9 @@ const SmallWidget = ({ lang }) => {
             const sum = sumarr(infected.map(row => row['amount']));
             const yester = infected[infected.length - 2]['amount'];
             const sumdead = sumarr(deadTable.map(row => row['amount']));
-            const deadweek = sumarr(deadTable.filter(row => row['date'].getTime() > weekago.getTime()).map(row => row['amount']))
+            const deadweek = sumarr(deadTable
+                .filter(row => row['date'].getTime() > weekago.getTime() && row['date'].getTime() < yesterday.getTime())
+                .map(row => row['amount']))
             console.log(sum, yester, sumdead, last);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,

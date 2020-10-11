@@ -10,10 +10,12 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
         if (enforceChart.fields) mutedFields = fieldNames.filter(f => !enforceChart.fields.includes(f));
     }
 
+    const fixedDates = dates.map(d => new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+
     const realChartStyle = chartStyle === 'curve' ? 'line' : chartStyle;
     const isLastToday = dates[dates.length - 1].toDateString() === new Date().toDateString();
     const data = {
-        labels: dates,
+        labels: fixedDates,
         datasets: fieldValues.map((field, i) => {
             const fieldName = fieldNames[i];
             let color = colorByNumber(i, fieldNames.length + 1);
@@ -42,8 +44,15 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
         })
     };
 
-    const tmin = dateBounds ? dateBounds[0] : undefined;
-    const tmax = dateBounds ? dateBounds[1] : undefined;
+    const hourMidDay = (d, prev = false) => {
+        if (d && d.setHours) {
+            d = new Date(d)
+            d.setHours(prev ? -12 : 12, 0, 0, 0);
+        }
+        return d;
+    }
+    const tmin = hourMidDay(dateBounds ? dateBounds[0] : undefined, true);
+    const tmax = hourMidDay(dateBounds ? dateBounds[1] : undefined);
     let ymax = undefined;
     if (tmin || tmax) {
         ymax = Math.max(...fieldValues
@@ -87,15 +96,15 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                         {
                             ticks: {
                                 min: tmin,
-                                max: tmax
+                                max: tmax,
                             },
                             type: 'time',
                             time: {
                                 displayFormats: {
-                                    hour: 'D/M',
                                     day: 'D/M',
                                     month: 'M/Y',
-                                }
+                                },
+                                minUnit: 'day'
                             }
                         }
                     ]
