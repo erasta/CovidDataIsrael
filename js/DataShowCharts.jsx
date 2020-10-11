@@ -1,5 +1,6 @@
 const DataShowCharts = ({ lang, names }) => (
     <>
+        <HeaderWidget lang={lang} />
         <Grid container key={'chartGrid'} direction="row" justify="center" alignItems="stretch">
             {[
                 'patientsPerDate',
