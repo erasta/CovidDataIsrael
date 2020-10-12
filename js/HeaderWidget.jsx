@@ -1,24 +1,3 @@
-const HeaderWidgetItem = ({ lang, name, data, color }) => {
-    return (
-        <div style={{ textAlign: 'right' }}>
-            <Typography variant="body2" component="p" style={{ color: color }}>
-                {name}
-            </Typography>
-            <Typography variant="h6" component="h6" style={{ color: color }}>
-                {numberWithCommas(data)}
-            </Typography>
-        </div>
-    )
-}
-
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-const sumarr = (arr) => {
-    return arr.reduce((a, b) => a + b);
-}
-
 const HeaderWidget = ({ lang }) => {
     const [data, setData] = React.useState({
         infectedTotal: '...',
@@ -31,8 +10,6 @@ const HeaderWidget = ({ lang }) => {
         dead: '',
         deadThisWeek: '',
     });
-
-    console.log('helloo')
 
     const now = new Date();
     const yesterday = new Date(now);
@@ -77,9 +54,9 @@ const HeaderWidget = ({ lang }) => {
                 <Grid container direction="row-reverse" justify="space-between" alignItems="stretch">
                     {/* <Grid container direction="row" justify="space-between" alignItems="center">
                     </Grid> */}
-                    <HeaderWidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={3} />
-                    <HeaderWidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
-                    <HeaderWidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
+                    <WidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={3} />
+                    <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
+                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
                 </Grid>
             </Card>
             <Grid container direction="row-reverse" justify="space-between" alignItems="stretch">
@@ -104,10 +81,10 @@ const HeaderWidget = ({ lang }) => {
                         }}
                         footer={
                             <Grid container direction="row" justify="space-between" alignItems="center">
-                                <HeaderWidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
-                                <HeaderWidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
-                                <HeaderWidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
-                                <HeaderWidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
+                                <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
+                                <WidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
+                                <WidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
+                                <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
                             </Grid>
                         }
                     />
@@ -132,7 +109,7 @@ const HeaderWidget = ({ lang }) => {
                         }}
                         dateBounds={[weekago, now]}
                         footer={
-                            <HeaderWidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
+                            <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
                         }
                     />
                 </Grid>
