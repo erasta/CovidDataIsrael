@@ -56,8 +56,12 @@ const DataMap = ({ height = 800 }) => {
                                     <tbody>
                                         {fields.map(f => (
                                             <tr key={f.name} style={{ border: 'none', margin: 0, color: f.color, whiteSpace: 'nowrap' }}>
-                                                <td key={1} style={{ border: 'none' }}>{f.name}</td>
-                                                <td key={2} style={{ border: 'none', textAlign: 'right' }}>{truncateDigits(city[f.name])}</td>
+                                                <td key={1} style={{ border: 'none' }}>
+                                                    {f.name + (f.name === 'Verified/Tests ratio' ? ' Last 7 Days' : '')}
+                                                </td>
+                                                <td key={2} style={{ border: 'none', textAlign: 'right' }}>
+                                                    {truncateDigits(city[f.name])}
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
