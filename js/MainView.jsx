@@ -46,15 +46,27 @@ const CsvButtons1 = ({ names, lang, language, setLanguage }) => (
 )
 
 const sheetnames = [
-    "lastUpdate",
-    "infectedPerDate",
-    "updatedPatientsOverallStatus",
-    "sickPerDateTwoDays",
-    "sickPatientPerLocation",
-    "patientsPerDate",
-    "deadPatientsPerDate",
-    "recoveredPerDay",
-    "testResultsPerDate",
+    "ShowCharts",
+    "contagionDataPerCityPublic",
+    {
+        "PerDate": [
+            "infectedVsDead",
+            "infectedPerDate",
+            "patientsPerDate",
+            "deadPatientsPerDate",
+            "recoveredPerDay",
+            "testResultsPerDate",
+            "doublingRate",
+        ]
+    },
+    {
+        "Hospitals": [
+            "isolatedDoctorsAndNurses",
+            "hospitalStatus",
+            "otherHospitalizedStaff",
+            "sickPatientPerLocation",
+        ]
+    },
     {
         "AgeAndGender": [
             "infectedByAgeAndGenderPublic",
@@ -63,19 +75,25 @@ const sheetnames = [
             "deadByAgeAndGenderPublic",
         ]
     },
-    "isolatedDoctorsAndNurses",
-    "contagionDataPerCityPublic",
-    "hospitalStatus",
-    "doublingRate",
-    "CalculatedVerified",
-    "otherHospitalizedStaff",
-    "moh_corona_isolation_per_day",
-    "moh_tested individuals",
-    "moh_corona_hospitalization",
-    "moh_corona_age_and_gender",
-    "moh_corona_medical_staff",
-    "moh_corona_deceased",
-    "moh_young_population_weekly"
+    {
+        "OtherMOH": [
+            "moh_corona_isolation_per_day",
+            "moh_tested individuals",
+            "moh_corona_hospitalization",
+            "moh_corona_age_and_gender",
+            "moh_corona_medical_staff",
+            "moh_corona_deceased",
+            "moh_young_population_weekly"
+        ]
+    },
+    {
+        "OtherData": [
+            "lastUpdate",
+            "updatedPatientsOverallStatus",
+            "sickPerDateTwoDays",
+            "CalculatedVerified",
+        ]
+    },
 ];
 
 const CollapsableListItem = ({ name, children }) => {
