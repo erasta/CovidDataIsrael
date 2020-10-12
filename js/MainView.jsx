@@ -1,5 +1,7 @@
 const {
-    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress, List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar
+    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress,
+    List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar,
+    Collapse
 } = MaterialUI;
 
 const ShowByName = ({ name, names, lang }) => {
@@ -43,6 +45,63 @@ const CsvButtons1 = ({ names, lang, language, setLanguage }) => (
     </Grid>
 )
 
+const sheetnames = [
+    "lastUpdate",
+    "infectedPerDate",
+    "updatedPatientsOverallStatus",
+    "sickPerDateTwoDays",
+    "sickPatientPerLocation",
+    "patientsPerDate",
+    "deadPatientsPerDate",
+    "recoveredPerDay",
+    "testResultsPerDate",
+    {
+        "AgeAndGender": [
+            "infectedByAgeAndGenderPublic",
+            "breatheByAgeAndGenderPublic",
+            "severeByAgeAndGenderPublic",
+            "deadByAgeAndGenderPublic",
+        ]
+    },
+    "isolatedDoctorsAndNurses",
+    "contagionDataPerCityPublic",
+    "hospitalStatus",
+    "doublingRate",
+    "CalculatedVerified",
+    "otherHospitalizedStaff",
+    "moh_corona_isolation_per_day",
+    "moh_tested individuals",
+    "moh_corona_hospitalization",
+    "moh_corona_age_and_gender",
+    "moh_corona_medical_staff",
+    "moh_corona_deceased",
+    "moh_young_population_weekly"
+];
+
+const CollapsableListItem = ({ name, children }) => {
+    const [open, setOpen] = React.useState(false);
+    return (
+        <>
+            <ListItem
+                button
+                onClick={() => setOpen(!open)}
+                key={name + 'colitem'}
+            >
+                {open ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>}
+                <ListItemText
+                    style={{ textAlign: "right" }}
+                    primary={name}
+                />
+            </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit
+                key={name + 'collist'}
+            >
+                {children}
+            </Collapse>
+        </>
+    )
+}
+
 const CsvButtons = ({ names, lang, language, setLanguage }) => (
     <List component="nav" aria-label="secondary">
         <ListItem button
@@ -60,18 +119,40 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => (
             <ListItemText primary="Change language" />
         </ListItem>
         {
-            ['ShowCharts', 'infectedVsDead'].concat(names).map(name => (
-                <ListItem button
-                    key={name}
-                    component={Link}
-                    to={`?sheet=${name}`}
-                >
-                    <ListItemText
-                        style={{ textAlign: "right" }}
-                        primary={trans(lang, name)}
-                    />
-                </ListItem>
-            ))
+            sheetnames.map(name => {
+                if (typeof (name) === 'string') {
+                    return (
+                        <ListItem button
+                            key={name}
+                            component={Link}
+                            to={`?sheet=${name}`}
+                        >
+                            <ListItemText
+                                style={{ textAlign: "right" }}
+                                primary={trans(lang, name)}
+                            />
+                        </ListItem>
+                    )
+                } else {
+                    const key = Object.keys(name)[0];
+                    return (
+                        <CollapsableListItem key={key} name={trans(lang, key)}>
+                            {name[key].map(under => (
+                                <ListItem button
+                                    key={under}
+                                    component={Link}
+                                    to={`?sheet=${under}`}
+                                >
+                                    <ListItemText
+                                        style={{ textAlign: "right", paddingRight: 10 }}
+                                        primary={trans(lang, under)}
+                                    />
+                                </ListItem>
+                            ))}
+                        </CollapsableListItem>
+                    )
+                }
+            })
         }
     </List>
 )
