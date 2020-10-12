@@ -1,5 +1,5 @@
 const {
-    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress
+    ButtonGroup, Button, Icon, Grid, IconButton, CircularProgress, List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar
 } = MaterialUI;
 
 const ShowByName = ({ name, names, lang }) => {
@@ -8,7 +8,7 @@ const ShowByName = ({ name, names, lang }) => {
     return <DataShow name={name} lang={lang} />
 }
 
-const CsvButtons = ({ names, lang, language, setLanguage }) => (
+const CsvButtons1 = ({ names, lang, language, setLanguage }) => (
     <Grid container direction='column'>
         <Button
             key={'lang'}
@@ -41,6 +41,39 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => (
             ))
         }
     </Grid>
+)
+
+const CsvButtons = ({ names, lang, language, setLanguage }) => (
+    <List component="nav" aria-label="secondary">
+        <ListItem button
+            key={'lang'}
+            style={{ textAlign: "right" }}
+            onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}
+        >
+            <ListItemAvatar>
+                <Avatar>
+                    <img width={'100%'} height={'100%'} style={{ objectFit: 'cover' }}
+                        src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}
+                    ></img>
+                </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Change language" />
+        </ListItem>
+        {
+            ['ShowCharts', 'infectedVsDead'].concat(names).map(name => (
+                <ListItem button
+                    key={name}
+                    component={Link}
+                    to={`?sheet=${name}`}
+                >
+                    <ListItemText
+                        style={{ textAlign: "right" }}
+                        primary={trans(lang, name)}
+                    />
+                </ListItem>
+            ))
+        }
+    </List>
 )
 
 
