@@ -178,12 +178,12 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => (
 
 const MainView = ({ names, name, lang, language, setLanguage, showSideBar }) => (
     <Grid container direction="row">
-        <Grid item xs={showSideBar ? 9 : 12}>
+        <Grid item xs={showSideBar ? 10 : 12}>
             <ShowByName name={name} names={names} lang={lang} />
         </Grid>
         {
             !showSideBar ? null :
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <CsvButtons names={names} lang={lang} language={language} setLanguage={setLanguage} />
                 </Grid>
         }
