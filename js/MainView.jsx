@@ -120,60 +120,71 @@ const CollapsableListItem = ({ name, children }) => {
     )
 }
 
-const CsvButtons = ({ names, lang, language, setLanguage }) => (
-    <List component="nav" aria-label="secondary">
-        <ListItem button
-            key={'lang'}
-            style={{ textAlign: "right" }}
-            onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}
-        >
-            <ListItemAvatar>
-                <Avatar>
-                    <img width={'100%'} height={'100%'} style={{ objectFit: 'cover' }}
-                        src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}
-                    ></img>
-                </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Change language" />
-        </ListItem>
-        {
-            sheetnames.map(name => {
-                if (typeof (name) === 'string') {
-                    return (
-                        <ListItem button
-                            key={name}
-                            component={Link}
-                            to={`?sheet=${name}`}
-                        >
-                            <ListItemText
-                                style={{ textAlign: "right" }}
-                                primary={trans(lang, name)}
-                            />
-                        </ListItem>
-                    )
-                } else {
-                    const key = Object.keys(name)[0];
-                    return (
-                        <CollapsableListItem key={key} name={trans(lang, key)}>
-                            {name[key].map(under => (
-                                <ListItem button
-                                    key={under}
-                                    component={Link}
-                                    to={`?sheet=${under}`}
-                                >
-                                    <ListItemText
-                                        style={{ textAlign: "right", paddingRight: 10 }}
-                                        primary={trans(lang, under)}
-                                    />
-                                </ListItem>
-                            ))}
-                        </CollapsableListItem>
-                    )
-                }
-            })
-        }
-    </List>
-)
+const useStyles = makeStyles((theme) => ({
+    small: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+    }
+}));
+
+const CsvButtons = ({ names, lang, language, setLanguage }) => {
+    const classes = useStyles();
+
+    return (
+        <List component="nav" aria-label="secondary">
+            <ListItem button
+                key={'lang'}
+                style={{ textAlign: "right" }}
+                onClick={() => setLanguage(language === 'he' ? 'en' : 'he')}
+            >
+                <ListItemAvatar>
+                    <Avatar className={classes.small}>
+                        <img width={'100%'} height={'100%'} style={{ objectFit: 'cover' }}
+                            src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}
+                        ></img>
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="Language" />
+            </ListItem>
+            {
+                sheetnames.map(name => {
+                    if (typeof (name) === 'string') {
+                        return (
+                            <ListItem button
+                                key={name}
+                                component={Link}
+                                to={`?sheet=${name}`}
+                            >
+                                <ListItemText
+                                    style={{ textAlign: "right" }}
+                                    primary={trans(lang, name)}
+                                />
+                            </ListItem>
+                        )
+                    } else {
+                        const key = Object.keys(name)[0];
+                        return (
+                            <CollapsableListItem key={key} name={trans(lang, key)}>
+                                {name[key].map(under => (
+                                    <ListItem button
+                                        key={under}
+                                        component={Link}
+                                        to={`?sheet=${under}`}
+                                    >
+                                        <ListItemText
+                                            style={{ textAlign: "right", paddingRight: 10 }}
+                                            primary={trans(lang, under)}
+                                        />
+                                    </ListItem>
+                                ))}
+                            </CollapsableListItem>
+                        )
+                    }
+                })
+            }
+        </List>
+    )
+}
 
 
 const MainView = ({ names, name, lang, language, setLanguage, showSideBar }) => (
