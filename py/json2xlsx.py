@@ -11,6 +11,32 @@ import utils
 import xlscolumn
 from dashreq import get_dash_data, get_dash_req
 
+os.makedirs('out/csv', exist_ok=True)
+
+
+def last_update_remote():
+    lastUpdateRemoteJson = urllib.request.urlopen("https://datadashboardapi.health.gov.il/api/queries/lastUpdate").read().decode("utf-8")
+    return json.loads(lastUpdateRemoteJson)[0]['lastUpdate']
+
+
+def last_update_local():
+    try:
+        with open('out/csv/lastUpdate.csv', newline='') as lastUpdateFile:
+            reader = csv.DictReader(lastUpdateFile)
+            for row in reader:
+                return row['lastUpdate']
+    except FileNotFoundError:
+        pass
+    return None
+
+
+lastUpdateRemote = str(last_update_remote()).strip()
+lastUpdateLocal = str(last_update_local()).strip()
+if lastUpdateLocal == lastUpdateRemote:
+    print('local == remote, stoping.', lastUpdateLocal, lastUpdateRemote)
+    exit()
+print('local != remote, continuing.', lastUpdateLocal, lastUpdateRemote)
+
 with open('jsons/mohfiles.json') as f:
     mohfiles = json.load(f)
     for moh in mohfiles:
@@ -35,17 +61,11 @@ sheets = list(map(lambda x: x['queryName'], dashrequest['requests']))
 
 dashjson = get_dash_data()
 datas = list(map(lambda x: x['data'], dashjson))
-# datas = list(range(len(sheets)))
 
 sheet2data = utils.group_sheet_data(sheets, datas)
 
-# deadPatientsPerDate = [data for sheetname, data in sheet2data if sheetname == 'deadPatientsPerDate']
-# if len(deadPatientsPerDate) > 0:
-#     sheet2data.append(('deadDelta_computed', utils.computeDelta(deadPatientsPerDate[0], 'out/csv/deadPatientsPerDate.csv')))
-
 histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
 os.makedirs(histdir, exist_ok=True)
-os.makedirs('out/csv', exist_ok=True)
 for i, (sheetname, data) in enumerate(sheet2data):
     data, fields = utils.data2fields(data)
     print(i, sheetname, fields)
