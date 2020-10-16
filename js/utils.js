@@ -88,6 +88,16 @@ const fetchFile = async (url) => {
     }
 }
 
+const fetchJson = async (url) => {
+    try {
+        const response = await fetch(url);
+        const json = await response.json();
+        return response.ok ? json : undefined;
+    } catch (e) {
+        return undefined;
+    }
+}
+
 const convertFieldToType = (rows, key) => {
     if (rows.length === 0) return rows;
     const items = rows.map(row => (row[key] === undefined) ? '' : row[key].trim());

@@ -1,4 +1,4 @@
-const { Map: LeafletMap, TileLayer, Marker, Popup, Circle, CircleMarker, LayersControl, LayerGroup } = window.ReactLeaflet;
+const { Map: LeafletMap, TileLayer, Marker, Popup, Circle, CircleMarker, LayersControl, LayerGroup, Polygon } = window.ReactLeaflet;
 
 const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => {
     if (positivesThisWeek === undefined || sickThisWeek === undefined || sickLastWeek === undefined || sick2WeekAgo === undefined) {
@@ -31,14 +31,28 @@ const dateMinusDays = (date, daysToGoBack) => {
     return toIsoDate(ret);
 }
 
+const inverseCoords = (geometry) => {
+    return geometry.geometry.coordinates.map(poly => {
+        return poly.map(points => {
+            return points.map(point => {
+                return [point[1], point[0]];
+            });
+        });
+    });
+}
+
 const DataMap = ({ height = 800 }) => {
     const [cities, setCities] = React.useState([]);
     const [geoloc, setGeoloc] = React.useState([]);
+    const [geopoly, setGeopoly] = React.useState({});
     const [showHistory, setShowHistory] = React.useState(false);
     React.useEffect(() => {
         (async () => {
             const geoloc1 = await fetchCsv('jsons/city_geoloc.csv');
             setGeoloc(geoloc1);
+            const geopoly1 = await fetchJson('jsons/tufts-israelpalestinemuni08-geojson.json');
+            console.log(geopoly1)
+            setGeopoly(geopoly1 ? geopoly1 : {});
         })();
     }, [])
     React.useEffect(() => {
@@ -144,34 +158,53 @@ const DataMap = ({ height = 800 }) => {
                                         return null;
                                     }
                                     const color = d3.interpolateRdYlGn(1 - (num / 10));
+                                    const popup = (
+                                        <Popup>
+                                            <p key='city' style={{ margin: 0, textAlign: 'right', fontWeight: 600 }}>
+                                                {city.City}
+                                            </p>
+                                            <p key='ramzor'  style={{ margin: 0, textAlign: 'right'}}>
+                                                רמזור {num}
+                                            </p>
+                                            <p key='ver' style={{ margin: 0, textAlign: 'right' }}>
+                                                נדבקים ל10000 השבוע {city['Verified Last 7 Days Per 10000']}
+                                            </p>
+                                            <p key='act' style={{ margin: 0, textAlign: 'right' }}>
+                                                חולים ל10000 השבוע {city['Actual Sick Per 10000']}
+                                            </p>
+                                            <p key='act7' style={{ margin: 0, textAlign: 'right' }}>
+                                                חולים ל10000 לפני שבוע {city['Actual Sick Per 10000, 1 week ago']}
+                                            </p>
+                                            <p key='act14' style={{ margin: 0, textAlign: 'right' }}>
+                                                חולים ל10000 לפני שבועיים {city['Actual Sick Per 10000, 2 week ago']}
+                                            </p>
+                                        </Popup>
+                                    );
+                                    if (geopoly.type) {
+                                        const poly = geopoly.features.find(f => f.properties.MUNICIPAL_ === city['City Code']);
+                                        if (poly) {
+                                            return (
+                                                <Polygon
+                                                    positions={inverseCoords(poly)}
+                                                    key={city['City Code']}
+                                                    color={color}
+                                                >
+                                                    {popup}
+                                                </Polygon>
+                                            )
+                                        }
+                                    }
                                     return (
-                                        <CircleMarker
+                                        <Circle
                                             key={city['City Code']}
                                             center={city.latlng}
                                             // weight={ 1}
+                                            radius={500}
                                             color={color}
+                                            fillOpacity={0.4}
                                         >
-                                            <Popup>
-                                                <p key='city' style={{ margin: 0, textAlign: 'right', fontWeight: 600 }}>
-                                                    {city.City}
-                                                </p>
-                                                <p key='ramzor'>
-                                                    רמזור {num}
-                                                </p>
-                                                <p key='ver'>
-                                                    נדבקים ל10000 השבוע {city['Verified Last 7 Days Per 10000']}
-                                                </p>
-                                                <p key='act'>
-                                                    חולים ל10000 השבוע {city['Actual Sick Per 10000']}
-                                                </p>
-                                                <p key='act7'>
-                                                    חולים ל10000 לפני שבוע {city['Actual Sick Per 10000, 1 week ago']}
-                                                </p>
-                                                <p key='act14'>
-                                                    חולים ל10000 לפני שבועיים {city['Actual Sick Per 10000, 2 week ago']}
-                                                </p>
-                                            </Popup>
-                                        </CircleMarker>
+                                            {popup}
+                                        </Circle>
                                     )
                                 })
                             }
