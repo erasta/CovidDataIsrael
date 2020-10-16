@@ -85,7 +85,7 @@ const DataMap = ({ height = 800 }) => {
             <HistorySlider onHistory={v => setShowHistory(v)} withPlay={true} />
             <LeafletMap center={[32.0897, 34.8042]} zoom={12} style={{ height: height }}>
                 <TileLayer
-                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    attribution='&amp;copy <a href="http://eran.dev">Eran Geva</a> | &amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                 // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
