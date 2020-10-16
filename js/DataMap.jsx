@@ -91,7 +91,7 @@ const DataMap = ({ height = 800 }) => {
                 />
 
                 <LayersControl collapsed={true}>
-                    <LayersControl.Overlay name="הדבקה לפי עיר" checked={true}>
+                    <LayersControl.BaseLayer name="הדבקה לפי עיר" checked={true}>
                         <LayerGroup>
                             {
                                 fields.map((field, i) => {
@@ -143,8 +143,8 @@ const DataMap = ({ height = 800 }) => {
                                 })
                             }
                         </LayerGroup>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name="רמזור - עדיין בבדיקות" checked={false}>
+                    </LayersControl.BaseLayer>
+                    <LayersControl.BaseLayer name="רמזור - עדיין בבדיקות" checked={false}>
                         <LayerGroup>
                             {
                                 cities.map(city => {
@@ -209,7 +209,7 @@ const DataMap = ({ height = 800 }) => {
                                 })
                             }
                         </LayerGroup>
-                    </LayersControl.Overlay>
+                    </LayersControl.BaseLayer>
                 </LayersControl>
             </LeafletMap>
         </>
