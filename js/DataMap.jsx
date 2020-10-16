@@ -90,7 +90,7 @@ const DataMap = ({ height = 800 }) => {
                 // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <LayersControl collapsed={true}>
+                <LayersControl collapsed={false}>
                     <LayersControl.BaseLayer name="הדבקה לפי עיר" checked={true}>
                         <LayerGroup>
                             {
@@ -144,7 +144,7 @@ const DataMap = ({ height = 800 }) => {
                             }
                         </LayerGroup>
                     </LayersControl.BaseLayer>
-                    <LayersControl.BaseLayer name="רמזור - עדיין בבדיקות" checked={false}>
+                    <LayersControl.BaseLayer name="רמזור משוער לפי פרסומים" checked={false}>
                         <LayerGroup>
                             {
                                 cities.map(city => {
