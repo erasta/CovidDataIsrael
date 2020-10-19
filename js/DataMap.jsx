@@ -11,11 +11,11 @@ const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => 
     if (N1 === 0) {
         return undefined;
     }
-    const G = N / N1 - 1;
+    const G = N / N1;
     const NGG = N * G * G;
     if (NGG < 0.0000000001) return 0;
     const ramzor_raw = k + Math.log(NGG) + positivesThisWeek / m;
-    return Math.min(10, Math.max(0, ramzor_raw));
+    return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
 }
 
 const toIsoDate = (date) => {
