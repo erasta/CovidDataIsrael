@@ -1,4 +1,4 @@
-const { Map: LeafletMap, TileLayer, Marker, Popup, Circle, CircleMarker, LayersControl, LayerGroup, Polygon } = window.ReactLeaflet;
+const { Map: LeafletMap, TileLayer, Marker, Popup, Circle, CircleMarker, LayersControl, LayerGroup, Polygon, Tooltip } = window.ReactLeaflet;
 
 const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => {
     if (positivesThisWeek === undefined || sickThisWeek === undefined || sickLastWeek === undefined || sick2WeekAgo === undefined) {
@@ -91,7 +91,7 @@ const DataMap = ({ height = 800 }) => {
                 />
 
                 <LayersControl collapsed={false}>
-                    <LayersControl.BaseLayer name="הדבקה לפי עיר" checked={true}>
+                    <LayersControl.BaseLayer name="הדבקה לפי עיר" checked={false}>
                         <LayerGroup>
                             {
                                 fields.map((field, i) => {
@@ -144,9 +144,11 @@ const DataMap = ({ height = 800 }) => {
                             }
                         </LayerGroup>
                     </LayersControl.BaseLayer>
-                    <LayersControl.BaseLayer name="רמזור משוער לפי פרסומים" checked={false}>
-                        <LayerGroup>
-                            {
+                    <LayersControl.BaseLayer name="רמזור משוער לפי פרסומים" checked={true}>
+                        <PolygonsByCity
+                            cities={cities}
+                            geopoly={geopoly}
+                            detailsForCities={
                                 cities.map(city => {
                                     const num = ramzor(
                                         city['Verified Last 7 Days Per 10000'],
@@ -154,64 +156,89 @@ const DataMap = ({ height = 800 }) => {
                                         city['Actual Sick Per 10000, 1 week ago'],
                                         city['Actual Sick Per 10000, 2 week ago']
                                     );
-                                    if (num === undefined) {
-                                        return null;
+                                    return {
+                                        code: city['City Code'],
+                                        num: num,
+                                        details: [
+                                            ['רמזור', num],
+                                            ['נדבקים ל10000 השבוע', city['Verified Last 7 Days Per 10000']],
+                                            ['חולים ל10000 השבוע', city['Actual Sick Per 10000']],
+                                            ['חולים ל10000 לפני שבוע', city['Actual Sick Per 10000, 1 week ago']],
+                                            ['חולים ל10000 לפני שבועיים', city['Actual Sick Per 10000, 2 week ago']],
+                                        ]
                                     }
-                                    const color = d3.interpolateRdYlGn(1 - (num / 10));
-                                    const popup = (
-                                        <Popup>
-                                            <p key='city' style={{ margin: 0, textAlign: 'right', fontWeight: 600 }}>
-                                                {city.City}
-                                            </p>
-                                            <p key='ramzor'  style={{ margin: 0, textAlign: 'right'}}>
-                                                רמזור {num}
-                                            </p>
-                                            <p key='ver' style={{ margin: 0, textAlign: 'right' }}>
-                                                נדבקים ל10000 השבוע {city['Verified Last 7 Days Per 10000']}
-                                            </p>
-                                            <p key='act' style={{ margin: 0, textAlign: 'right' }}>
-                                                חולים ל10000 השבוע {city['Actual Sick Per 10000']}
-                                            </p>
-                                            <p key='act7' style={{ margin: 0, textAlign: 'right' }}>
-                                                חולים ל10000 לפני שבוע {city['Actual Sick Per 10000, 1 week ago']}
-                                            </p>
-                                            <p key='act14' style={{ margin: 0, textAlign: 'right' }}>
-                                                חולים ל10000 לפני שבועיים {city['Actual Sick Per 10000, 2 week ago']}
-                                            </p>
-                                        </Popup>
-                                    );
-                                    if (geopoly.type) {
-                                        const poly = geopoly.features.find(f => f.properties.MUNICIPAL_ === city['City Code']);
-                                        if (poly) {
-                                            return (
-                                                <Polygon
-                                                    positions={inverseCoords(poly)}
-                                                    key={city['City Code']}
-                                                    color={color}
-                                                >
-                                                    {popup}
-                                                </Polygon>
-                                            )
-                                        }
-                                    }
-                                    return (
-                                        <Circle
-                                            key={city['City Code']}
-                                            center={city.latlng}
-                                            // weight={ 1}
-                                            radius={500}
-                                            color={color}
-                                            fillOpacity={0.4}
-                                        >
-                                            {popup}
-                                        </Circle>
-                                    )
                                 })
                             }
-                        </LayerGroup>
+                        />
                     </LayersControl.BaseLayer>
                 </LayersControl>
             </LeafletMap>
         </>
+    )
+}
+
+const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
+    return (
+        <LayerGroup>
+            {
+                cities.map(city => {
+                    const cityCode = city['City Code'];
+                    const detailsForCity = detailsForCities.find(d => d.code === cityCode);
+                    if (detailsForCity === undefined) {
+                        return null;
+                    }
+                    const num = detailsForCity.num;
+                    if (num === undefined) {
+                        return null;
+                    }
+                    const color = d3.interpolateRdYlGn(1 - (num / 10));
+                    const details = detailsForCity.details;
+                    const popup = (
+                        <Popup>
+                            <p key='city' style={{ margin: 0, textAlign: 'right', fontWeight: 600 }}>
+                                {city.City}
+                            </p>
+                            {
+                                details.map(detail => {
+                                    const [name, number] = detail;
+                                    return (
+                                        <p key={name} style={{ margin: 0, textAlign: 'right' }}>
+                                            {name} {number}
+                                        </p>
+                                    )
+                                })
+                            }
+                        </Popup>
+                    );
+                    if (geopoly.type) {
+                        const poly = geopoly.features.find(f => f.properties.MUNICIPAL_ === cityCode);
+                        if (poly) {
+                            return (
+                                <Polygon
+                                    positions={inverseCoords(poly)}
+                                    key={cityCode}
+                                    color={color}
+                                    weight={1}
+                                >
+                                    {popup}
+                                </Polygon>
+                            )
+                        }
+                    }
+                    return (
+                        <Circle
+                            key={cityCode}
+                            center={city.latlng}
+                            weight={1}
+                            radius={500}
+                            color={color}
+                            fillOpacity={0.4}
+                        >
+                            {popup}
+                        </Circle>
+                    )
+                })
+            }
+        </LayerGroup>
     )
 }
