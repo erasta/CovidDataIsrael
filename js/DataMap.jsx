@@ -51,7 +51,7 @@ const DataMap = ({ height = 800 }) => {
             const geoloc1 = await fetchCsv('jsons/city_geoloc.csv');
             setGeoloc(geoloc1);
             const geopoly1 = await fetchJson('jsons/tufts-israelpalestinemuni08-geojson.json');
-            console.log(geopoly1)
+            // console.log(geopoly1)
             setGeopoly(geopoly1 ? geopoly1 : {});
         })();
     }, [])
@@ -158,7 +158,7 @@ const DataMap = ({ height = 800 }) => {
                                     );
                                     return {
                                         code: city['City Code'],
-                                        num: num,
+                                        num: num === undefined ? num : num / 10,
                                         details: [
                                             ['רמזור', num],
                                             ['נדבקים ל10000 השבוע', city['Verified Last 7 Days Per 10000']],
@@ -171,6 +171,29 @@ const DataMap = ({ height = 800 }) => {
                             }
                         />
                     </LayersControl.BaseLayer>
+                    {fields.map(field => {
+                        const fieldname = field.name;
+                        const maxval = Math.max(...cities.map(city => city[fieldname]));
+                        return (
+                            <LayersControl.BaseLayer name={fieldname} checked={false} key={fieldname}>
+                                <PolygonsByCity
+                                    cities={cities}
+                                    geopoly={geopoly}
+                                    detailsForCities={
+                                        cities.map(city => {
+                                            return {
+                                                code: city['City Code'],
+                                                num: city[fieldname] / maxval,
+                                                details: [
+                                                    [fieldname, city[fieldname]]
+                                                ]
+                                            }
+                                        })
+                                    }
+                                />
+                            </LayersControl.BaseLayer>
+                        )
+                    })}
                 </LayersControl>
             </LeafletMap>
         </>
@@ -191,7 +214,7 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                     if (num === undefined) {
                         return null;
                     }
-                    const color = d3.interpolateRdYlGn(1 - (num / 10));
+                    const color = d3.interpolateRdYlGn(1 - (num));
                     const details = detailsForCity.details;
                     const popup = (
                         <Popup>
