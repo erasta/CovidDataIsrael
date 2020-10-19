@@ -201,6 +201,9 @@ const DataMap = ({ height = 800 }) => {
 }
 
 const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
+    const hslLow = rgb2hsl([0, 104, 55]);
+    const hslHigh = rgb2hsl([255, 0, 0]);
+
     return (
         <LayerGroup>
             {
@@ -214,7 +217,8 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                     if (num === undefined) {
                         return null;
                     }
-                    const color = d3.interpolateRdYlGn(1 - (num));
+                    const color = 'rgb('+hsl2rgb(_interpolateColor(hslLow, hslHigh, num)).join(',')+')';
+                    // const color1 = d3.interpolateRdYlGn(1 - (num));
                     const details = detailsForCity.details;
                     const popup = (
                         <Popup>
@@ -241,7 +245,7 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                                     positions={inverseCoords(poly)}
                                     key={cityCode}
                                     color={color}
-                                    weight={1}
+                                    weight={2}
                                 >
                                     {popup}
                                 </Polygon>
@@ -252,7 +256,7 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                         <Circle
                             key={cityCode}
                             center={city.latlng}
-                            weight={1}
+                            weight={2}
                             radius={500}
                             color={color}
                             fillOpacity={0.4}
