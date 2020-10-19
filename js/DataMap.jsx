@@ -91,7 +91,57 @@ const DataMap = ({ height = 800 }) => {
                 />
 
                 <LayersControl collapsed={false}>
-                    <LayersControl.BaseLayer name="הדבקה לפי עיר" checked={false}>
+                    <LayersControl.BaseLayer name="רמזור משוער לפי פרסומים" checked={true}>
+                        <PolygonsByCity
+                            cities={cities}
+                            geopoly={geopoly}
+                            detailsForCities={
+                                cities.map(city => {
+                                    const num = ramzor(
+                                        city['Verified Last 7 Days Per 10000'],
+                                        city['Actual Sick Per 10000'],
+                                        city['Actual Sick Per 10000, 1 week ago'],
+                                        city['Actual Sick Per 10000, 2 week ago']
+                                    );
+                                    return {
+                                        code: city['City Code'],
+                                        num: num === undefined ? num : num / 10,
+                                        details: [
+                                            ['רמזור', num],
+                                            ['נדבקים ל10000 השבוע', city['Verified Last 7 Days Per 10000']],
+                                            ['חולים ל10000 השבוע', city['Actual Sick Per 10000']],
+                                            ['חולים ל10000 לפני שבוע', city['Actual Sick Per 10000, 1 week ago']],
+                                            ['חולים ל10000 לפני שבועיים', city['Actual Sick Per 10000, 2 week ago']],
+                                        ]
+                                    }
+                                })
+                            }
+                        />
+                    </LayersControl.BaseLayer>
+                    {fields.map(field => {
+                        const fieldname = field.name;
+                        const maxval = Math.max(...cities.map(city => city[fieldname]));
+                        return (
+                            <LayersControl.BaseLayer name={fieldname} checked={false} key={fieldname}>
+                                <PolygonsByCity
+                                    cities={cities}
+                                    geopoly={geopoly}
+                                    detailsForCities={
+                                        cities.map(city => {
+                                            return {
+                                                code: city['City Code'],
+                                                num: city[fieldname] / maxval,
+                                                details: [
+                                                    [fieldname, truncateDigits(city[fieldname])]
+                                                ]
+                                            }
+                                        })
+                                    }
+                                />
+                            </LayersControl.BaseLayer>
+                        )
+                    })}
+                    <LayersControl.BaseLayer name="נתוני הדבקה כגרף עוגה" checked={false}>
                         <LayerGroup>
                             {
                                 fields.map((field, i) => {
@@ -144,56 +194,6 @@ const DataMap = ({ height = 800 }) => {
                             }
                         </LayerGroup>
                     </LayersControl.BaseLayer>
-                    <LayersControl.BaseLayer name="רמזור משוער לפי פרסומים" checked={true}>
-                        <PolygonsByCity
-                            cities={cities}
-                            geopoly={geopoly}
-                            detailsForCities={
-                                cities.map(city => {
-                                    const num = ramzor(
-                                        city['Verified Last 7 Days Per 10000'],
-                                        city['Actual Sick Per 10000'],
-                                        city['Actual Sick Per 10000, 1 week ago'],
-                                        city['Actual Sick Per 10000, 2 week ago']
-                                    );
-                                    return {
-                                        code: city['City Code'],
-                                        num: num === undefined ? num : num / 10,
-                                        details: [
-                                            ['רמזור', num],
-                                            ['נדבקים ל10000 השבוע', city['Verified Last 7 Days Per 10000']],
-                                            ['חולים ל10000 השבוע', city['Actual Sick Per 10000']],
-                                            ['חולים ל10000 לפני שבוע', city['Actual Sick Per 10000, 1 week ago']],
-                                            ['חולים ל10000 לפני שבועיים', city['Actual Sick Per 10000, 2 week ago']],
-                                        ]
-                                    }
-                                })
-                            }
-                        />
-                    </LayersControl.BaseLayer>
-                    {fields.map(field => {
-                        const fieldname = field.name;
-                        const maxval = Math.max(...cities.map(city => city[fieldname]));
-                        return (
-                            <LayersControl.BaseLayer name={fieldname} checked={false} key={fieldname}>
-                                <PolygonsByCity
-                                    cities={cities}
-                                    geopoly={geopoly}
-                                    detailsForCities={
-                                        cities.map(city => {
-                                            return {
-                                                code: city['City Code'],
-                                                num: city[fieldname] / maxval,
-                                                details: [
-                                                    [fieldname, city[fieldname]]
-                                                ]
-                                            }
-                                        })
-                                    }
-                                />
-                            </LayersControl.BaseLayer>
-                        )
-                    })}
                 </LayersControl>
             </LeafletMap>
         </>
@@ -226,7 +226,7 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                                     const [name, number] = detail;
                                     return (
                                         <p key={name} style={{ margin: 0, textAlign: 'right' }}>
-                                            {name} {number}
+                                            {name}: {number}
                                         </p>
                                     )
                                 })
