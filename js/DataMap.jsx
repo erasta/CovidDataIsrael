@@ -128,9 +128,11 @@ const DataMap = ({ height = 800 }) => {
                                     geopoly={geopoly}
                                     detailsForCities={
                                         cities.map(city => {
+                                            let val = city[fieldname] / maxval;
+                                            if (fieldname === 'Test Last 7 Days Per 10000') val = 1 - val;
                                             return {
                                                 code: city['City Code'],
-                                                num: city[fieldname] / maxval,
+                                                num: val,
                                                 details: [
                                                     [fieldname, truncateDigits(city[fieldname])]
                                                 ]
@@ -217,7 +219,7 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                     if (num === undefined) {
                         return null;
                     }
-                    const color = 'rgb('+hsl2rgb(_interpolateColor(hslLow, hslHigh, num)).join(',')+')';
+                    const color = 'rgb(' + hsl2rgb(_interpolateColor(hslLow, hslHigh, num)).join(',') + ')';
                     // const color1 = d3.interpolateRdYlGn(1 - (num));
                     const details = detailsForCity.details;
                     const popup = (
