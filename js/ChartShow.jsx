@@ -80,7 +80,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                 {
                     ticks: {
                         beginAtZero: 0,
-                        min: 0,
+                        // min: 0,
                         max: ymax,
                         callback: ((v) => v)
                     },

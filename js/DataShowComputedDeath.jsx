@@ -10,6 +10,10 @@ const DataShowComputedDeath = ({ lang, showtable = true }) => {
             infected = suffixFields(infected, '_infected');
             dead = suffixFields(dead, '_dead');
             const parsed = mergeTablesByDate(infected, dead);
+            parsed.forEach(row => {
+                const {Amount_infected, Amount_dead, Recovered_infected} = row;
+                row['Currently_sick'] = (Amount_infected ?? 0)- (Amount_dead ?? 0) - (Recovered_infected ?? 0);
+            });
             setState({ parsed: parsed, work: false });
         })();
     }, [])
