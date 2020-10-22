@@ -13,6 +13,9 @@ const ShowAbout = ({ lang }) => {
     return (
         <>
             <div className={classes.root} dir='rtl'>
+                <Typography variant="h4" component="h5" style={{ marginBlockEnd: 0 }}>
+                    על האתר
+                </Typography>
                 <p>
                     נתוני הקורונה שאנחנו מקבלים מהעיתונות, טלויזיה ומשרד הבריאות תמיד חסרים או מעובדים היטב כדי שאנחנו ״נבין״.
                 </p>
