@@ -15,10 +15,6 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const sumarr = (arr) => {
-    return arr.reduce((a, b) => a + b);
-}
-
 const SmallWidget = ({ lang }) => {
     const [data, setData] = React.useState({
         infectedTotal: '',

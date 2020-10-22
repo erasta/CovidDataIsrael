@@ -46,12 +46,31 @@ const normalizeToPop = (pop, num) => {
     return truncPer10000(convertLT15(num) / pop * 10000);
 }
 
+const dayDiff = (date1, date2) => {
+    return (date1 - date2) / 24 / 3600 / 1000;
+}
+const computeR = (data, i, row) => {
+    const currDate = onlyDay(row['date']);
+    let sumThisWeek = 0;
+    let sumLastWeek = 0;
+    let j = i;
+    for (; j >= 0 && dayDiff(currDate, onlyDay(data[j]['date'])) < 7.1; --j) {
+        sumThisWeek += (data[j]['Positive Amount'] ?? 0);
+    }
+    for (; j >= 0 && dayDiff(currDate, onlyDay(data[j]['date'])) < 14.1; --j) {
+        sumLastWeek += (data[j]['Positive Amount'] ?? 0);
+    }
+    if (!sumLastWeek) return 0;
+    return sumThisWeek / sumLastWeek;
+}
+
 const computeForTable = async (name, data) => {
     if (name === 'testResultsPerDate') {
-        data.forEach(row => {
+        data.forEach((row, i) => {
             const amount = parseFloat(row['Amount Virus Diagnosis']);
             const positive = parseFloat(row['Positive Amount']);
             row['Positive Ratio'] = Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
+            row['R'] = computeR(data, i, row);
         });
     } else if (name === 'contagionDataPerCityPublic') {
         const population = await getPopulationTable();

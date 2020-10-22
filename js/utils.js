@@ -187,3 +187,13 @@ const trans = (lang, text) => {
     return text;
 }
 
+const onlyDay = (date) => {
+    let d = new Date(date)
+    d.setHours(0, 0, 0, 0);
+    return d;
+}
+
+const sumarr = (arr) => {
+    return arr.reduce((a, b) => a + b, 0);
+}
+
