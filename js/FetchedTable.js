@@ -2,7 +2,24 @@ class FetchedTable {
     constructor(name, historyDate) {
         this.name = name;
         this.historyDate = historyDate;
+        this.time = onlyDay(this.historyDate ? new Date(this.historyDate) : new Date());
         this.data = [];
+    }
+
+    async doFetchOtherDate(otherDate) {
+        return (await new FetchedTable(this.name, otherDate).doFetch());
+    }
+
+    suffixFields(suffix) {
+        this.data = this.data.map(row => {
+            const item = row.date ? { 'date': row.date } : {};
+            const keys = Object.keys(row).filter(x => x !== 'date');
+            keys.forEach(key => {
+                item[key + suffix] = row[key]
+            });
+            return item;
+        });
+        return this;
     }
 
     tableFileName(name, historyDate) {

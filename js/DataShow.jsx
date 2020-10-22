@@ -93,32 +93,6 @@ const computeForTable = async (name, data) => {
     return data;
 }
 
-// const fetchTable = async (name, historyDate) => {
-//     const url = tableFileName(name, historyDate);
-//     let parsed = await fetchCsv(url);
-//     if (parsed === undefined) {
-//         if (name !== 'sickPatientPerLocation') {
-//             return [];
-//         }
-//         const url2 = tableFileName('sickPerLocation', historyDate)
-//         parsed = await fetchCsv(url2);
-//         if (parsed === undefined) {
-//             return [];
-//         }
-//     }
-//     renameField(parsed, 'תאריך', 'date');
-//     renameField(parsed, 'Date', 'date');
-//     if (parsed.length) {
-//         if (parsed[0].hasOwnProperty('date')) {
-//             parsed.sort((a, b) => a.date.getTime() - b.date.getTime());
-//         }
-//     }
-//     Object.keys(parsed[0]).forEach(key => {
-//         renameField(parsed, key, fixName(key));
-//     });
-//     return await computeForTable(name, parsed);
-// }
-
 const mergeTablesByDate = (one, two) => {
     if (!one || !one.length || !one[0].date) return two;
     if (!two || !two.length || !two[0].date) return one;
@@ -135,25 +109,16 @@ const mergeTablesByDate = (one, two) => {
     });
 }
 
-const suffixFields = (rows, suffix) => {
-    return rows.map(row => {
-        const item = { 'date': row.date };
-        Object.keys(row).filter(x => x !== 'date').forEach(key => item[key + suffix] = row[key]);
-        return item;
-    })
-}
-
 const fetchTableAndHistory = async (name, historyDate) => {
     const parsed = (await new FetchedTable(name).doFetch()).data;
     if (!historyDate) return parsed;
-    const hist = (await new FetchedTable(name, historyDate).doFetch()).data;
+    const hist = (await new FetchedTable(name, historyDate).doFetch()).suffixFields('_' + historyDate).data;
     if (!hist || !hist.length) {
         if (parsed && parsed.length && parsed[0].date) return parsed; // merge with empty
         return []; // no merge
     }
     if (!hist[0].date) return hist;
-    const suffixed = suffixFields(hist, '_' + historyDate);
-    const merged = mergeTablesByDate(parsed, suffixed);
+    const merged = mergeTablesByDate(parsed, hist);
     return merged;
 }
 
