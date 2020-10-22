@@ -8,6 +8,22 @@ const useStyles = makeStyles({
     },
 });
 
+const CopyCode = () => {
+    const code = `<iframe style="border: 0;" src="https://erasta.github.io/CovidDataIsrael/widget.html" width="475" height="800" frameborder="0"></iframe>`;
+    return (
+        <>
+            <IconButton size='small'
+                onClick={() => navigator.clipboard.writeText(code)}
+            >
+                <Icon>attach_file</Icon>
+            </IconButton>
+            <TextField size='small' disabled
+                value={code}
+            ></TextField>
+        </>
+    )
+}
+
 const ShowAbout = ({ lang }) => {
     const classes = useStyles();
     return (
@@ -40,7 +56,7 @@ const ShowAbout = ({ lang }) => {
                     נכתב כקוד פתוח על
                     github.
                     <br />
-                    שליפת הנתונים הגולמיים מתבצעת באמצעות
+                    שליפת הנתונים הגולמיים מתבצעת כל רבע שעה באמצעות
                     github actions
                     עם קוד python.<br />
                     הנתונים נקראים כ
@@ -56,6 +72,10 @@ const ShowAbout = ({ lang }) => {
                     כדפים סטטיים
                     עם
                     chartjs, leaflet ו material-ui.
+                </p>
+                <p>
+                    קוד הטמעה לרכיב המופיע באתר מדעת:<br />
+                    <CopyCode />
                 </p>
                 <p>
                     אשמח לכל הצעה, שיפור כ
