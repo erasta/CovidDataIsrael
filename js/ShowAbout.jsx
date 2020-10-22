@@ -108,6 +108,28 @@ const ShowAbout = ({ lang }) => {
                     המידע ההיסטורי בטבלת הערים מבוסס על איסוף נתוני משרד הבריאות כפי שהיו בעת פרסומם.
                     יתכן שהמידע תוקן מאז, ותיקונים אלה לא מופיעים כאן.
                 </p>
+                <p>
+                    חישוב נוסחת רמזור מבוצע לפי פרסומים בעיתונות, אפשר להגיע לאחד מהם&nbsp;
+                    <MaterialUI.Link
+                        style={{ textDecoration: 'none' }} target="_blank" rel="noopener"
+                        href="https://www.themarker.com/embeds/pdf_upload/2020/20200830-160844.pdf"
+                    >
+                        בעמוד 8 במסמך מדה-מרקר.
+                    </MaterialUI.Link>
+                    &nbsp;מכיוון שקיימת אי בהירות לגבי החישוב, מוצגים שני חישובים אפשריים, אשר אף אחד מהם אינו וודאי:
+                    <li>
+                        חישוב לפי מספר מנורמל של מאומתים
+                        (N)
+                        ובדיקות
+                        (P)
+                    </li>
+                    <li>
+                        חישוב לפי מספר מנורמל של חולים פעילים
+                        (N)
+                        ומאומתים
+                        (P)
+                    </li>
+                </p>
                 <Typography variant="h4" component="h5" style={{ marginBlockEnd: 0 }}>
                     צרו קשר
                 </Typography>
