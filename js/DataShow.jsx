@@ -115,14 +115,14 @@ const fixName = (key) => {
     return key
 }
 
-const fetchTable = async (name, url) => {
-    // console.log(name);
+const fetchTable = async (name, historyDate) => {
+    const url = tableFileName(name, historyDate);
     let parsed = await fetchCsv(url);
     if (parsed === undefined) {
         if (name !== 'sickPatientPerLocation') {
             return [];
         }
-        const url2 = url.replace('sickPatientPerLocation', 'sickPerLocation');
+        const url2 = tableFileName('sickPerLocation', historyDate)
         parsed = await fetchCsv(url2);
         if (parsed === undefined) {
             return [];
@@ -174,9 +174,9 @@ const tableFileName = (name, historyDate) => {
 }
 
 const fetchTableAndHistory = async (name, historyDate) => {
-    const parsed = await fetchTable(name, tableFileName(name));
+    const parsed = await fetchTable(name);
     if (!historyDate) return parsed;
-    const hist = await fetchTable(name, tableFileName(name, historyDate));
+    const hist = await fetchTable(name, historyDate);
     if (!hist || !hist.length) {
         if (parsed && parsed.length && parsed[0].date) return parsed; // merge with empty
         return []; // no merge
@@ -271,7 +271,7 @@ const DataShowTimeLine = ({
             const dates = (data ? JSON.parse(data) : []);
             for (let i = 0; i < dates.length; ++i) {
                 const d = dates[i];
-                let hist = await fetchTable(name, tableFileName(name, d))
+                let hist = await fetchTable(name, d)
                 if (hist && hist.length) {
                     if (isDataOnelineTransposed) {
                         hist = Object.keys(hist[0]).map(key => {
