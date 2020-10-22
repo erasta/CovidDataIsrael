@@ -23,50 +23,6 @@ const getPopulationTable = async () => {
     return popTable;
 }
 
-const computeR = (data, i, row) => {
-    const currDate = onlyDay(row['date']);
-    let sumThisWeek = 0;
-    let sumLastWeek = 0;
-    let j = i;
-    for (; j >= 0 && dayDiff(currDate, onlyDay(data[j]['date'])) < 7.1; --j) {
-        sumThisWeek += (data[j]['Positive Amount'] ?? 0);
-    }
-    for (; j >= 0 && dayDiff(currDate, onlyDay(data[j]['date'])) < 14.1; --j) {
-        sumLastWeek += (data[j]['Positive Amount'] ?? 0);
-    }
-    if (!sumLastWeek) return 0;
-    return sumThisWeek / sumLastWeek;
-}
-
-const computeForTable = async (name, data) => {
-    if (name === 'testResultsPerDate') {
-        data.forEach((row, i) => {
-            const amount = parseFloat(row['Amount Virus Diagnosis']);
-            const positive = parseFloat(row['Positive Amount']);
-            row['Positive Ratio'] = Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
-            row['R'] = computeR(data, i, row);
-        });
-    } else if (name === 'contagionDataPerCityPublic') {
-        const population = await getPopulationTable();
-        if (population) {
-            data.forEach(row => {
-                const citypop = population.find(poprow => poprow['city'] === row['City']);
-                const pop = citypop ? citypop['population'] : 0;
-                const test7 = convertLT15(row['Test Last7 Days']);
-                row['Verified/Tests ratio'] = !test7 ? 0 : convertLT15(row['Verified Last7 Days']) / test7;
-                row['Infected Per 10000'] = normalizeToPop(pop, row['Sick Count']);
-                row['Actual Sick Per 10000'] = normalizeToPop(pop, row['Actual Sick']);
-                row['Verified Last 7 Days Per 10000'] = normalizeToPop(pop, row['Verified Last7 Days']);
-                row['Test Last 7 Days Per 10000'] = normalizeToPop(pop, row['Test Last7 Days']);
-                row['Population'] = Math.round(pop);
-                row['City Code'] = citypop ? citypop['code'] : 0;
-                delete row['Patient Diff Population For Ten Thousands'];
-            });
-        }
-    }
-    return data;
-}
-
 const fetchTableAndHistory = async (name, historyDate) => {
     const parsed = await new FetchedTable(name).doFetch();
     if (!historyDate) return parsed.data;
