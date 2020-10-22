@@ -19,7 +19,7 @@ const TableShow = ({ parsed }) => {
             setOrder({ by: 'date', asc: 'desc' });
         }
     }, [parsed])
-    const columns = parsed.length ? Object.keys(parsed[0]) : [];
+    const columns = parsed && parsed.length ? Object.keys(parsed[0]) : [];
     const rows = sortBy(parsed, order.by, order.asc === 'asc');
     return (
         <Paper >
@@ -48,7 +48,7 @@ const TableShow = ({ parsed }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, ridx) => (
+                        {(rows || []).map((row, ridx) => (
                             <TableRow
                                 key={ridx}
                             >

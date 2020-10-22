@@ -35,7 +35,7 @@ const convertToShow = (item) => {
 }
 
 const sortBy = (rows, column, asc) => {
-    if (rows.length && column) {
+    if (rows && rows.length && column) {
         console.log('sorting by', column, asc);
         rows = rows.slice();
         rows.sort((a, b) => {

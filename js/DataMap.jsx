@@ -57,9 +57,9 @@ const DataMap = ({ height = 800 }) => {
     }, [])
     React.useEffect(() => {
         (async () => {
-            let parsed = await fetchTable('contagionDataPerCityPublic', showHistory);
-            let back1week = await fetchTable('contagionDataPerCityPublic', dateMinusDays(showHistory, 7));
-            let back2week = await fetchTable('contagionDataPerCityPublic', dateMinusDays(showHistory, 14));
+            let parsed = (await new FetchedTable('contagionDataPerCityPublic', showHistory).doFetch()).data;
+            let back1week = (await new FetchedTable('contagionDataPerCityPublic', dateMinusDays(showHistory, 7)).doFetch()).data;
+            let back2week = (await new FetchedTable('contagionDataPerCityPublic', dateMinusDays(showHistory, 14)).doFetch()).data;
             parsed.forEach(city => {
                 const loc = geoloc.find(c => c.SettlementCode === city['City Code']);
                 city.latlng = !loc ? undefined : [loc.Y_GEO, loc.X_GEO];

@@ -20,7 +20,7 @@ const {
 } = MaterialUI;
 
 const extractDateAndNumbers = (parsed) => {
-    if (!parsed.length || !Object.keys(parsed[0]).includes('date')) {
+    if (!parsed || !parsed.length || !Object.keys(parsed[0]).includes('date')) {
         return [[], []];
     }
     const dates = parsed.map(row => row['date']);

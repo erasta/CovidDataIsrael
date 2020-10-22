@@ -93,53 +93,31 @@ const computeForTable = async (name, data) => {
     return data;
 }
 
-const renameField = (rows, oldname, newname) => {
-    if (rows.length) {
-        if (!rows[0].hasOwnProperty(newname) && rows[0].hasOwnProperty(oldname)) {
-            rows.forEach(row => {
-                row[newname] = row[oldname];
-                delete row[oldname];
-            })
-        }
-    }
-    return rows;
-}
-
-const fixName = (key) => {
-    if (key === 'date') return key;
-    key = camelCaseToSnake(key).replace(/_/g, " ");
-    if (key.toLowerCase().startsWith('count')) {
-        key = 'count ' + key.substr(5);
-    }
-    key = key.split(' ').filter(x => x.length).map(x => x[0].toUpperCase() + x.substr(1)).join(' ');
-    return key
-}
-
-const fetchTable = async (name, historyDate) => {
-    const url = tableFileName(name, historyDate);
-    let parsed = await fetchCsv(url);
-    if (parsed === undefined) {
-        if (name !== 'sickPatientPerLocation') {
-            return [];
-        }
-        const url2 = tableFileName('sickPerLocation', historyDate)
-        parsed = await fetchCsv(url2);
-        if (parsed === undefined) {
-            return [];
-        }
-    }
-    renameField(parsed, 'תאריך', 'date');
-    renameField(parsed, 'Date', 'date');
-    if (parsed.length) {
-        if (parsed[0].hasOwnProperty('date')) {
-            parsed.sort((a, b) => a.date.getTime() - b.date.getTime());
-        }
-    }
-    Object.keys(parsed[0]).forEach(key => {
-        renameField(parsed, key, fixName(key));
-    });
-    return await computeForTable(name, parsed);
-}
+// const fetchTable = async (name, historyDate) => {
+//     const url = tableFileName(name, historyDate);
+//     let parsed = await fetchCsv(url);
+//     if (parsed === undefined) {
+//         if (name !== 'sickPatientPerLocation') {
+//             return [];
+//         }
+//         const url2 = tableFileName('sickPerLocation', historyDate)
+//         parsed = await fetchCsv(url2);
+//         if (parsed === undefined) {
+//             return [];
+//         }
+//     }
+//     renameField(parsed, 'תאריך', 'date');
+//     renameField(parsed, 'Date', 'date');
+//     if (parsed.length) {
+//         if (parsed[0].hasOwnProperty('date')) {
+//             parsed.sort((a, b) => a.date.getTime() - b.date.getTime());
+//         }
+//     }
+//     Object.keys(parsed[0]).forEach(key => {
+//         renameField(parsed, key, fixName(key));
+//     });
+//     return await computeForTable(name, parsed);
+// }
 
 const mergeTablesByDate = (one, two) => {
     if (!one || !one.length || !one[0].date) return two;
@@ -165,18 +143,10 @@ const suffixFields = (rows, suffix) => {
     })
 }
 
-const tableFileName = (name, historyDate) => {
-    if (!historyDate) {
-        return `out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`;
-    } else {
-        return `out/history/${historyDate}/${name[0].toLowerCase() + name.substr(1)}.csv`;
-    }
-}
-
 const fetchTableAndHistory = async (name, historyDate) => {
-    const parsed = await fetchTable(name);
+    const parsed = (await new FetchedTable(name).doFetch()).data;
     if (!historyDate) return parsed;
-    const hist = await fetchTable(name, historyDate);
+    const hist = (await new FetchedTable(name, historyDate).doFetch()).data;
     if (!hist || !hist.length) {
         if (parsed && parsed.length && parsed[0].date) return parsed; // merge with empty
         return []; // no merge
@@ -271,7 +241,7 @@ const DataShowTimeLine = ({
             const dates = (data ? JSON.parse(data) : []);
             for (let i = 0; i < dates.length; ++i) {
                 const d = dates[i];
-                let hist = await fetchTable(name, d)
+                let hist = (await new FetchedTable(name, d).doFetch()).data;
                 if (hist && hist.length) {
                     if (isDataOnelineTransposed) {
                         hist = Object.keys(hist[0]).map(key => {
@@ -336,9 +306,9 @@ const DataShow = ({ name, showtable = true, lang, enforceChart, title, dateBound
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
-            let parsed = await fetchTableAndHistory(name, showHistory);
-            parsed = truncByDateBounds(parsed, dateBounds);
-            setState({ parsed: parsed, work: false });
+            const parsed = await fetchTableAndHistory(name, showHistory);
+            const parsedTruncated = truncByDateBounds(parsed, dateBounds);
+            setState({ parsed: parsedTruncated, work: false });
         })();
     }, [name, showHistory])
     const dataWithoutDate = state.parsed && state.parsed.length && !state.parsed[0].hasOwnProperty('date');
