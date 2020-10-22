@@ -73,10 +73,10 @@ const ShowAbout = ({ lang }) => {
                     עם
                     chartjs, leaflet ו material-ui.
                 </p>
-                <p>
-                    קוד הטמעה לרכיב המופיע באתר מדעת:<br />
-                    <CopyCode />
+                <p style={{ marginBlockEnd: 0 }}>
+                    קוד הטמעה לרכיב המופיע באתר מדעת:
                 </p>
+                <CopyCode />
                 <p>
                     אשמח לכל הצעה, שיפור כ
                     pull request
