@@ -93,33 +93,12 @@ const computeForTable = async (name, data) => {
     return data;
 }
 
-const mergeTablesByDate = (one, two) => {
-    if (!one || !one.length || !one[0].date) return two;
-    if (!two || !two.length || !two[0].date) return one;
-    let dates = one.map(row => row.date).concat(two.map(row => row.date));
-    dates.sort((a, b) => a.getTime() - b.getTime());
-    dates = dates.filter((d, i) => i === 0 || d.getTime() !== dates[i - 1].getTime());
-    const keys = Object.keys(one[0]).concat(Object.keys(two[0])).filter(x => x !== 'date');
-    return dates.map(d => {
-        let item = { 'date': d };
-        keys.forEach(key => item[key] = undefined);
-        Object.assign(item, one.find(row => d.getTime() === row.date.getTime()));
-        Object.assign(item, two.find(row => d.getTime() === row.date.getTime()));
-        return item;
-    });
-}
-
 const fetchTableAndHistory = async (name, historyDate) => {
-    const parsed = (await new FetchedTable(name).doFetch()).data;
-    if (!historyDate) return parsed;
-    const hist = (await new FetchedTable(name, historyDate).doFetch()).suffixFields('_' + historyDate).data;
-    if (!hist || !hist.length) {
-        if (parsed && parsed.length && parsed[0].date) return parsed; // merge with empty
-        return []; // no merge
-    }
-    if (!hist[0].date) return hist;
-    const merged = mergeTablesByDate(parsed, hist);
-    return merged;
+    const parsed = await new FetchedTable(name).doFetch();
+    if (!historyDate) return parsed.data;
+    const hist = (await new FetchedTable(name, historyDate).doFetch()).suffixFields('_' + historyDate);
+    const merged = parsed.mergeByDate(hist);
+    return merged.data;
 }
 
 const truncByDateBounds = (data, dateBounds) => {

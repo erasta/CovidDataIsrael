@@ -22,6 +22,33 @@ class FetchedTable {
         return this;
     }
 
+    hasDate() {
+        return this.data.length && this.data[0].date;
+    }
+
+    keys(withDate) {
+        let dataKeys = this.data.length ? Object.keys(this.data[0]) : [];
+        return withDate ? dataKeys : dataKeys.filter(k => k !== 'date');
+    }
+
+    mergeByDate(other) {
+        if (!this.hasDate()) return other;
+        if (!other.hasDate()) return this;
+        let dates = this.data.map(row => row.date).concat(this.data.map(row => row.date));
+        dates.sort((a, b) => a.getTime() - b.getTime());
+        dates = dates.filter((d, i) => i === 0 || d.getTime() !== dates[i - 1].getTime());
+        const keys = this.keys(true).concat(other.keys(false));
+        this.data = dates.map(d => {
+            let item = { 'date': d };
+            keys.forEach(key => item[key] = undefined);
+            Object.assign(item, this.data.find(row => d.getTime() === row.date.getTime()));
+            Object.assign(item, other.data.find(row => d.getTime() === row.date.getTime()));
+            return item;
+        });
+        return this;
+    }
+
+
     tableFileName(name, historyDate) {
         if (!historyDate) {
             return `out/csv/${name[0].toLowerCase() + name.substr(1)}.csv`;

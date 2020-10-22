@@ -5,9 +5,9 @@ const DataShowComputedDeath = ({ lang, showtable = true }) => {
     React.useEffect(() => {
         (async () => {
             setState({ parsed: state.parsed, work: true });
-            const infected = (await new FetchedTable('infectedPerDate').doFetch()).suffixFields('_infected').data;
-            const dead = (await new FetchedTable('deadPatientsPerDate').doFetch()).suffixFields('_dead').data;
-            const parsed = mergeTablesByDate(infected, dead);
+            const infected = (await new FetchedTable('infectedPerDate').doFetch()).suffixFields('_infected');
+            const dead = (await new FetchedTable('deadPatientsPerDate').doFetch()).suffixFields('_dead');
+            const parsed = infected.mergeByDate(dead).data;
             parsed.forEach(row => {
                 const { Amount_infected, Amount_dead, Recovered_infected } = row;
                 row['Currently_sick'] = (Amount_infected ?? 0) - (Amount_dead ?? 0) - (Recovered_infected ?? 0);
