@@ -1,22 +1,22 @@
 const { Map: LeafletMap, TileLayer, Marker, Popup, Circle, CircleMarker, LayersControl, LayerGroup, Polygon, Tooltip } = window.ReactLeaflet;
 
-const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => {
-    if (positivesThisWeek === undefined || sickThisWeek === undefined || sickLastWeek === undefined || sick2WeekAgo === undefined) {
-        return undefined;
-    }
-    const k = 2;
-    const m = 8;
-    const N = sickThisWeek - sickLastWeek;
-    const N1 = sickLastWeek - sick2WeekAgo;
-    if (N1 === 0) {
-        return undefined;
-    }
-    const G = N / N1;
-    const NGG = N * G * G;
-    if (NGG < 0.0000000001) return 0;
-    const ramzor_raw = k + Math.log(NGG) + positivesThisWeek / m;
-    return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
-}
+// const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => {
+//     if (positivesThisWeek === undefined || sickThisWeek === undefined || sickLastWeek === undefined || sick2WeekAgo === undefined) {
+//         return undefined;
+//     }
+//     const k = 2;
+//     const m = 8;
+//     const N = sickThisWeek - sickLastWeek;
+//     const N1 = sickLastWeek - sick2WeekAgo;
+//     if (N1 === 0) {
+//         return undefined;
+//     }
+//     const G = N / N1;
+//     const NGG = N * G * G;
+//     if (NGG < 0.0000000001) return 0;
+//     const ramzor_raw = k + Math.log(NGG) + positivesThisWeek / m;
+//     return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
+// }
 
 const inverseCoords = (geometry) => {
     return geometry.geometry.coordinates.map(poly => {
@@ -45,15 +45,9 @@ const DataMap = ({ height = 800 }) => {
     React.useEffect(() => {
         (async () => {
             let parsed = (await new FetchedTable('contagionDataPerCityPublic', showHistory).doFetch()).data;
-            let back1week = (await new FetchedTable('contagionDataPerCityPublic', dateMinusDays(showHistory, 7)).doFetch()).data;
-            let back2week = (await new FetchedTable('contagionDataPerCityPublic', dateMinusDays(showHistory, 14)).doFetch()).data;
             parsed.forEach(city => {
                 const loc = geoloc.find(c => c.SettlementCode === city['City Code']);
                 city.latlng = !loc ? undefined : [loc.Y_GEO, loc.X_GEO];
-                const city1week = back1week ? back1week.find(c => c['City Code'] === city['City Code']) : undefined;
-                const city2week = back2week ? back2week.find(c => c['City Code'] === city['City Code']) : undefined;
-                city['Actual Sick Per 10000, 1 week ago'] = city1week ? city1week['Actual Sick Per 10000'] : undefined;
-                city['Actual Sick Per 10000, 2 week ago'] = city2week ? city2week['Actual Sick Per 10000'] : undefined;
             });
             parsed = parsed.filter(city => city.latlng && !isNaN(city.latlng[0]) && !isNaN(city.latlng[1]));
             setCities(parsed);
@@ -78,18 +72,34 @@ const DataMap = ({ height = 800 }) => {
                 />
 
                 <LayersControl collapsed={false}>
-                    <LayersControl.BaseLayer name="רמזור משוער לפי פרסומים" checked={true}>
+                    <LayersControl.BaseLayer name="רמזור משוער לפי מאומתים" checked={true}>
                         <PolygonsByCity
                             cities={cities}
                             geopoly={geopoly}
                             detailsForCities={
                                 cities.map(city => {
-                                    const num = ramzor(
-                                        city['Verified Last 7 Days Per 10000'],
-                                        city['Actual Sick Per 10000'],
-                                        city['Actual Sick Per 10000, 1 week ago'],
-                                        city['Actual Sick Per 10000, 2 week ago']
-                                    );
+                                    const num = city['Ramzor by Verified'];
+                                    return {
+                                        code: city['City Code'],
+                                        num: num === undefined ? num : num / 10,
+                                        details: [
+                                            ['רמזור', num],
+                                            ['נדבקים ל10000 השבוע', city['Verified Last 7 Days Per 10000']],
+                                            ['נדבקים ל10000 לפני שבוע', city['Verified Last 7 Days Per 10000, 1 week ago']],
+                                            ['בדיקות ל10000 השבוע', city['Test Last 7 Days Per 10000']],
+                                        ]
+                                    }
+                                })
+                            }
+                        />
+                    </LayersControl.BaseLayer>
+                    <LayersControl.BaseLayer name="רמזור משוער לפי חולים" checked={false}>
+                        <PolygonsByCity
+                            cities={cities}
+                            geopoly={geopoly}
+                            detailsForCities={
+                                cities.map(city => {
+                                    const num = city['Ramzor by Actual Sick'];
                                     return {
                                         code: city['City Code'],
                                         num: num === undefined ? num : num / 10,
