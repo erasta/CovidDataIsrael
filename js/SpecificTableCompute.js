@@ -45,6 +45,17 @@ class SpecificTableCompute {
                     row['Actual Sick Per 10000, 2 week ago'] = !city2week ? undefined : city2week['Actual Sick Per 10000'];
                     row['Verified Last 7 Days Per 10000, 1 week ago'] = !city1week ? undefined : city1week['Verified Last 7 Days Per 10000'];
                     row['Verified Last 7 Days Per 10000, 2 week ago'] = !city2week ? undefined : city2week['Verified Last 7 Days Per 10000'];
+                    row['Ramzor by Verified'] = this.ramzorVerified(
+                        row['Verified Last 7 Days Per 10000'],
+                        row['Verified Last 7 Days Per 10000, 1 week ago'],
+                        row['Test Last 7 Days Per 10000']
+                    );
+                    row['Ramzor by Actual Sick'] = this.ramzorActualSick(
+                        row['Verified Last 7 Days Per 10000'],
+                        row['Actual Sick Per 10000'],
+                        row['Actual Sick Per 10000, 1 week ago'],
+                        row['Actual Sick Per 10000, 2 week ago']
+                    );
                 }
                 row['Population'] = Math.round(pop);
                 row['City Code'] = citycode;
@@ -67,4 +78,41 @@ class SpecificTableCompute {
         if (!sumLastWeek) return 0;
         return sumThisWeek / sumLastWeek;
     }
+
+    ramzorVerified(verifiedLast7Per10000, verifiedLast7Per10000WeekAgo, testsLast7DaysPer10000) {
+        if (verifiedLast7Per10000 === undefined || verifiedLast7Per10000WeekAgo === undefined || testsLast7DaysPer10000 === undefined) {
+            return undefined;
+        }
+        if (verifiedLast7Per10000WeekAgo < 0.00001 || testsLast7DaysPer10000 < 0.00001) {
+            return undefined;
+        }
+        const k = 2;
+        const m = 8;
+        const N = verifiedLast7Per10000;
+        const G = verifiedLast7Per10000 / verifiedLast7Per10000WeekAgo;
+        const P = verifiedLast7Per10000 / testsLast7DaysPer10000;
+        const NGG = N * G * G;
+        if (NGG < 0.0000000001) return 0;
+        const ramzor_raw = k + Math.log(NGG) + P / m;
+        return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
+    }
+
+    ramzorActualSick(positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) {
+        if (positivesThisWeek === undefined || sickThisWeek === undefined || sickLastWeek === undefined || sick2WeekAgo === undefined) {
+            return undefined;
+        }
+        const k = 2;
+        const m = 8;
+        const N = sickThisWeek - sickLastWeek;
+        const N1 = sickLastWeek - sick2WeekAgo;
+        if (N1 === 0) {
+            return undefined;
+        }
+        const G = N / N1;
+        const NGG = N * G * G;
+        if (NGG < 0.0000000001) return 0;
+        const ramzor_raw = k + Math.log(NGG) + positivesThisWeek / m;
+        return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
+    }
+
 }
