@@ -85,6 +85,12 @@ const ShowAbout = ({ lang }) => {
                     המידע ההיסטורי בטבלת הערים מבוסס על איסוף נתוני משרד הבריאות כפי שהיו בעת פרסומם.
                     יתכן שהמידע תוקן מאז, ותיקונים אלה לא מופיעים כאן.
                 </p>
+                <Typography variant="h4" component="h5" style={{ marginBlockEnd: 0 }}>
+                    צרו קשר
+                </Typography>
+                <div dir='ltr'>
+                    <EmailForm />
+                </div>
             </div>
         </>
     )
