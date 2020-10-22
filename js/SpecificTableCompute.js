@@ -69,10 +69,10 @@ class SpecificTableCompute {
         let sumThisWeek = 0;
         let sumLastWeek = 0;
         let j = i;
-        for (; j >= 0 && dayDiff(currDate, onlyDay(this.table.data[j]['date'])) < 7.1; --j) {
+        for (; j >= 0 && dayDiff(currDate, onlyDay(this.table.data[j]['date'])) < 6.1; --j) {
             sumThisWeek += (this.table.data[j]['Positive Amount'] ?? 0);
         }
-        for (; j >= 0 && dayDiff(currDate, onlyDay(this.table.data[j]['date'])) < 14.1; --j) {
+        for (; j >= 0 && dayDiff(currDate, onlyDay(this.table.data[j]['date'])) < 13.1; --j) {
             sumLastWeek += (this.table.data[j]['Positive Amount'] ?? 0);
         }
         if (!sumLastWeek) return 0;
