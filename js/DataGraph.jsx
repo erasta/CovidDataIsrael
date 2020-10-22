@@ -140,6 +140,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                     dateBounds={dateRange.map(d => dateByPercent(dates, d))}
                     logarithmic={logarithmic}
                     enforceChart={enforceChart}
+                    xAxesMinUnit={['Weekly', 'Monthly'].includes(timeGroup) ? 'week' : undefined}
                 />
                 {!showControls ? null :
                     <>

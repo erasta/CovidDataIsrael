@@ -1,7 +1,7 @@
 var image = new Image();
 image.src = "images/eran.dev.water.png";
 
-const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds, logarithmic, enforceChart }) => {
+const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds, logarithmic, enforceChart, xAxesMinUnit }) => {
     if (!dates.length || !fieldNames.length) return null;
 
     if (enforceChart) {
@@ -98,9 +98,10 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                     time: {
                         displayFormats: {
                             day: 'D/M',
+                            week: 'D/M',
                             month: 'M/Y',
                         },
-                        minUnit: 'day'
+                        minUnit: xAxesMinUnit ? xAxesMinUnit : 'day'
                     }
                 }
             ]
