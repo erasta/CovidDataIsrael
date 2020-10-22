@@ -3,15 +3,12 @@ class FetchedTable {
         this.name = name;
         this.historyDate = historyDate;
         this.time = onlyDay(this.historyDate ? new Date(this.historyDate) : new Date());
+        this.noRecursion = false;
         this.data = [];
     }
 
     clone() {
         return JSON.parse(JSON.stringify(this));
-    }
-
-    async doFetchOtherDate(otherDate) {
-        return (await new FetchedTable(this.name, otherDate).doFetch());
     }
 
     suffixFields(suffix) {
@@ -98,7 +95,6 @@ class FetchedTable {
         return key
     }
 
-
     async doFetch() {
         this.data = await this.doFetchOnAltNames();
         this.renameField(this.data, 'תאריך', 'date');
@@ -111,50 +107,7 @@ class FetchedTable {
                 this.renameField(this.data, key, this.fixName(key));
             });
         }
-        await this.computeForTable();
+        await new SpecificTableCompute().work(this);
         return this;
-    }
-
-    async computeForTable() {
-        if (this.name === 'testResultsPerDate') {
-            this.data.forEach((row, i) => {
-                const amount = parseFloat(row['Amount Virus Diagnosis']);
-                const positive = parseFloat(row['Positive Amount']);
-                row['Positive Ratio'] = Math.round((amount > 0 ? positive / amount : 0) * 1e6) / 1e6;
-                row['R'] = this.computeR(i, row);
-            });
-        } else if (this.name === 'contagionDataPerCityPublic') {
-            const population = await getPopulationTable();
-            if (population) {
-                this.data.forEach(row => {
-                    const citypop = population.find(poprow => poprow['city'] === row['City']);
-                    const pop = citypop ? citypop['population'] : 0;
-                    const test7 = convertLT15(row['Test Last7 Days']);
-                    row['Verified/Tests ratio'] = !test7 ? 0 : convertLT15(row['Verified Last7 Days']) / test7;
-                    row['Infected Per 10000'] = normalizeToPop(pop, row['Sick Count']);
-                    row['Actual Sick Per 10000'] = normalizeToPop(pop, row['Actual Sick']);
-                    row['Verified Last 7 Days Per 10000'] = normalizeToPop(pop, row['Verified Last7 Days']);
-                    row['Test Last 7 Days Per 10000'] = normalizeToPop(pop, row['Test Last7 Days']);
-                    row['Population'] = Math.round(pop);
-                    row['City Code'] = citypop ? citypop['code'] : 0;
-                    delete row['Patient Diff Population For Ten Thousands'];
-                });
-            }
-        }
-    }
-
-    computeR(i, row) {
-        const currDate = onlyDay(row['date']);
-        let sumThisWeek = 0;
-        let sumLastWeek = 0;
-        let j = i;
-        for (; j >= 0 && dayDiff(currDate, onlyDay(this.data[j]['date'])) < 7.1; --j) {
-            sumThisWeek += (this.data[j]['Positive Amount'] ?? 0);
-        }
-        for (; j >= 0 && dayDiff(currDate, onlyDay(this.data[j]['date'])) < 14.1; --j) {
-            sumLastWeek += (this.data[j]['Positive Amount'] ?? 0);
-        }
-        if (!sumLastWeek) return 0;
-        return sumThisWeek / sumLastWeek;
     }
 }

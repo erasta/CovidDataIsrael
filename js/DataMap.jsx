@@ -18,19 +18,6 @@ const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => 
     return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
 }
 
-const toIsoDate = (date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const dt = date.getDate();
-    return year + '-' + (month >= 10 ? month : '0' + month) + '-' + (dt >= 10 ? dt : '0' + dt);
-}
-
-const dateMinusDays = (date, daysToGoBack) => {
-    let ret = new Date(date || new Date().setHours(0, 0, 0, 0));
-    ret.setDate(-daysToGoBack);
-    return toIsoDate(ret);
-}
-
 const inverseCoords = (geometry) => {
     return geometry.geometry.coordinates.map(poly => {
         return poly.map(points => {

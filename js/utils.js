@@ -223,3 +223,17 @@ const normalizeToPop = (pop, num) => {
 const dayDiff = (date1, date2) => {
     return (date1 - date2) / 24 / 3600 / 1000;
 }
+
+const toIsoDate = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const dt = date.getDate();
+    return year + '-' + (month >= 10 ? month : '0' + month) + '-' + (dt >= 10 ? dt : '0' + dt);
+}
+
+const dateMinusDays = (date, daysToGoBack) => {
+    let ret = new Date(date || new Date().setHours(0, 0, 0, 0));
+    ret.setDate(-daysToGoBack);
+    return toIsoDate(ret);
+}
+
