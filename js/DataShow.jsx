@@ -23,32 +23,6 @@ const getPopulationTable = async () => {
     return popTable;
 }
 
-const convertLT15 = (text) => {
-    if (!text) return 0;
-    if (!text.trim) return text;
-    const num = parseFloat(text);
-    if (Number.isFinite(num)) return num;
-    const trimmed = text.trim();
-    if (trimmed === 'קטן מ-15') return 14;
-    const splitted = trimmed.split('-')
-    if (splitted === 2) return (parseFloat(splitted[0]) + parseFloat(splitted[1])) / 2;
-    return trimmed;
-}
-
-const truncPer10000 = (num) => {
-    if (num > 30) return Math.round(num * 10) / 10;
-    if (num > 3) return Math.round(num * 100) / 100;
-    return Math.round(num * 1000) / 1000;
-}
-
-const normalizeToPop = (pop, num) => {
-    if (!pop || !num) return 0;
-    return truncPer10000(convertLT15(num) / pop * 10000);
-}
-
-const dayDiff = (date1, date2) => {
-    return (date1 - date2) / 24 / 3600 / 1000;
-}
 const computeR = (data, i, row) => {
     const currDate = onlyDay(row['date']);
     let sumThisWeek = 0;

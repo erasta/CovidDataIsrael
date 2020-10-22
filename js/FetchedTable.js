@@ -6,6 +6,10 @@ class FetchedTable {
         this.data = [];
     }
 
+    clone() {
+        return JSON.parse(JSON.stringify(this));
+    }
+
     async doFetchOtherDate(otherDate) {
         return (await new FetchedTable(this.name, otherDate).doFetch());
     }
