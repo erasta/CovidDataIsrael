@@ -6,6 +6,7 @@ const {
 
 const ShowByName = ({ name, names, lang }) => {
     if (name.toLowerCase() === 'showcharts') return <DataShowCharts names={names} lang={lang} />
+    if (name.toLowerCase() === 'about') return <ShowAbout lang={lang} />
     if (name.toLowerCase() === 'map') return <DataMap />
     if (name.toLowerCase() === 'infectedvsdead') return <DataShowComputedDeath showtable={true} lang={lang} />
     return <DataShow name={name} lang={lang} />
@@ -47,6 +48,7 @@ const CsvButtons1 = ({ names, lang, language, setLanguage }) => (
 )
 
 const sheetnames = [
+    "About",
     "ShowCharts",
     "contagionDataPerCityPublic",
     "map",
