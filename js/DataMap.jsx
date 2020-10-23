@@ -28,7 +28,7 @@ const DataMap = ({ height = 800 }) => {
             geopoly1.features.forEach(city => {
                 const code = city.properties.MUNICIPAL_;
                 cityloc1[code] = cityloc1[code] || {};
-                cityloc1[code].poly = inverseCoords(city);
+                cityloc1[code].poly = (cityloc1[code].poly || []).concat(inverseCoords(city));
             })
             setCityloc(cityloc1);
         })();
@@ -49,8 +49,23 @@ const DataMap = ({ height = 800 }) => {
     ];
 
     const cities = citiesUnfiltered.map(city => {
+        const ret = Object.assign({}, city);
         const loc = cityloc[city['City Code']];
-        const ret = Object.assign({}, city, loc);
+        if (loc) {
+            ret.poly = loc.poly;
+            ret.latlng = loc.latlng;
+            if (!ret.latlng && ret.poly) {
+                let lat = 0, lng = 0;
+                const flat = ret.poly.flat().flat();
+                if (flat.length) {
+                    flat.forEach(coord => {
+                        lat += coord[0];
+                        lng += coord[1];
+                    });
+                    ret.latlng = [lat / flat.length, lng / flat.length];
+                }
+            }
+        }
         return ret;
     }).filter(city => (city.latlng || city.poly) && city['City Code']);
 
