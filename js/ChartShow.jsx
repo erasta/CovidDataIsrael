@@ -53,19 +53,19 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
     }
     const tmin = hourMidDay(dateBounds ? dateBounds[0] : undefined, true);
     const tmax = hourMidDay(dateBounds ? dateBounds[1] : undefined);
-    let ymax = undefined;
+    let ymin = undefined, ymax = undefined;
     if (tmin || tmax) {
-        ymax = Math.max(...fieldValues
-            .filter((_, i) => !mutedFields.includes(fieldNames[i]))
-            .map(field => {
-                const vals = field.filter((item, j) => {
-                    const d = dates[j];
-                    if (tmin && d < tmin) return false;
-                    if (tmax && d > tmax) return false;
-                    return true;
-                })
-                return Math.max(...vals);
-            }));
+        const existingFields = fieldValues.filter((_, i) => !mutedFields.includes(fieldNames[i]));
+        ymin = 0, ymax = 0;
+        existingFields.forEach(field => {
+            field.forEach((val, j) => {
+                const d = dates[j];
+                if (tmin && d < tmin) return;
+                if (tmax && d > tmax) return;
+                ymin = Math.min(ymin, val);
+                ymax = Math.max(ymax, val);
+            })
+        });
     }
 
     const options = {
@@ -80,7 +80,7 @@ const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, da
                 {
                     ticks: {
                         beginAtZero: 0,
-                        // min: 0,
+                        min: ymin,
                         max: ymax,
                         callback: ((v) => v)
                     },
