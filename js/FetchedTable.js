@@ -100,7 +100,7 @@ class FetchedTable {
     }
 
     getFromCache() {
-        if (!FetchedTable.cache || FetchedTable.cache.length > 300) {
+        if (!FetchedTable.cache || FetchedTable.cache.length > 100) {
             FetchedTable.cache = {};
         }
         const dug = FetchedTable.cache[this.paramstr()];
