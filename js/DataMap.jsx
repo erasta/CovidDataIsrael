@@ -1,23 +1,5 @@
 const { Map: LeafletMap, TileLayer, Marker, Popup, Circle, CircleMarker, LayersControl, LayerGroup, Polygon, Tooltip } = window.ReactLeaflet;
 
-// const ramzor = (positivesThisWeek, sickThisWeek, sickLastWeek, sick2WeekAgo) => {
-//     if (positivesThisWeek === undefined || sickThisWeek === undefined || sickLastWeek === undefined || sick2WeekAgo === undefined) {
-//         return undefined;
-//     }
-//     const k = 2;
-//     const m = 8;
-//     const N = sickThisWeek - sickLastWeek;
-//     const N1 = sickLastWeek - sick2WeekAgo;
-//     if (N1 === 0) {
-//         return undefined;
-//     }
-//     const G = N / N1;
-//     const NGG = N * G * G;
-//     if (NGG < 0.0000000001) return 0;
-//     const ramzor_raw = k + Math.log(NGG) + positivesThisWeek / m;
-//     return Math.round(Math.min(10, Math.max(0, ramzor_raw)) * 100) / 100;
-// }
-
 const inverseCoords = (geometry) => {
     return geometry.geometry.coordinates.map(poly => {
         return poly.map(points => {
@@ -29,30 +11,35 @@ const inverseCoords = (geometry) => {
 }
 
 const DataMap = ({ height = 800 }) => {
-    const [cities, setCities] = React.useState([]);
-    const [geoloc, setGeoloc] = React.useState([]);
-    const [geopoly, setGeopoly] = React.useState({});
+    const [citiesUnfiltered, setCitiesUnfiltered] = React.useState([]);
+    const [cityloc, setCityloc] = React.useState({});
     const [showHistory, setShowHistory] = React.useState(false);
+
     React.useEffect(() => {
         (async () => {
+            const cityloc1 = {};
             const geoloc1 = await fetchCsv('jsons/city_geoloc.csv');
-            setGeoloc(geoloc1);
+            geoloc1.forEach(city => {
+                const code = city.SettlementCode;
+                cityloc1[code] = cityloc1[code] || {};
+                cityloc1[code].latlng = [city.Y_GEO, city.X_GEO];
+            })
             const geopoly1 = await fetchJson('jsons/tufts-israelpalestinemuni08-geojson.json');
-            // console.log(geopoly1)
-            setGeopoly(geopoly1 ? geopoly1 : {});
+            geopoly1.features.forEach(city => {
+                const code = city.properties.MUNICIPAL_;
+                cityloc1[code] = cityloc1[code] || {};
+                cityloc1[code].poly = inverseCoords(city);
+            })
+            setCityloc(cityloc1);
         })();
-    }, [])
+    }, []);
+
     React.useEffect(() => {
         (async () => {
             let parsed = (await new FetchedTable('contagionDataPerCityPublic', showHistory).doFetch()).data;
-            parsed.forEach(city => {
-                const loc = geoloc.find(c => c.SettlementCode === city['City Code']);
-                city.latlng = !loc ? undefined : [loc.Y_GEO, loc.X_GEO];
-            });
-            parsed = parsed.filter(city => city.latlng && !isNaN(city.latlng[0]) && !isNaN(city.latlng[1]));
-            setCities(parsed);
+            setCitiesUnfiltered(parsed);
         })();
-    }, [showHistory, geoloc])
+    }, [showHistory])
     const fields = [
         { name: 'Verified/Tests ratio', color: 'red' },
         { name: 'Infected Per 10000', color: 'blue' },
@@ -60,6 +47,12 @@ const DataMap = ({ height = 800 }) => {
         { name: 'Verified Last 7 Days Per 10000', color: 'brown' },
         { name: 'Test Last 7 Days Per 10000', color: 'purple' },
     ];
+
+    const cities = citiesUnfiltered.map(city => {
+        const loc = cityloc[city['City Code']];
+        const ret = Object.assign({}, city, loc);
+        return ret;
+    }).filter(city => (city.latlng || city.poly) && city['City Code']);
 
     return (
         <>
@@ -75,7 +68,6 @@ const DataMap = ({ height = 800 }) => {
                     <LayersControl.BaseLayer name="רמזור משוער לפי מאומתים" checked={true}>
                         <PolygonsByCity
                             cities={cities}
-                            geopoly={geopoly}
                             detailsForCities={
                                 cities.map(city => {
                                     const num = city['Ramzor by Verified'];
@@ -96,7 +88,6 @@ const DataMap = ({ height = 800 }) => {
                     <LayersControl.BaseLayer name="רמזור משוער לפי חולים" checked={false}>
                         <PolygonsByCity
                             cities={cities}
-                            geopoly={geopoly}
                             detailsForCities={
                                 cities.map(city => {
                                     const num = city['Ramzor by Actual Sick'];
@@ -122,7 +113,6 @@ const DataMap = ({ height = 800 }) => {
                             <LayersControl.BaseLayer name={fieldname} checked={false} key={fieldname}>
                                 <PolygonsByCity
                                     cities={cities}
-                                    geopoly={geopoly}
                                     detailsForCities={
                                         cities.map(city => {
                                             let val = city[fieldname] / maxval;
@@ -146,8 +136,7 @@ const DataMap = ({ height = 800 }) => {
                                 fields.map((field, i) => {
                                     const maxval = Math.max(...cities.map(city => city[field.name]));
                                     return cities.map(city => {
-                                        // console.log(city.City, city['City Code'], city.latlng)
-                                        if (!city[field.name]) {
+                                        if (!city[field.name] || !city.latlng) {
                                             return null;
                                         }
                                         return (
@@ -199,7 +188,7 @@ const DataMap = ({ height = 800 }) => {
     )
 }
 
-const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
+const PolygonsByCity = ({ cities, detailsForCities }) => {
     const hslLow = rgb2hsl([0, 104, 55]);
     const hslHigh = rgb2hsl([255, 0, 0]);
 
@@ -236,33 +225,31 @@ const PolygonsByCity = ({ cities, geopoly, detailsForCities }) => {
                             }
                         </Popup>
                     );
-                    if (geopoly.type) {
-                        const poly = geopoly.features.find(f => f.properties.MUNICIPAL_ === cityCode);
-                        if (poly) {
-                            return (
-                                <Polygon
-                                    positions={inverseCoords(poly)}
-                                    key={cityCode}
-                                    color={color}
-                                    weight={2}
-                                >
-                                    {popup}
-                                </Polygon>
-                            )
-                        }
+                    if (city.poly) {
+                        return (
+                            <Polygon
+                                positions={city.poly}
+                                key={cityCode}
+                                color={color}
+                                weight={2}
+                            >
+                                {popup}
+                            </Polygon>
+                        )
+                    } else {
+                        return (
+                            <Circle
+                                key={cityCode}
+                                center={city.latlng}
+                                weight={2}
+                                radius={500}
+                                color={color}
+                                fillOpacity={0.4}
+                            >
+                                {popup}
+                            </Circle>
+                        )
                     }
-                    return (
-                        <Circle
-                            key={cityCode}
-                            center={city.latlng}
-                            weight={2}
-                            radius={500}
-                            color={color}
-                            fillOpacity={0.4}
-                        >
-                            {popup}
-                        </Circle>
-                    )
                 })
             }
         </LayerGroup>
