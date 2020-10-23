@@ -95,7 +95,23 @@ class FetchedTable {
         return key
     }
 
+    paramstr() {
+        return JSON.stringify([this.name, this.historyDate, this.noRecursion]);
+    }
+
+    getFromCache() {
+        if (!FetchedTable.cache || FetchedTable.cache.length > 300) {
+            FetchedTable.cache = {};
+        }
+        const dug = FetchedTable.cache[this.paramstr()];
+        if (!dug) return undefined;
+        if (new Date() - dug.last > 5 * 60 * 1000) return undefined;
+        this.data = dug.data;
+        return this;
+    }
+
     async doFetch() {
+        if (this.getFromCache()) return this;
         this.data = await this.doFetchOnAltNames();
         this.renameField(this.data, 'תאריך', 'date');
         this.renameField(this.data, 'Date', 'date');
@@ -108,6 +124,7 @@ class FetchedTable {
             });
         }
         await new SpecificTableCompute().work(this);
+        FetchedTable.cache[this.paramstr()] = { last: new Date(), data: this.data };
         return this;
     }
 }
