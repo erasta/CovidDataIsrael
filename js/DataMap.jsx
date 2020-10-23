@@ -10,6 +10,19 @@ const inverseCoords = (geometry) => {
     });
 }
 
+const polyToLatlng = (poly) => {
+    let lat = 0, lng = 0;
+    const flat = poly.flat().flat();
+    if (flat.length) {
+        flat.forEach(coord => {
+            lat += coord[0];
+            lng += coord[1];
+        });
+        return [lat / flat.length, lng / flat.length];
+    }
+    return undefined;
+}
+
 const DataMap = ({ height = 800 }) => {
     const [citiesUnfiltered, setCitiesUnfiltered] = React.useState([]);
     const [cityloc, setCityloc] = React.useState({});
@@ -29,6 +42,9 @@ const DataMap = ({ height = 800 }) => {
                 const code = city.properties.MUNICIPAL_;
                 cityloc1[code] = cityloc1[code] || {};
                 cityloc1[code].poly = (cityloc1[code].poly || []).concat(inverseCoords(city));
+                if (!cityloc1[code].latlng) {
+                    cityloc1[code].latlng = polyToLatlng(cityloc1[code].poly)
+                }
             })
             setCityloc(cityloc1);
         })();
@@ -49,24 +65,7 @@ const DataMap = ({ height = 800 }) => {
     ];
 
     const cities = citiesUnfiltered.map(city => {
-        const ret = Object.assign({}, city);
-        const loc = cityloc[city['City Code']];
-        if (loc) {
-            ret.poly = loc.poly;
-            ret.latlng = loc.latlng;
-            if (!ret.latlng && ret.poly) {
-                let lat = 0, lng = 0;
-                const flat = ret.poly.flat().flat();
-                if (flat.length) {
-                    flat.forEach(coord => {
-                        lat += coord[0];
-                        lng += coord[1];
-                    });
-                    ret.latlng = [lat / flat.length, lng / flat.length];
-                }
-            }
-        }
-        return ret;
+        return Object.assign({}, city, cityloc[city['City Code']]);
     }).filter(city => (city.latlng || city.poly) && city['City Code']);
 
     return (
