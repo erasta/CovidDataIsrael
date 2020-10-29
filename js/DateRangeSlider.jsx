@@ -4,6 +4,14 @@ const DateRangeSlider = ({ dates, dateRange, setDateRange }) => {
     const dist = top - start;
     const dateToPos = (d) => (d - start) / dist * 100;
     const posToDate = (x) => onlyDay(new Date(x / 100 * dist + start.getTime()));
+    const nextDate = (curr) => {
+        const ret = dates.find((d, i) => d.getTime() > curr.getTime() && i > 0 && dates[i-1].getTime() <= curr.getTime());
+        return ret ? ret : curr;
+    }
+    const prevDate = (curr) => {
+        const ret = dates.find((d, i) => d.getTime() < curr.getTime() && i < dates.length - 1 && dates[i+1].getTime() >= curr.getTime());
+        return ret ? ret : curr;
+    }
     return (
         <Grid container
             spacing={2}
@@ -13,6 +21,14 @@ const DateRangeSlider = ({ dates, dateRange, setDateRange }) => {
             }}>
             <Grid item>
                 <Icon>settings_ethernet</Icon>
+            </Grid>
+            <Grid item>
+                <IconButton size='small' onClick={() => setDateRange([prevDate(dateRange[0]), dateRange[1]])}>
+                    <Icon>skip_previous</Icon>
+                </IconButton>
+                <IconButton size='small' onClick={() => setDateRange([nextDate(dateRange[0]), dateRange[1]])}>
+                    <Icon>skip_next</Icon>
+                </IconButton>
             </Grid>
             <Grid item xs>
                 <Slider
@@ -25,6 +41,14 @@ const DateRangeSlider = ({ dates, dateRange, setDateRange }) => {
                         return d.getDate() + '.' + (d.getMonth() + 1)
                     }}
                 />
+            </Grid>
+            <Grid item>
+                <IconButton size='small' onClick={() => setDateRange([dateRange[0], prevDate(dateRange[1])])}>
+                    <Icon>skip_previous</Icon>
+                </IconButton>
+                <IconButton size='small' onClick={() => setDateRange([dateRange[0], nextDate(dateRange[1])])}>
+                    <Icon>skip_next</Icon>
+                </IconButton>
             </Grid>
         </Grid>
     )
