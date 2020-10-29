@@ -1,4 +1,9 @@
-const DateRangeSlider = ({ dates, dateRange, onChangeDateRange }) => {
+const DateRangeSlider = ({ dates, dateRange, setDateRange }) => {
+    const top = onlyDay(new Date());
+    const start = new Date(2020, 0, 1);
+    const dist = top - start;
+    const dateToPos = (d) => (d - start) / dist * 100;
+    const posToDate = (x) => onlyDay(new Date(x / 100 * dist + start.getTime()));
     return (
         <Grid container
             spacing={2}
@@ -11,15 +16,12 @@ const DateRangeSlider = ({ dates, dateRange, onChangeDateRange }) => {
             </Grid>
             <Grid item xs>
                 <Slider
-                    value={dateRange}
-                    onChange={(e, v) => {
-                        onChangeDateRange(v);
-                    }}
+                    value={dateRange.map(dateToPos)}
+                    onChange={(e, v) => setDateRange(v.map(posToDate))}
                     valueLabelDisplay="auto"
                     aria-labelledby="date-slider"
                     valueLabelFormat={(val, side) => {
-                        if (!dates.length) return val;
-                        const d = dates[Math.round(val / 100 * (dates.length - 1))]
+                        const d = posToDate(val);
                         return d.getDate() + '.' + (d.getMonth() + 1)
                     }}
                 />

@@ -111,7 +111,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
     const [logarithmic, setLogarithmic] = React.useState(false);
-    const [dateRange, setDateRange] = React.useState([0, 100]);
+    const [dateRange, setDateRange] = React.useState([new Date(2020, 2, 1), onlyDay(new Date())]);
     const [mutedFields, setMutedFields] = React.useState([]);
 
     React.useEffect(() => {
@@ -137,7 +137,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                     fieldNames={numfields}
                     mutedFields={mutedFields}
                     fieldValues={groupnumitems}
-                    dateBounds={dateRange.map(d => dateByPercent(dates, d))}
+                    dateBounds={dateRange} //.map(d => dateByPercent(dates, d))}
                     logarithmic={logarithmic}
                     enforceChart={enforceChart}
                     xAxesMinUnit={['Weekly', 'Monthly'].includes(timeGroup) ? 'week' : undefined}
@@ -153,7 +153,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                         <DateRangeSlider
                             dates={dates}
                             dateRange={dateRange}
-                            onChangeDateRange={(v) => setDateRange(v)}
+                            setDateRange={setDateRange}
                         />
                         <Grid container justify='center' spacing={3}>
                             <Select
