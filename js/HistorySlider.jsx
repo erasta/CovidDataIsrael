@@ -13,15 +13,26 @@ const HistorySlider = ({ onHistory, withPlay = false }) => {
         })();
     }, []);
 
+    const nextDate = () => {
+        const newpos = Math.min(100, pos + 100 / (dates.length - 1));
+        const d = dates[Math.round(newpos / 100 * (dates.length - 1))];
+        onHistory(d);
+        setPos(newpos);
+    }
+
+    const prevDate = () => {
+        const newpos = Math.max(0, pos - 100 / (dates.length - 1));
+        const d = dates[Math.round(newpos / 100 * (dates.length - 1))];
+        onHistory(d);
+        setPos(newpos);
+    }
+
     if (play) {
         setTimeout(() => {
             if (pos === 100) {
-                setPos(0);
+                setPlay(false);
             } else {
-                const newpos = pos + 100 / (dates.length - 1);
-                const d = dates[Math.round(newpos / 100 * (dates.length - 1))];
-                onHistory(d);
-                setPos(newpos);
+                nextDate();
             }
         }, 500);
     }
@@ -32,16 +43,20 @@ const HistorySlider = ({ onHistory, withPlay = false }) => {
                 marginLeft: '5%',
                 width: '90%'
             }}>
-            {!withPlay ? null :
-                <Grid item>
-                    <IconButton>
-                        <Icon onClick={() => setPlay(!play)}> play_arrow</Icon>
-                    </IconButton>
-                </Grid>
-            }
-            <Grid item>
+            {/* <Grid item> */}
                 <Icon>history</Icon>
-            </Grid>
+            {/* </Grid> */}
+            {!withPlay ? null :
+                <IconButton onClick={() => setPlay(!play)} size='small'>
+                    <Icon> play_arrow</Icon>
+                </IconButton>
+            }
+            <IconButton size='small' onClick={() => prevDate()}>
+                <Icon>skip_previous</Icon>
+            </IconButton>
+            <IconButton size='small' onClick={() => nextDate()}>
+                <Icon>skip_next</Icon>
+            </IconButton>
             <Grid item xs>
                 <Slider
                     disabled={!dates.length}
@@ -52,7 +67,7 @@ const HistorySlider = ({ onHistory, withPlay = false }) => {
                         setPos(v);
                     }}
                     step={dates.length ? 100 / dates.length : undefined}
-                    valueLabelDisplay={play ? "on" : "auto"}
+                    valueLabelDisplay={pos !== 100 ? "on" : "auto"}
                     valueLabelFormat={val => {
                         const d = new Date(dates[Math.round(val / 100 * (dates.length - 1))])
                         return d.getDate() + '.' + (d.getMonth() + 1)
