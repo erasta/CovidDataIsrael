@@ -77,7 +77,7 @@ const groupByTime = (group, dates, nums) => {
     const uniqWeeknums = onlyUnique(weeknums);
     const groupdates = uniqWeeknums.map(w => {
         const datesinweek = dates.filter((d, i) => weeknums[i] === w);
-        return new Date(Math.max(...datesinweek));
+        return new Date(Math.min(...datesinweek));
     })
     const groupnums = uniqWeeknums.map(w => nums.filter((d, i) => weeknums[i] === w).reduce((a, b) => a + b, 0))
     return [groupdates, groupnums];
