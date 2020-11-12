@@ -5,6 +5,7 @@ const HeaderWidget = ({ lang }) => {
         infectedNow: '...',
         hospital: '',
         hard: '',
+        critical: '',
         medium: '',
         breathe: '',
         dead: '',
@@ -39,6 +40,7 @@ const HeaderWidget = ({ lang }) => {
                 medium: last['CountMediumStatus'],
                 breathe: last['CountBreath'],
                 hard: last['CountHardStatus'],
+                critical: last['CountCriticalStatus'],
                 dead: sumdead,
                 hospital: last['Counthospitalized'],
                 deadThisWeek: deadweek,
@@ -76,15 +78,16 @@ const HeaderWidget = ({ lang }) => {
                         enforceChart={{
                             style: 'curve',
                             bounds: [new Date(2020, 5, 1)],
-                            fields: ["Count Hard Status", "Count Medium Status", "Count Breath", 'Count Hospitalized'],
-                            colors: ['#ff0000', '#ffa500', '#0000ff', '#800080'],
+                            fields: ["Count Hard Status", "Count Medium Status", "Count Breath", 'Count Critical Status', 'Count Hospitalized'],
+                            colors: ['#ff0000', '#ffa500', '#0000ff', '#ff00ff', '#800080'],
                         }}
                         footer={
                             <Grid container direction="row" justify="space-between" alignItems="center">
-                                <WidgetItem name={'מונשמים'} data={data.breathe} xs={3} color='blue' />
-                                <WidgetItem name={'קשה'} data={data.hard} xs={3} color='red' />
-                                <WidgetItem name={'בינוני'} data={data.medium} xs={3} color='orange' />
-                                <WidgetItem name={'מאושפזים'} data={data.hospital} xs={3} color='purple' />
+                                <WidgetItem name={'מונשמים'} data={data.breathe} color='blue' />
+                                <WidgetItem name={'קריטי'} data={data.critical} color='#ff00ff' />
+                                <WidgetItem name={'קשה'} data={data.hard} color='red' />
+                                <WidgetItem name={'בינוני'} data={data.medium} color='orange' />
+                                <WidgetItem name={'מאושפזים'} data={data.hospital} color='purple' />
                             </Grid>
                         }
                     />
