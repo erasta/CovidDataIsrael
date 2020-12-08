@@ -115,6 +115,7 @@ const SmallWidget = ({ lang }) => {
                     enforceChart={{
                         style: 'bar',
                         bounds: [weekago, now],
+                        fields: ['Amount'],
                         numberOnTop: true,
                     }}
                     dateBounds={[weekago, now]}
