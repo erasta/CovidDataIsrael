@@ -108,8 +108,12 @@ const dateByPercent = (dates, percent) => {
 
 const DataGraph = ({ parsed, showControls, enforceChart }) => {
 
-    const hasStorage = typeof window.localStorage !== 'undefined';
-    const defChartStyle = (hasStorage && localStorage.getItem('chartStyle')) || 'line';
+    let locStore = undefined;
+    try {
+        locStore = window.localStorage;
+    } catch (e) {
+    }
+    const defChartStyle = (locStore && locStore.getItem('chartStyle')) || 'line';
 
     const [chartStyle, setChartStyle] = React.useState(defChartStyle);
     const [timeGroup, setTimeGroup] = React.useState('Exact');
@@ -120,8 +124,8 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
 
     React.useEffect(() => {
         if (['line', 'bar', 'curve'].includes(chartStyle)) { // scatter and bubble don't switch well
-            if (hasStorage) {
-                localStorage.setItem('chartStyle', chartStyle);
+            if (locStore) {
+                locStore.setItem('chartStyle', chartStyle);
             }
         }
     }, [chartStyle]);
