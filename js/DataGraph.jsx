@@ -118,6 +118,7 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
     const [chartStyle, setChartStyle] = React.useState(defChartStyle);
     const [timeGroup, setTimeGroup] = React.useState('Exact');
     const [accumulated, setAccumulated] = React.useState(false);
+    const [derivative, setDerivative] = React.useState(false);
     const [logarithmic, setLogarithmic] = React.useState(false);
     const [dateRange, setDateRange] = React.useState([new Date(2020, 2, 1), onlyDay(new Date())]);
     const [mutedFields, setMutedFields] = React.useState([]);
@@ -134,6 +135,10 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
 
     if (accumulated) {
         numitems = numitems.map(field => accumulateNums(field));
+    }
+
+    if (derivative) {
+        numitems = numitems.map(field => derivativeNums(field));
     }
 
     let [groupdates, groupnumitems] = groupGroupsByTime(timeGroup, dates, numitems);
@@ -198,7 +203,17 @@ const DataGraph = ({ parsed, showControls, enforceChart }) => {
                                         onChange={e => setAccumulated(e.target.checked)}
                                         color="primary"
                                     />}
-                                label="Sum"
+                                label="Accumulate"
+                                labelPlacement="start"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={derivative}
+                                        onChange={e => setDerivative(e.target.checked)}
+                                        color="primary"
+                                    />}
+                                label="Derivative"
                                 labelPlacement="start"
                             />
                             <FormControlLabel

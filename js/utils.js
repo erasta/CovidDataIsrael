@@ -158,6 +158,16 @@ const accumulateNums = (nums) => {
     return nums.map((sum => value => sum += value)(0));
 }
 
+const derivativeNums = (nums) => {
+    if (!nums.length) return [];
+    const ret = new Array(nums.length);
+    ret[0] = 0;
+    for (let i = 1; i < nums.length; ++i) {
+        ret[i] = nums[i] - nums[i - 1];
+    }
+    return ret;
+}
+
 const daystr = (date) => {
     return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
 }
