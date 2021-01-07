@@ -70,9 +70,9 @@ const groupByTime = (group, dates, nums) => {
     if (group === 'Weekly') {
         weeknums = dates.map(weekNum);
     } else if (group === 'Monthly') {
-        weeknums = dates.map(d => d.getFullYear() * 10 + d.getMonth());
+        weeknums = dates.map(d => d.getFullYear() * 100 + d.getMonth());
     } else {
-        weeknums = dates.map(d => d.getFullYear() * 1000 + d.getMonth() * 10 + d.getDate());
+        weeknums = dates.map(d => d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate());
     }
     const uniqWeeknums = onlyUnique(weeknums);
     const groupdates = uniqWeeknums.map(w => {
