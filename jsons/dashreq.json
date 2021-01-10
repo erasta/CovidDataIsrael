@@ -165,6 +165,12 @@
             "parameters": {},
             "queryName": "otherHospitalizedStaff",
             "single": false
+        },
+        {
+            "id": "19",
+            "parameters": {},
+            "queryName": "vaccinated",
+            "single": false
         }
     ]
 }

@@ -58,6 +58,7 @@ const sheetnames = [
             "infectedPerDate",
             "patientsPerDate",
             "deadPatientsPerDate",
+            "vaccinated",
             "recoveredPerDay",
             "testResultsPerDate",
             "doublingRate",

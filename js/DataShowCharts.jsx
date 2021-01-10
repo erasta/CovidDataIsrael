@@ -8,6 +8,7 @@ const DataShowCharts = ({ lang, names }) => (
                 'infectedPerDate',
                 'deadPatientsPerDate',
                 'recoveredPerDay',
+                'vaccinated',
                 'testResultsPerDate',
                 'moh_corona_hospitalization',
                 'moh_corona_isolation_per_day',
