@@ -115,6 +115,7 @@ class FetchedTable {
         this.data = await this.doFetchOnAltNames();
         this.renameField(this.data, 'תאריך', 'date');
         this.renameField(this.data, 'Date', 'date');
+        this.renameField(this.data, 'Day_Date', 'date');
         if (this.data.length) {
             if (this.data[0].hasOwnProperty('date')) {
                 this.data.sort((a, b) => a.date.getTime() - b.date.getTime());
