@@ -10,6 +10,7 @@ const HeaderWidget = ({ lang }) => {
         breathe: '',
         dead: '',
         deadThisWeek: '',
+        vaccinated: '...',
     });
 
     const now = new Date();
@@ -20,11 +21,13 @@ const HeaderWidget = ({ lang }) => {
 
     React.useEffect(() => {
         (async () => {
-            const [patients, infected, deadTable] = await Promise.all([
+            const [patients, infected, deadTable, vaccinated] = await Promise.all([
                 await fetchCsv(`out/csv/patientsPerDate.csv`),
                 await fetchCsv(`out/csv/infectedPerDate.csv`),
-                await fetchCsv(`out/csv/deadPatientsPerDate.csv`)
+                await fetchCsv(`out/csv/deadPatientsPerDate.csv`),
+                await fetchCsv(`out/csv/vaccinated.csv`)
             ]);
+            const vac_cum = vaccinated[vaccinated.length - 1].vaccinated_cum;
             const last = patients[patients.length - 1];
             const sum = sumarr(infected.map(row => row['amount']));
             const yester = infected[infected.length - 2]['amount'];
@@ -32,7 +35,7 @@ const HeaderWidget = ({ lang }) => {
             const deadweek = sumarr(deadTable
                 .filter(row => row['date'].getTime() > weekago.getTime() && row['date'].getTime() < yesterday.getTime())
                 .map(row => row['amount']))
-            console.log(sum, yester, sumdead, last);
+            console.log(sum, yester, sumdead, last, vac_cum);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
                 infectedYesterday: yester,
@@ -44,6 +47,7 @@ const HeaderWidget = ({ lang }) => {
                 dead: sumdead,
                 hospital: last['Counthospitalized'],
                 deadThisWeek: deadweek,
+                vaccinated: vac_cum
             }));
         })();
     }, [])
@@ -59,6 +63,7 @@ const HeaderWidget = ({ lang }) => {
                     <WidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={3} />
                     <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
                     <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
+                    <WidgetItem name={'מתחסנים'} data={data.vaccinated} xs={3} color='ForestGreen' />
                 </Grid>
             </Card>
             <Grid container direction="row-reverse" justify="space-between" alignItems="stretch">
