@@ -66,6 +66,7 @@ const sheetnames = [
     },
     {
         "NewTables": [
+            "spotlightPublic",
             "patientsStatus",
             "vaccinationsPerAge",
             "testsPerDate",
@@ -76,7 +77,6 @@ const sheetnames = [
             "LastWeekLabResults",
             "HospitalBedStatusSegmentation",
             "isolatedVerifiedDoctorsAndNurses",
-            "spotlightPublic",
         ]
     },
     {
