@@ -171,6 +171,72 @@
             "parameters": {},
             "queryName": "vaccinated",
             "single": false
+        },
+        {
+            "id": "20",
+            "parameters": {},
+            "queryName": "spotlightPublic",
+            "single": false
+        },
+        {
+            "id": "21",
+            "parameters": {},
+            "queryName": "patientsStatus",
+            "single": false
+        },
+        {
+            "id": "22",
+            "parameters": {},
+            "queryName": "vaccinationsPerAge",
+            "single": false
+        },
+        {
+            "id": "23",
+            "parameters": {},
+            "queryName": "testsPerDate",
+            "single": false
+        },
+        {
+            "id": "24",
+            "parameters": {},
+            "queryName": "cumSeriusAndBreath",
+            "single": false
+        },
+        {
+            "id": "25",
+            "parameters": {},
+            "queryName": "averageInfectedPerWeek",
+            "single": false
+        },
+        {
+            "id": "26",
+            "parameters": {},
+            "queryName": "spotlightLastupdate",
+            "single": false
+        },
+        {
+            "id": "27",
+            "parameters": {},
+            "queryName": "spotlightAggregatedPublic",
+            "single": false
+        },
+        {
+            "id": "28",
+            "parameters": {},
+            "queryName": "LastWeekLabResults",
+            "single": false
+        },
+        {
+            "id": "29",
+            "parameters": {},
+            "queryName": "HospitalBedStatusSegmentation",
+            "single": false
+        },
+        {
+            "id": "30",
+            "parameters": {},
+            "queryName": "isolatedVerifiedDoctorsAndNurses",
+            "single": false
         }
     ]
 }

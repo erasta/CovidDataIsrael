@@ -65,6 +65,21 @@ const sheetnames = [
         ]
     },
     {
+        "New Tables": [
+            "patientsStatus",
+            "vaccinationsPerAge",
+            "testsPerDate",
+            "cumSeriusAndBreath",
+            "averageInfectedPerWeek",
+            "spotlightLastupdate",
+            "spotlightAggregatedPublic",
+            "LastWeekLabResults",
+            "HospitalBedStatusSegmentation",
+            "isolatedVerifiedDoctorsAndNurses",
+            "spotlightPublic",
+        ]
+    },
+    {
         "Hospitals": [
             "isolatedDoctorsAndNurses",
             "hospitalStatus",

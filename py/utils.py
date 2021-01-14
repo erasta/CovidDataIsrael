@@ -76,7 +76,10 @@ def computeWeekly(data):
 
 def data2fields(data):
     if not isinstance(data, list):
-        data = [data]
+        if not isinstance(data, dict):
+            data = [{'value':data}]
+        else:
+            data = [data]
     data = list(data)
     fields = list(data[0].keys())
     return data, fields
