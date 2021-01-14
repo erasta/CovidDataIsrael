@@ -65,7 +65,7 @@ const sheetnames = [
         ]
     },
     {
-        "New Tables": [
+        "NewTables": [
             "patientsStatus",
             "vaccinationsPerAge",
             "testsPerDate",
