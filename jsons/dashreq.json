@@ -171,6 +171,12 @@
             "parameters": {},
             "queryName": "vaccinated",
             "single": false
+        },
+        {
+            "id": "19",
+            "parameters": {},
+            "queryName": "vaccinationsPerAge",
+            "single": false
         }
     ]
 }

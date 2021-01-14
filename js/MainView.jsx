@@ -78,6 +78,7 @@ const sheetnames = [
             "breatheByAgeAndGenderPublic",
             "severeByAgeAndGenderPublic",
             "deadByAgeAndGenderPublic",
+            "vaccinationsPerAge",
         ]
     },
     {
