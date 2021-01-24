@@ -36,7 +36,7 @@ const HeaderWidget = ({ lang }) => {
             const deadweek = sumarr(deadTable
                 .filter(row => row['date'].getTime() > weekago.getTime() && row['date'].getTime() < yesterday.getTime())
                 .map(row => row['amount']))
-            const vac_week_ago = vaccinated.find(v => Math.abs(v.Day_Date - weekago) < 1000 * 3600 * 12);
+            const vac_week_ago = vaccinated.find(v => Math.abs(v.Day_Date - weekago) < 1000 * 3600 * 4);
             const vac_prec = vac_week_ago ? vac_week_ago.vaccinated_seconde_dose_population_perc + '%' : '...';
             console.log(sum, yester, sumdead, last, vac_cum);
             setData(Object.assign({}, data, {
