@@ -11,6 +11,7 @@ const HeaderWidget = ({ lang }) => {
         dead: '',
         deadThisWeek: '',
         vaccinated: '...',
+        vac_prec: '...',
     });
 
     const now = new Date();
@@ -35,6 +36,8 @@ const HeaderWidget = ({ lang }) => {
             const deadweek = sumarr(deadTable
                 .filter(row => row['date'].getTime() > weekago.getTime() && row['date'].getTime() < yesterday.getTime())
                 .map(row => row['amount']))
+            const vac_week_ago = vaccinated.find(v => Math.abs(v.Day_Date - weekago) < 1000 * 3600 * 12);
+            const vac_prec = vac_week_ago ? vac_week_ago.vaccinated_seconde_dose_population_perc + '%' : '...';
             console.log(sum, yester, sumdead, last, vac_cum);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
@@ -47,7 +50,8 @@ const HeaderWidget = ({ lang }) => {
                 dead: sumdead,
                 hospital: last['Counthospitalized'],
                 deadThisWeek: deadweek,
-                vaccinated: vac_cum
+                vaccinated: vac_cum,
+                vac_prec: vac_prec
             }));
         })();
     }, [])
@@ -60,10 +64,11 @@ const HeaderWidget = ({ lang }) => {
                 <Grid container direction="row-reverse" justify="space-between" alignItems="stretch">
                     {/* <Grid container direction="row" justify="space-between" alignItems="center">
                     </Grid> */}
-                    <WidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={3} />
-                    <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={3} />
-                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={3} />
-                    <WidgetItem name={'מתחסנים'} data={data.vaccinated} xs={3} color='ForestGreen' />
+                    <WidgetItem name={'סה״כ מאובחנים'} data={data.infectedTotal} xs={2} />
+                    <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={2} />
+                    <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={2} />
+                    <WidgetItem name={'מתחסנים'} data={data.vaccinated} xs={2} color='ForestGreen' />
+                    <WidgetItem name={'מחוסנים לגמרי'} data={data.vac_prec} xs={2} color='Green' />
                 </Grid>
             </Card>
             <Grid container direction="row-reverse" justify="space-between" alignItems="stretch">
