@@ -3,9 +3,17 @@ class SpecificTableCompute {
         this.table = table;
         if (this.table.name === 'testResultsPerDate') {
             this.comp_testResultsPerDate();
+        } else if (this.table.name === 'spotlightPublic') {
+            this.comp_spotlightPublic();
         } else if (this.table.name === 'contagionDataPerCityPublic') {
             await this.comp_contagionDataPerCityPublic();
         }
+    }
+
+    comp_spotlightPublic() {
+        this.table.data.forEach((row, i) => {
+            delete row['date'];
+        });
     }
 
     comp_testResultsPerDate() {
