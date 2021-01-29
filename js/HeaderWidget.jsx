@@ -68,7 +68,7 @@ const HeaderWidget = ({ lang }) => {
                     <WidgetItem name={'חולים פעילים'} data={data.infectedNow} xs={2} />
                     <WidgetItem name={'אתמול'} data={data.infectedYesterday} xs={2} />
                     <WidgetItem name={'מתחסנים'} data={data.vaccinated} xs={2} color='ForestGreen' />
-                    <WidgetItem name={'מחוסנים לגמרי'} data={data.vac_prec} xs={2} color='Green' />
+                    <WidgetItem name={'מחוסנים במלואם'} data={data.vac_prec} xs={2} color='Green' />
                 </Grid>
             </Card>
             <Grid container direction="row-reverse" justify="space-between" alignItems="stretch">
