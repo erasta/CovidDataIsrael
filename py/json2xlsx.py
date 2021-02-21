@@ -15,7 +15,10 @@ os.makedirs('out/csv', exist_ok=True)
 
 
 def last_update_remote():
-    lastUpdateRemoteJson = urllib.request.urlopen("https://datadashboardapi.health.gov.il/api/queries/lastUpdate").read().decode("utf-8")
+    url = "https://datadashboardapi.health.gov.il/api/queries/lastUpdate"
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    req = urllib.request.Request(url, headers=headers)
+    lastUpdateRemoteJson = urllib.request.urlopen(req).read().decode("utf-8")
     return json.loads(lastUpdateRemoteJson)[0]['lastUpdate']
 
 
