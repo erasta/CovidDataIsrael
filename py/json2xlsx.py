@@ -33,12 +33,12 @@ def last_update_local():
     return None
 
 
-lastUpdateRemote = str(last_update_remote()).strip()
-lastUpdateLocal = str(last_update_local()).strip()
-if lastUpdateLocal == lastUpdateRemote:
-    print('local == remote, stoping.', lastUpdateLocal, lastUpdateRemote)
-    # exit()
-print('local != remote, continuing.', lastUpdateLocal, lastUpdateRemote)
+# lastUpdateRemote = str(last_update_remote()).strip()
+# lastUpdateLocal = str(last_update_local()).strip()
+# if lastUpdateLocal == lastUpdateRemote:
+#     print('local == remote, stoping.', lastUpdateLocal, lastUpdateRemote)
+#     # exit()
+# print('local != remote, continuing.', lastUpdateLocal, lastUpdateRemote)
 
 with open('jsons/mohfiles.json') as f:
     mohfiles = json.load(f)
