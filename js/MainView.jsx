@@ -80,6 +80,17 @@ const sheetnames = [
         ]
     },
     {
+        "MoreTables": [
+            "infectedByPeriodAndAgeAndGender",
+            "sickPerLocation",
+            "deadByPeriodAndAgeAndGender",
+            "breatheByPeriodAndAgeAndGender",
+            "severeByPeriodAndAgeAndGender",
+            "verifiedDoctorsAndNurses",
+            "infectionFactor",
+        ]
+    },
+    {
         "Hospitals": [
             "isolatedDoctorsAndNurses",
             "hospitalStatus",

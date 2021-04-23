@@ -237,6 +237,48 @@
             "parameters": {},
             "queryName": "isolatedVerifiedDoctorsAndNurses",
             "single": false
+        },
+        {
+            "id": "31",
+            "queryName": "infectedByPeriodAndAgeAndGender",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "32",
+            "queryName": "sickPerLocation",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "33",
+            "queryName": "deadByPeriodAndAgeAndGender",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "34",
+            "queryName": "breatheByPeriodAndAgeAndGender",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "35",
+            "queryName": "severeByPeriodAndAgeAndGender",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "36",
+            "queryName": "verifiedDoctorsAndNurses",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "37",
+            "queryName": "infectionFactor",
+            "single": false,
+            "parameters": {}
         }
     ]
 }
