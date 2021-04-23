@@ -65,21 +65,23 @@ for r in dashrequest['requests']:
 sheets = list(map(lambda x: x['queryName'], dashrequest['requests']))
 
 dashjson = get_dash_data()
-datas = list(map(lambda x: x['data'], dashjson))
+# print(dashjson)
+datas = list(map(lambda x: x['data'] if 'data' in x else None, dashjson))
 
 sheet2data = utils.group_sheet_data(sheets, datas)
 
 histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
 os.makedirs(histdir, exist_ok=True)
 for i, (sheetname, data) in enumerate(sheet2data):
-    data, fields = utils.data2fields(data)
-    print(i, sheetname, fields)
+    if data is not None:
+        data, fields = utils.data2fields(data)
+        print(i, sheetname, fields)
 
-    with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
-        utils.writeToCsv(data, fields, csvfile)
+        with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
+            utils.writeToCsv(data, fields, csvfile)
 
-    with open(histdir + '/' + sheetname + '.csv', 'w') as csvfile:
-        utils.writeToCsv(data, fields, csvfile)
+        with open(histdir + '/' + sheetname + '.csv', 'w') as csvfile:
+            utils.writeToCsv(data, fields, csvfile)
 
 with open('out/history/dates.json', 'w') as datesfile:
     histdirs = sorted(next(os.walk('out/history'))[1])
