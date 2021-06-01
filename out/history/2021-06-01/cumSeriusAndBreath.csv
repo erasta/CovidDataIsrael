@@ -1,2 +1,2 @@
 Day_Date,new_hospitalized,Counthospitalized,Counthospitalized_without_release,CountHardStatus,CountMediumStatus,CountEasyStatus,CountBreath,CountDeath,total_beds,StandardOccupancy,num_visits,patients_home,patients_hotel,CountBreathCum,CountDeathCum,CountCriticalStatus,CountSeriousCriticalCum,serious_critical_new
-2021-05-31T00:00:00.000Z,1,94,94,49,25,20,36,1,2893,0.03249222260629105,6808,309,0,3710,6412,37,17656,2
+2021-06-01T00:00:00.000Z,0,93,93,48,26,19,36,0,2893,0.03214656066367093,779,300,0,3708,6412,37,17661,1
