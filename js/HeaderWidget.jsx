@@ -22,11 +22,12 @@ const HeaderWidget = ({ lang }) => {
 
     React.useEffect(() => {
         (async () => {
-            const [patients, infected, deadTable, vaccinated] = await Promise.all([
+            const [patients, infected, deadTable, vaccinated, sickTwo] = await Promise.all([
                 await fetchCsv(`out/csv/patientsPerDate.csv`),
                 await fetchCsv(`out/csv/infectedPerDate.csv`),
                 await fetchCsv(`out/csv/deadPatientsPerDate.csv`),
-                await fetchCsv(`out/csv/vaccinated.csv`)
+                await fetchCsv(`out/csv/vaccinated.csv`),
+                await fetchCsv(`out/csv/sickPerDateTwoDays.csv`)
             ]);
             const vac_cum = vaccinated[vaccinated.length - 1].vaccinated_cum;
             const last = patients[patients.length - 1];
@@ -38,11 +39,12 @@ const HeaderWidget = ({ lang }) => {
                 .map(row => row['amount']))
             const vac_week_ago = vaccinated.find(v => Math.abs(v.Day_Date - weekago) < 1000 * 3600 * 4);
             const vac_prec = vac_week_ago ? vac_week_ago.vaccinated_seconde_dose_population_perc + '%' : '...';
+            const infected_now = sickTwo.map(x => x.amount).reduce((a, b) => a + b, 0);
             console.log(sum, yester, sumdead, last, vac_cum);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
                 infectedYesterday: yester,
-                infectedNow: last['Counthospitalized'] + last['patients_home'] + last['patients_hotel'],
+                infectedNow: infected_now, //last['Counthospitalized'] + last['patients_home'] + last['patients_hotel'],
                 medium: last['CountMediumStatus'],
                 breathe: last['CountBreath'],
                 hard: last['CountHardStatus'],

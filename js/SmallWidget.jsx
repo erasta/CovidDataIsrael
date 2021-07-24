@@ -36,10 +36,11 @@ const SmallWidget = ({ lang }) => {
 
     React.useEffect(() => {
         (async () => {
-            const [patients, infected, deadTable] = await Promise.all([
+            const [patients, infected, deadTable, sickTwo] = await Promise.all([
                 await fetchCsv(`out/csv/patientsPerDate.csv`),
                 await fetchCsv(`out/csv/infectedPerDate.csv`),
-                await fetchCsv(`out/csv/deadPatientsPerDate.csv`)
+                await fetchCsv(`out/csv/deadPatientsPerDate.csv`),
+                await fetchCsv(`out/csv/sickPerDateTwoDays.csv`)
             ]);
             const last = patients[patients.length - 1];
             const sum = sumarr(infected.map(row => row['amount']));
@@ -48,11 +49,12 @@ const SmallWidget = ({ lang }) => {
             const deadweek = sumarr(deadTable
                 .filter(row => row['date'].getTime() > weekago.getTime() && row['date'].getTime() < yesterday.getTime())
                 .map(row => row['amount']))
-            console.log(sum, yester, sumdead, last);
+                const infected_now = sickTwo.map(x => x.amount).reduce((a, b) => a + b, 0);
+                console.log(sum, yester, sumdead, last);
             setData(Object.assign({}, data, {
                 infectedTotal: sum,
                 infectedYesterday: yester,
-                infectedNow: last['Counthospitalized'] + last['patients_home'] + last['patients_hotel'],
+                infectedNow: infected_now, //last['Counthospitalized'] + last['patients_home'] + last['patients_hotel'],
                 medium: last['CountMediumStatus'],
                 breathe: last['CountBreath'],
                 hard: last['CountHardStatus'],
