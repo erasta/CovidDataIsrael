@@ -66,6 +66,9 @@ const sheetnames = [
     },
     {
         "NewTables": [
+            "vaccinatedVerifiedDaily",
+            "vaccinatedVerifiedByAge",
+            "researchGraph",
             "spotlightPublic",
             "patientsStatus",
             "vaccinationsPerAge",
