@@ -86,6 +86,8 @@ def data2fields(data):
 
 
 def writeToCsv(data, fields, csvfile):
+    for row in data:
+        fields.extend(x for x in list(row.keys()) if x not in fields)
     writer = csv.DictWriter(csvfile, fieldnames=fields)
     writer.writeheader()
     for row in data:

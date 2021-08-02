@@ -279,6 +279,26 @@
             "queryName": "infectionFactor",
             "single": false,
             "parameters": {}
+        },
+        {
+            "id": "38",
+            "queryName": "vaccinatedVerifiedDaily",
+            "single": false,
+            "parameters": {
+                "days": 0
+            }
+        },
+        {
+            "id": "39",
+            "queryName": "vaccinatedVerifiedByAge",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "40",
+            "queryName": "researchGraph",
+            "single": false,
+            "parameters": {}
         }
     ]
 }

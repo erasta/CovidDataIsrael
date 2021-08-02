@@ -13,6 +13,7 @@ from dashreq import get_dash_data, get_dash_req
 
 os.makedirs('out/csv', exist_ok=True)
 
+# url = "https://datadashboardapi.health.gov.il/api/queries/tileDisplay"
 
 def last_update_remote():
     url = "https://datadashboardapi.health.gov.il/api/queries/lastUpdate"
@@ -56,6 +57,12 @@ with open('jsons/mohfiles.json') as f:
             print("HTTPError: {0}".format(err))
         finally:
             pass
+
+
+
+
+
+
 
 dashrequest = get_dash_req()
 for r in dashrequest['requests']:
