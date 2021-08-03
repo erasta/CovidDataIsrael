@@ -24,6 +24,16 @@ const getPopulationTable = async () => {
 }
 
 const fetchTableAndHistory = async (name, historyDate) => {
+    if (name.startsWith('vaccinatedVerifiedDaily_')) {
+        const splitted = name.split("_");
+        const realname = splitted[0];
+        const variant = splitted[1];
+        const parsed = await new FetchedTable(realname).doFetch();
+        var valuesForVariants = {'over60': 'מעל גיל 60', 'under60': 'מתחת לגיל 60', 'all': 'כלל האוכלוסיה'};
+        var valToCompare = valuesForVariants[variant];
+        return parsed.data.filter(d => d['Age Group'] === valToCompare);
+    }
+
     const parsed = await new FetchedTable(name).doFetch();
     if (!historyDate) return parsed.data;
     const hist = (await new FetchedTable(name, historyDate).doFetch()).suffixFields('_' + historyDate);

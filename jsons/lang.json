@@ -51,7 +51,13 @@
         "spotlightAggregatedPublic": "צבעי ערים זרקור",
         "LastWeekLabResults": "מעבדה שבוע שעבר",
         "HospitalBedStatusSegmentation": "תפוסת מיטות בית חולים",
-        "isolatedVerifiedDoctorsAndNurses": "רופאים ואחיות מבודדים מאומתים"
+        "isolatedVerifiedDoctorsAndNurses": "רופאים ואחיות מבודדים מאומתים",
+        "VaccinatedVerified": "מחוסנים מאומתים",
+        "vaccinatedVerifiedByAge": "מחוסנים מאומתים לפי גיל",
+        "vaccinatedVerifiedDaily_under60": "מחוסנים מאומתים מתחת לגיל 60",
+        "vaccinatedVerifiedDaily_over60": "מחוסנים מאומתים מעל גיל 60",
+        "vaccinatedVerifiedDaily_all": "מחוסנים מאומתים כלל האוכלוסיה",
+        "vaccinatedVerifiedDaily": "מחוסנים מאומתים יומי (כטבלה אחת)"
     },
     "en": {
         "Contact": "Contact",

@@ -65,9 +65,16 @@ const sheetnames = [
         ]
     },
     {
-        "NewTables": [
-            "vaccinatedVerifiedDaily",
+        "VaccinatedVerified": [
             "vaccinatedVerifiedByAge",
+            "vaccinatedVerifiedDaily_under60",
+            "vaccinatedVerifiedDaily_over60",
+            "vaccinatedVerifiedDaily_all",
+            "vaccinatedVerifiedDaily",
+        ]
+    },
+    {
+        "NewTables": [
             "researchGraph",
             "spotlightPublic",
             "patientsStatus",
@@ -107,6 +114,7 @@ const sheetnames = [
             "breatheByAgeAndGenderPublic",
             "severeByAgeAndGenderPublic",
             "deadByAgeAndGenderPublic",
+            "vaccinatedVerifiedByAge",
         ]
     },
     {
