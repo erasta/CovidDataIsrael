@@ -32,18 +32,18 @@ section,female,male,period,order_period
 60-69,"{'amount': 16, 'percentage': 9.6}","{'amount': 20, 'percentage': 12}",3 חודשים,4
 60-69,"{'amount': 101, 'percentage': 9.6}","{'amount': 143, 'percentage': 13.6}",6 חודשים,3
 60-69,"{'amount': 12, 'percentage': 10.5}","{'amount': 16, 'percentage': 14}",חודש אחרון,5
-60-69,"{'amount': 294, 'percentage': 7.7}","{'amount': 644, 'percentage': 16.9}",מתחילת קורונה,1
+60-69,"{'amount': 298, 'percentage': 7.8}","{'amount': 644, 'percentage': 16.8}",מתחילת קורונה,1
 60-69,"{'amount': 270, 'percentage': 8.2}","{'amount': 560, 'percentage': 17}",שנה,2
 70-79,"{'amount': 14, 'percentage': 12.3}","{'amount': 21, 'percentage': 18.4}",חודש אחרון,5
 70-79,"{'amount': 19, 'percentage': 11.4}","{'amount': 23, 'percentage': 13.8}",3 חודשים,4
 70-79,"{'amount': 104, 'percentage': 9.9}","{'amount': 145, 'percentage': 13.8}",6 חודשים,3
-70-79,"{'amount': 318, 'percentage': 9.6}","{'amount': 593, 'percentage': 18}",שנה,2
-70-79,"{'amount': 357, 'percentage': 9.3}","{'amount': 696, 'percentage': 18.2}",מתחילת קורונה,1
+70-79,"{'amount': 318, 'percentage': 9.6}","{'amount': 594, 'percentage': 18}",שנה,2
+70-79,"{'amount': 357, 'percentage': 9.3}","{'amount': 698, 'percentage': 18.2}",מתחילת קורונה,1
 80-89,"{'amount': 15, 'percentage': 9}","{'amount': 15, 'percentage': 9}",3 חודשים,4
 80-89,"{'amount': 238, 'percentage': 7.2}","{'amount': 342, 'percentage': 10.4}",שנה,2
 80-89,"{'amount': 73, 'percentage': 7}","{'amount': 80, 'percentage': 7.6}",6 חודשים,3
 80-89,"{'amount': 13, 'percentage': 11.4}","{'amount': 13, 'percentage': 11.4}",חודש אחרון,5
-80-89,"{'amount': 280, 'percentage': 7.3}","{'amount': 403, 'percentage': 10.5}",מתחילת קורונה,1
+80-89,"{'amount': 281, 'percentage': 7.3}","{'amount': 404, 'percentage': 10.6}",מתחילת קורונה,1
 90+,"{'amount': 73, 'percentage': 1.9}","{'amount': 84, 'percentage': 2.2}",מתחילת קורונה,1
 90+,"{'amount': 1, 'percentage': 0.9}","{'amount': 4, 'percentage': 3.5}",חודש אחרון,5
 90+,"{'amount': 1, 'percentage': 0.6}","{'amount': 5, 'percentage': 3}",3 חודשים,4
