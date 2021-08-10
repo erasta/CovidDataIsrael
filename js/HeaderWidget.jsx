@@ -9,6 +9,7 @@ const HeaderWidget = ({ lang }) => {
         medium: '',
         breathe: '',
         dead: '',
+        dead77: '',
         deadThisWeek: '',
         vaccinated: '...',
         vac_prec: '...',
@@ -19,6 +20,7 @@ const HeaderWidget = ({ lang }) => {
     yesterday.setHours(-1, 59, 59);
     const weekago = new Date(now - 7 * 24 * 3600 * 1000);
     weekago.setHours(0, 0, 0, 0);
+    const date77 = new Date(2021, 6, 6);
 
     React.useEffect(() => {
         (async () => {
@@ -34,6 +36,7 @@ const HeaderWidget = ({ lang }) => {
             const sum = sumarr(infected.map(row => row['amount']));
             const yester = infected[infected.length - 2]['amount'];
             const sumdead = sumarr(deadTable.map(row => row['amount']));
+            const sumdead77 = sumarr(deadTable.filter(row => row['date'].getTime() > date77).map(row => row['amount']));
             const deadweek = sumarr(deadTable
                 .filter(row => row['date'].getTime() > weekago.getTime() && row['date'].getTime() < yesterday.getTime())
                 .map(row => row['amount']))
@@ -50,6 +53,7 @@ const HeaderWidget = ({ lang }) => {
                 hard: last['CountHardStatus'],
                 critical: last['CountCriticalStatus'],
                 dead: sumdead,
+                dead77: sumdead77,
                 hospital: last['Counthospitalized'],
                 deadThisWeek: deadweek,
                 vaccinated: vac_cum,
@@ -125,7 +129,10 @@ const HeaderWidget = ({ lang }) => {
                         }}
                         dateBounds={[weekago, now]}
                         footer={
-                            <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
+                            <Grid container direction="row" justify="space-between" alignItems="center">
+                                <WidgetItem name={'נפטרים מאז ה-7.7.21'} data={data.dead77} xs={3} color='black' />
+                                <WidgetItem name={'סה״כ נפטרים'} data={data.dead} xs={3} color='black' />
+                            </Grid>
                         }
                     />
                 </Grid>
