@@ -74,6 +74,11 @@ const sheetnames = [
         ]
     },
     {
+        "ByHand": [
+            "harpaz_moiz",
+        ]
+    },
+    {
         "NewTables": [
             "researchGraph",
             "spotlightPublic",
