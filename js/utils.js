@@ -111,7 +111,14 @@ const convertFieldToType = (rows, key) => {
 
     // Check and convert to dates
     const firstDate = new Date(2020, 0, 1);
-    const dates = items.map(x => x.length ? new Date(x) : new Date(firstDate));
+    const dates = items.map(x => {
+        if (!x.length) return new Date(firstDate);
+        var d = new Date(x);
+        if (isNaN(d.getTime()) && x.length === 10) {
+            d = new Date(x.substr(6,4) + "-" + x.substr(3,2) + "-" + x.substr(0,2));
+        }
+        return d;
+    });
     if (dates.filter(d => isNaN(d.getTime())).length === 0) {
         rows.forEach((row, i) => {
             if (dates[i].getTime() <= firstDate.getTime() + 1) { // sometimes when date is unapplicable we get 1999/1/1
