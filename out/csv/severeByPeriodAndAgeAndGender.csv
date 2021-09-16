@@ -12,8 +12,8 @@ section,female,male,period,order_period
 20-29,"{'amount': 50, 'percentage': 1.1}","{'amount': 48, 'percentage': 1}",6 חודשים,3
 20-29,"{'amount': 38, 'percentage': 1}","{'amount': 35, 'percentage': 0.9}",3 חודשים,4
 20-29,"{'amount': 36, 'percentage': 1.3}","{'amount': 31, 'percentage': 1.1}",חודש אחרון,5
-20-29,"{'amount': 197, 'percentage': 1}","{'amount': 169, 'percentage': 0.8}",מתחילת קורונה,1
-20-29,"{'amount': 164, 'percentage': 0.9}","{'amount': 152, 'percentage': 0.9}",שנה,2
+20-29,"{'amount': 200, 'percentage': 1}","{'amount': 169, 'percentage': 0.8}",מתחילת קורונה,1
+20-29,"{'amount': 166, 'percentage': 1}","{'amount': 152, 'percentage': 0.9}",שנה,2
 30-39,"{'amount': 385, 'percentage': 2.2}","{'amount': 418, 'percentage': 2.4}",שנה,2
 30-39,"{'amount': 125, 'percentage': 2.7}","{'amount': 123, 'percentage': 2.7}",6 חודשים,3
 30-39,"{'amount': 91, 'percentage': 2.4}","{'amount': 102, 'percentage': 2.7}",3 חודשים,4
@@ -26,23 +26,23 @@ section,female,male,period,order_period
 40-49,"{'amount': 719, 'percentage': 3.5}","{'amount': 1119, 'percentage': 5.4}",מתחילת קורונה,1
 50-59,"{'amount': 251, 'percentage': 5.5}","{'amount': 357, 'percentage': 7.8}",6 חודשים,3
 50-59,"{'amount': 188, 'percentage': 5.1}","{'amount': 279, 'percentage': 7.5}",3 חודשים,4
-50-59,"{'amount': 995, 'percentage': 5.8}","{'amount': 1520, 'percentage': 8.8}",שנה,2
-50-59,"{'amount': 1177, 'percentage': 5.7}","{'amount': 1810, 'percentage': 8.8}",מתחילת קורונה,1
+50-59,"{'amount': 995, 'percentage': 5.8}","{'amount': 1518, 'percentage': 8.8}",שנה,2
+50-59,"{'amount': 1177, 'percentage': 5.7}","{'amount': 1808, 'percentage': 8.8}",מתחילת קורונה,1
 50-59,"{'amount': 143, 'percentage': 5.2}","{'amount': 228, 'percentage': 8.3}",חודש אחרון,5
 60-69,"{'amount': 305, 'percentage': 8.2}","{'amount': 414, 'percentage': 11.1}",3 חודשים,4
 60-69,"{'amount': 399, 'percentage': 8.7}","{'amount': 497, 'percentage': 10.8}",6 חודשים,3
 60-69,"{'amount': 240, 'percentage': 8.8}","{'amount': 297, 'percentage': 10.9}",חודש אחרון,5
-60-69,"{'amount': 1636, 'percentage': 7.9}","{'amount': 2514, 'percentage': 12.2}",מתחילת קורונה,1
-60-69,"{'amount': 1386, 'percentage': 8}","{'amount': 2073, 'percentage': 12}",שנה,2
-70-79,"{'amount': 240, 'percentage': 8.8}","{'amount': 316, 'percentage': 11.6}",חודש אחרון,5
-70-79,"{'amount': 334, 'percentage': 9}","{'amount': 467, 'percentage': 12.6}",3 חודשים,4
-70-79,"{'amount': 426, 'percentage': 9.3}","{'amount': 555, 'percentage': 12.1}",6 חודשים,3
-70-79,"{'amount': 1620, 'percentage': 9.4}","{'amount': 2219, 'percentage': 12.8}",שנה,2
-70-79,"{'amount': 1906, 'percentage': 9.3}","{'amount': 2696, 'percentage': 13.1}",מתחילת קורונה,1
+60-69,"{'amount': 1636, 'percentage': 7.9}","{'amount': 2515, 'percentage': 12.2}",מתחילת קורונה,1
+60-69,"{'amount': 1386, 'percentage': 8}","{'amount': 2074, 'percentage': 12}",שנה,2
+70-79,"{'amount': 241, 'percentage': 8.8}","{'amount': 316, 'percentage': 11.6}",חודש אחרון,5
+70-79,"{'amount': 335, 'percentage': 9}","{'amount': 467, 'percentage': 12.6}",3 חודשים,4
+70-79,"{'amount': 427, 'percentage': 9.3}","{'amount': 556, 'percentage': 12.1}",6 חודשים,3
+70-79,"{'amount': 1620, 'percentage': 9.4}","{'amount': 2218, 'percentage': 12.8}",שנה,2
+70-79,"{'amount': 1907, 'percentage': 9.3}","{'amount': 2695, 'percentage': 13.1}",מתחילת קורונה,1
 80-89,"{'amount': 392, 'percentage': 10.5}","{'amount': 417, 'percentage': 11.2}",3 חודשים,4
 80-89,"{'amount': 1664, 'percentage': 9.6}","{'amount': 1679, 'percentage': 9.7}",שנה,2
 80-89,"{'amount': 469, 'percentage': 10.2}","{'amount': 483, 'percentage': 10.5}",6 חודשים,3
-80-89,"{'amount': 272, 'percentage': 10}","{'amount': 274, 'percentage': 10}",חודש אחרון,5
+80-89,"{'amount': 272, 'percentage': 9.9}","{'amount': 274, 'percentage': 10}",חודש אחרון,5
 80-89,"{'amount': 2006, 'percentage': 9.7}","{'amount': 1988, 'percentage': 9.7}",מתחילת קורונה,1
 90+,"{'amount': 949, 'percentage': 4.6}","{'amount': 609, 'percentage': 3}",מתחילת קורונה,1
 90+,"{'amount': 126, 'percentage': 4.6}","{'amount': 62, 'percentage': 2.3}",חודש אחרון,5
