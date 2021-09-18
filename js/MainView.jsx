@@ -160,7 +160,7 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => {
     }));
     var filteredNames = names.filter(n => !flatSheetnames.find(s => s === n));
     var newindex = sheetnames.findIndex(x => Object.keys(x).includes("NewTables"));
-    sheetnames[newindex]["NewTables"] = filteredNames;
+    sheetnames[newindex]["NewTables"] = sheetnames[newindex]["NewTables"].concat(filteredNames);
 
     return (
         <List component="nav" aria-label="secondary">
