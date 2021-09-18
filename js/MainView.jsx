@@ -74,38 +74,6 @@ const sheetnames = [
         ]
     },
     {
-        "ByHand": [
-            "harpaz_moiz",
-        ]
-    },
-    {
-        "NewTables": [
-            "researchGraph",
-            "spotlightPublic",
-            "patientsStatus",
-            "vaccinationsPerAge",
-            "testsPerDate",
-            "cumSeriusAndBreath",
-            "averageInfectedPerWeek",
-            "spotlightLastupdate",
-            "spotlightAggregatedPublic",
-            "LastWeekLabResults",
-            "HospitalBedStatusSegmentation",
-            "isolatedVerifiedDoctorsAndNurses",
-        ]
-    },
-    {
-        "MoreTables": [
-            "infectedByPeriodAndAgeAndGender",
-            "sickPerLocation",
-            "deadByPeriodAndAgeAndGender",
-            "breatheByPeriodAndAgeAndGender",
-            "severeByPeriodAndAgeAndGender",
-            "verifiedDoctorsAndNurses",
-            "infectionFactor",
-        ]
-    },
-    {
         "Hospitals": [
             "isolatedDoctorsAndNurses",
             "hospitalStatus",
@@ -123,6 +91,10 @@ const sheetnames = [
         ]
     },
     {
+        "NewTables": [
+        ]
+    },
+    {
         "OtherMOH": [
             "moh_corona_isolation_per_day",
             "moh_tested individuals",
@@ -131,6 +103,11 @@ const sheetnames = [
             "moh_corona_medical_staff",
             "moh_corona_deceased",
             "moh_young_population_weekly"
+        ]
+    },
+    {
+        "ByHand": [
+            "harpaz_moiz",
         ]
     },
     {
@@ -176,6 +153,14 @@ const useStyles = makeStyles((theme) => ({
 
 const CsvButtons = ({ names, lang, language, setLanguage }) => {
     const classes = useStyles();
+
+    var flatSheetnames = sheetnames.filter(x => !(x instanceof Object));
+    sheetnames.filter(x => x instanceof Object).forEach(x => Object.values(x).forEach(v => {
+        flatSheetnames = flatSheetnames.concat(v);
+    }));
+    var filteredNames = names.filter(n => !flatSheetnames.find(s => s === n));
+    var newindex = sheetnames.findIndex(x => Object.keys(x).includes("NewTables"));
+    sheetnames[newindex]["NewTables"] = filteredNames;
 
     return (
         <List component="nav" aria-label="secondary">
