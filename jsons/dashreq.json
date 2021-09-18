@@ -299,6 +299,72 @@
             "queryName": "researchGraph",
             "single": false,
             "parameters": {}
+        },
+        {
+            "id": "41",
+            "queryName": "externalLinksPublic",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "42",
+            "queryName": "tileDisplay",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "43",
+            "queryName": "deathVaccinationStatusDaily",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "44",
+            "queryName": "SeriousVaccinationStatusDaily",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "45",
+            "queryName": "VerfiiedVaccinationStatusDaily",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "46",
+            "queryName": "VaccinationStatusAgg",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "47",
+            "queryName": "arrivingAboardCountry",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "48",
+            "queryName": "hardPatient",
+            "single": true,
+            "parameters": {}
+        },
+        {
+            "id": "49",
+            "queryName": "arrivingAboardDaily",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "50",
+            "queryName": "positiveArrivingAboardDaily",
+            "single": false,
+            "parameters": {}
+        },
+        {
+            "id": "51",
+            "queryName": "hospitalizationStatusDaily",
+            "single": false,
+            "parameters": {}
         }
     ]
 }
