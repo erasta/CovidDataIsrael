@@ -95,8 +95,8 @@ with open('out/history/dates.json', 'w') as datesfile:
     str = json.dumps(histdirs, sort_keys=True, indent=2)
     datesfile.write(str)
 
-url = "https://raw.githubusercontent.com/yuval-harpaz/covid-19-israel-matlab/master/data/Israel/delta.csv"
-text = urllib.request.urlopen(url).read().decode('utf-8')
-print('harpaz_moiz')
-with open('out/csv/harpaz_moiz.csv', 'w') as csvfile:
-    csvfile.write(text)
+# url = "https://raw.githubusercontent.com/yuval-harpaz/covid-19-israel-matlab/master/data/Israel/delta.csv"
+# text = urllib.request.urlopen(url).read().decode('utf-8')
+# print('harpaz_moiz')
+# with open('out/csv/harpaz_moiz.csv', 'w') as csvfile:
+#     csvfile.write(text)
