@@ -41,4 +41,30 @@ def get_dash_data():
 
 def get_dash_req():
     with open('jsons/dashreq.json') as f:
-        return json.load(f)
+        req = json.load(f)
+    with open('jsons/currdashreq.json') as f:
+        curr = json.load(f)
+    reqQueries = [x['queryName'] for x in req['requests']]
+    changed = False
+    for c in curr['requests']:
+        if c['queryName'] not in reqQueries:
+            m = max([int(x['id']) for x in req['requests']])
+            c['id'] = str(m + 1)
+            req['requests'] += [c]
+            changed = True
+
+    if changed:
+        with open('jsons/dashreq.json', 'w') as f:
+            json.dump(req, f, indent=4)
+
+    return req
+
+
+if __name__ == '__main__':
+    r = get_dash_req()
+    print('=-=-=-=-')
+    print(r)
+    print('........')
+    for c in r['requests']:
+        print(c)
+    print('********')

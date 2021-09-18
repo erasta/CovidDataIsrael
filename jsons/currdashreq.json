@@ -1,0 +1,240 @@
+{
+    "requests": [
+      {
+        "id": "0",
+        "queryName": "updatedPatientsOverallStatus",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "1",
+        "queryName": "infectedPerDate",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "2",
+        "queryName": "sickPatientPerLocation",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "3",
+        "queryName": "sickPerDateTwoDays",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "4",
+        "queryName": "patientsStatus",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "5",
+        "queryName": "vaccinated",
+        "single": true,
+        "parameters": {
+          "days": 1
+        }
+      },
+      {
+        "id": "6",
+        "queryName": "deadPatientsPerDate",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "7",
+        "queryName": "testResultsPerDate",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "8",
+        "queryName": "externalLinksPublic",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "9",
+        "queryName": "vaccinatedVerifiedDaily",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "10",
+        "queryName": "vaccinatedVerifiedByAge",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "11",
+        "queryName": "averageInfectedPerWeek",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "12",
+        "queryName": "researchGraph",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "13",
+        "queryName": "infectedByPeriodAndAgeAndGender",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "14",
+        "queryName": "deadByPeriodAndAgeAndGender",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "15",
+        "queryName": "breatheByPeriodAndAgeAndGender",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "16",
+        "queryName": "severeByPeriodAndAgeAndGender",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "17",
+        "queryName": "HospitalBedStatusSegmentation",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "18",
+        "queryName": "hospitalStatus",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "19",
+        "queryName": "isolatedVerifiedDoctorsAndNurses",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "20",
+        "queryName": "vaccinated",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "21",
+        "queryName": "vaccinationsPerAge",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "22",
+        "queryName": "spotlightPublic",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "23",
+        "queryName": "infectionFactor",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "24",
+        "queryName": "testsPerDate",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "25",
+        "queryName": "patientsPerDate",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "26",
+        "queryName": "spotlightLastupdate",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "27",
+        "queryName": "spotlightAggregatedPublic",
+        "single": true,
+        "parameters": {}
+      },
+      {
+        "id": "28",
+        "queryName": "tileDisplay",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "29",
+        "queryName": "lastUpdate",
+        "single": true,
+        "parameters": {}
+      },
+      {
+        "id": "30",
+        "queryName": "deathVaccinationStatusDaily",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "31",
+        "queryName": "SeriousVaccinationStatusDaily",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "32",
+        "queryName": "VerfiiedVaccinationStatusDaily",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "33",
+        "queryName": "VaccinationStatusAgg",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "34",
+        "queryName": "arrivingAboardCountry",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "35",
+        "queryName": "hardPatient",
+        "single": true,
+        "parameters": {}
+      },
+      {
+        "id": "36",
+        "queryName": "arrivingAboardDaily",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "37",
+        "queryName": "positiveArrivingAboardDaily",
+        "single": false,
+        "parameters": {}
+      },
+      {
+        "id": "38",
+        "queryName": "hospitalizationStatusDaily",
+        "single": false,
+        "parameters": {}
+      }
+    ]
+  }
