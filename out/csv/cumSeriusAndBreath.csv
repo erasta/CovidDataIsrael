@@ -1,2 +1,2 @@
 Day_Date,new_hospitalized,Counthospitalized,Counthospitalized_without_release,CountHardStatus,CountMediumStatus,CountEasyStatus,CountBreath,CountDeath,total_beds,StandardOccupancy,num_visits,patients_home,patients_hotel,CountBreathCum,CountDeathCum,CountCriticalStatus,CountSeriousCriticalCum,serious_critical_new
-2021-09-20T00:00:00.000Z,21,1109,1109,714,136,243,194,0,3048,0.3638451443569554,,75397,148,4395,7541,250,21918,60
+2021-09-20T00:00:00.000Z,21,1101,1101,708,139,254,191,5,3048,0.3612204724409449,,73585,148,4395,7555,245,21919,60
