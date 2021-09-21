@@ -23,7 +23,7 @@ const CsvButtons1 = ({ names, lang, language, setLanguage }) => (
         >
             <Grid container direction='row' justify="center" spacing={1}>
                 <Grid item>
-                    <img width={24} height={24} src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}></img>
+                    <img width={24} height={24} src={`images/${language === 'he' ? 'il' : 'gb'}.svg`} alt={language === 'he' ? 'עברית' : 'english'}></img>
                 </Grid>
                 <Grid item>
                     Change language
@@ -173,6 +173,7 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => {
                     <Avatar className={classes.small}>
                         <img width={'100%'} height={'100%'} style={{ objectFit: 'cover' }}
                             src={`images/${language === 'he' ? 'il' : 'gb'}.svg`}
+                            alt={language === 'he' ? 'עברית' : 'english'}
                         ></img>
                     </Avatar>
                 </ListItemAvatar>

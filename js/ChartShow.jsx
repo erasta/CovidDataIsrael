@@ -1,5 +1,6 @@
 var image = new Image();
 image.src = "images/eran.dev.water.png";
+image.alt = 'Eran dev watermark'
 
 const ChartShow = ({ chartStyle, dates, fieldNames, mutedFields, fieldValues, dateBounds, logarithmic, enforceChart, xAxesMinUnit }) => {
     if (!dates.length || !fieldNames.length) return null;
