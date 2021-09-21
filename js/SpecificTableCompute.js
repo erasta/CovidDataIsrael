@@ -84,7 +84,7 @@ class SpecificTableCompute {
             sumLastWeek += (this.table.data[j]['Positive Amount'] ?? 0);
         }
         if (!sumLastWeek) return 0;
-        return sumThisWeek / sumLastWeek;
+        return Math.pow(sumThisWeek / sumLastWeek, 4/7);
     }
 
     ramzorVerified(verifiedLast7Per10000, verifiedLast7Per10000WeekAgo, testsLast7DaysPer10000) {
