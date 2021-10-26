@@ -1,2 +1,2 @@
-Day_Date,new_hospitalized,Counthospitalized,Counthospitalized_without_release,CountHardStatus,CountMediumStatus,CountEasyStatus,CountBreath,CountDeath,total_beds,StandardOccupancy,num_visits,patients_home,patients_hotel,CountBreathCum,CountDeathCum,CountCriticalStatus,CountSeriousCriticalCum,serious_critical_new
-2021-10-26T00:00:00.000Z,1,367,367,249,46,72,139,0,3079,0.119194543683014,597,11124,54,4690,8062,156,23161,6
+Day_Date,new_hospitalized,Counthospitalized,Counthospitalized_without_release,CountHardStatus,CountMediumStatus,CountEasyStatus,CountBreath,CountDeath,total_beds,StandardOccupancy,num_visits,patients_home,patients_hotel,CountBreathCum,CountDeathCum,CountCriticalStatus,CountSeriousCriticalCum,serious_critical_new,count_ecmo
+2021-10-26T00:00:00.000Z,1,367,367,249,46,72,139,0,3079,0.119194543683014,597,11124,54,4690,8062,156,23161,6,
