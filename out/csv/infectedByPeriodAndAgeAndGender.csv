@@ -1,44 +1,44 @@
 section,female,male,period,order_period
-0-9,"{'amount': 3267, 'percentage': 17.4}","{'amount': 3078, 'percentage': 16.4}",חודש אחרון,5
-0-9,"{'amount': 110710, 'percentage': 11.1}","{'amount': 113137, 'percentage': 11.3}",שנה,2
-0-9,"{'amount': 66603, 'percentage': 13.6}","{'amount': 67133, 'percentage': 13.7}",6 חודשים,3
-0-9,"{'amount': 53547, 'percentage': 14.7}","{'amount': 54305, 'percentage': 14.9}",3 חודשים,4
-0-9,"{'amount': 128479, 'percentage': 9.7}","{'amount': 131338, 'percentage': 9.9}",מתחילת קורונה,1
-10-19,"{'amount': 144573, 'percentage': 10.9}","{'amount': 140891, 'percentage': 10.6}",מתחילת קורונה,1
-10-19,"{'amount': 2811, 'percentage': 15}","{'amount': 2241, 'percentage': 11.9}",חודש אחרון,5
-10-19,"{'amount': 43618, 'percentage': 12}","{'amount': 37827, 'percentage': 10.4}",3 חודשים,4
-10-19,"{'amount': 55626, 'percentage': 11.4}","{'amount': 48541, 'percentage': 9.9}",6 חודשים,3
-10-19,"{'amount': 114332, 'percentage': 11.4}","{'amount': 101624, 'percentage': 10.2}",שנה,2
-20-29,"{'amount': 38141, 'percentage': 7.8}","{'amount': 28641, 'percentage': 5.9}",6 חודשים,3
-20-29,"{'amount': 29051, 'percentage': 8}","{'amount': 21359, 'percentage': 5.9}",3 חודשים,4
-20-29,"{'amount': 1122, 'percentage': 6}","{'amount': 595, 'percentage': 3.2}",חודש אחרון,5
-20-29,"{'amount': 121177, 'percentage': 9.2}","{'amount': 100747, 'percentage': 7.6}",מתחילת קורונה,1
-20-29,"{'amount': 89292, 'percentage': 8.9}","{'amount': 68937, 'percentage': 6.9}",שנה,2
-30-39,"{'amount': 79177, 'percentage': 7.9}","{'amount': 60962, 'percentage': 6.1}",שנה,2
-30-39,"{'amount': 40391, 'percentage': 8.3}","{'amount': 28491, 'percentage': 5.8}",6 חודשים,3
-30-39,"{'amount': 30635, 'percentage': 8.4}","{'amount': 21102, 'percentage': 5.8}",3 חודשים,4
-30-39,"{'amount': 1477, 'percentage': 7.9}","{'amount': 804, 'percentage': 4.3}",חודש אחרון,5
-30-39,"{'amount': 101833, 'percentage': 7.7}","{'amount': 82467, 'percentage': 6.2}",מתחילת קורונה,1
-40-49,"{'amount': 61356, 'percentage': 6.1}","{'amount': 49576, 'percentage': 5}",שנה,2
-40-49,"{'amount': 29463, 'percentage': 6}","{'amount': 23202, 'percentage': 4.7}",6 חודשים,3
-40-49,"{'amount': 20741, 'percentage': 5.7}","{'amount': 16146, 'percentage': 4.4}",3 חודשים,4
-40-49,"{'amount': 982, 'percentage': 5.2}","{'amount': 742, 'percentage': 4}",חודש אחרון,5
-40-49,"{'amount': 82559, 'percentage': 6.2}","{'amount': 68413, 'percentage': 5.2}",מתחילת קורונה,1
-50-59,"{'amount': 16325, 'percentage': 3.3}","{'amount': 12870, 'percentage': 2.6}",6 חודשים,3
-50-59,"{'amount': 10427, 'percentage': 2.9}","{'amount': 7998, 'percentage': 2.2}",3 חודשים,4
-50-59,"{'amount': 38243, 'percentage': 3.8}","{'amount': 31662, 'percentage': 3.2}",שנה,2
-50-59,"{'amount': 54351, 'percentage': 4.1}","{'amount': 46417, 'percentage': 3.5}",מתחילת קורונה,1
-50-59,"{'amount': 416, 'percentage': 2.2}","{'amount': 313, 'percentage': 1.7}",חודש אחרון,5
+0-9,"{'amount': 3275, 'percentage': 17.4}","{'amount': 3086, 'percentage': 16.4}",חודש אחרון,5
+0-9,"{'amount': 110722, 'percentage': 11.1}","{'amount': 113141, 'percentage': 11.3}",שנה,2
+0-9,"{'amount': 66609, 'percentage': 13.6}","{'amount': 67143, 'percentage': 13.7}",6 חודשים,3
+0-9,"{'amount': 53553, 'percentage': 14.7}","{'amount': 54315, 'percentage': 14.9}",3 חודשים,4
+0-9,"{'amount': 128491, 'percentage': 9.7}","{'amount': 131342, 'percentage': 9.9}",מתחילת קורונה,1
+10-19,"{'amount': 144579, 'percentage': 10.9}","{'amount': 140893, 'percentage': 10.6}",מתחילת קורונה,1
+10-19,"{'amount': 2816, 'percentage': 15}","{'amount': 2244, 'percentage': 11.9}",חודש אחרון,5
+10-19,"{'amount': 43622, 'percentage': 12}","{'amount': 37831, 'percentage': 10.4}",3 חודשים,4
+10-19,"{'amount': 55630, 'percentage': 11.4}","{'amount': 48545, 'percentage': 9.9}",6 חודשים,3
+10-19,"{'amount': 114336, 'percentage': 11.4}","{'amount': 101628, 'percentage': 10.2}",שנה,2
+20-29,"{'amount': 38142, 'percentage': 7.8}","{'amount': 28642, 'percentage': 5.9}",6 חודשים,3
+20-29,"{'amount': 29050, 'percentage': 8}","{'amount': 21362, 'percentage': 5.9}",3 חודשים,4
+20-29,"{'amount': 1123, 'percentage': 6}","{'amount': 596, 'percentage': 3.2}",חודש אחרון,5
+20-29,"{'amount': 121180, 'percentage': 9.2}","{'amount': 100746, 'percentage': 7.6}",מתחילת קורונה,1
+20-29,"{'amount': 89292, 'percentage': 8.9}","{'amount': 68939, 'percentage': 6.9}",שנה,2
+30-39,"{'amount': 79182, 'percentage': 7.9}","{'amount': 60963, 'percentage': 6.1}",שנה,2
+30-39,"{'amount': 40394, 'percentage': 8.3}","{'amount': 28494, 'percentage': 5.8}",6 חודשים,3
+30-39,"{'amount': 30637, 'percentage': 8.4}","{'amount': 21106, 'percentage': 5.8}",3 חודשים,4
+30-39,"{'amount': 1481, 'percentage': 7.9}","{'amount': 806, 'percentage': 4.3}",חודש אחרון,5
+30-39,"{'amount': 101840, 'percentage': 7.7}","{'amount': 82466, 'percentage': 6.2}",מתחילת קורונה,1
+40-49,"{'amount': 61360, 'percentage': 6.1}","{'amount': 49575, 'percentage': 5}",שנה,2
+40-49,"{'amount': 29468, 'percentage': 6}","{'amount': 23200, 'percentage': 4.7}",6 חודשים,3
+40-49,"{'amount': 20743, 'percentage': 5.7}","{'amount': 16147, 'percentage': 4.4}",3 חודשים,4
+40-49,"{'amount': 983, 'percentage': 5.2}","{'amount': 743, 'percentage': 3.9}",חודש אחרון,5
+40-49,"{'amount': 82562, 'percentage': 6.2}","{'amount': 68413, 'percentage': 5.2}",מתחילת קורונה,1
+50-59,"{'amount': 16328, 'percentage': 3.3}","{'amount': 12869, 'percentage': 2.6}",6 חודשים,3
+50-59,"{'amount': 10430, 'percentage': 2.9}","{'amount': 7997, 'percentage': 2.2}",3 חודשים,4
+50-59,"{'amount': 38245, 'percentage': 3.8}","{'amount': 31662, 'percentage': 3.2}",שנה,2
+50-59,"{'amount': 54352, 'percentage': 4.1}","{'amount': 46418, 'percentage': 3.5}",מתחילת קורונה,1
+50-59,"{'amount': 417, 'percentage': 2.2}","{'amount': 314, 'percentage': 1.7}",חודש אחרון,5
 60-69,"{'amount': 5538, 'percentage': 1.5}","{'amount': 4404, 'percentage': 1.2}",3 חודשים,4
-60-69,"{'amount': 10036, 'percentage': 2.1}","{'amount': 8240, 'percentage': 1.7}",6 חודשים,3
+60-69,"{'amount': 10034, 'percentage': 2}","{'amount': 8242, 'percentage': 1.7}",6 חודשים,3
 60-69,"{'amount': 299, 'percentage': 1.6}","{'amount': 193, 'percentage': 1}",חודש אחרון,5
-60-69,"{'amount': 33410, 'percentage': 2.5}","{'amount': 31072, 'percentage': 2.3}",מתחילת קורונה,1
-60-69,"{'amount': 23357, 'percentage': 2.3}","{'amount': 20305, 'percentage': 2}",שנה,2
-70-79,"{'amount': 170, 'percentage': 0.9}","{'amount': 123, 'percentage': 0.7}",חודש אחרון,5
-70-79,"{'amount': 2677, 'percentage': 0.7}","{'amount': 2072, 'percentage': 0.6}",3 חודשים,4
-70-79,"{'amount': 5336, 'percentage': 1.1}","{'amount': 4499, 'percentage': 0.9}",6 חודשים,3
-70-79,"{'amount': 12110, 'percentage': 1.2}","{'amount': 10459, 'percentage': 1}",שנה,2
-70-79,"{'amount': 17160, 'percentage': 1.3}","{'amount': 15805, 'percentage': 1.2}",מתחילת קורונה,1
+60-69,"{'amount': 33411, 'percentage': 2.5}","{'amount': 31071, 'percentage': 2.3}",מתחילת קורונה,1
+60-69,"{'amount': 23356, 'percentage': 2.3}","{'amount': 20306, 'percentage': 2}",שנה,2
+70-79,"{'amount': 171, 'percentage': 0.9}","{'amount': 123, 'percentage': 0.7}",חודש אחרון,5
+70-79,"{'amount': 2678, 'percentage': 0.7}","{'amount': 2072, 'percentage': 0.6}",3 חודשים,4
+70-79,"{'amount': 5337, 'percentage': 1.1}","{'amount': 4500, 'percentage': 0.9}",6 חודשים,3
+70-79,"{'amount': 12111, 'percentage': 1.2}","{'amount': 10460, 'percentage': 1}",שנה,2
+70-79,"{'amount': 17161, 'percentage': 1.3}","{'amount': 15806, 'percentage': 1.2}",מתחילת קורונה,1
 80-89,"{'amount': 1426, 'percentage': 0.4}","{'amount': 1019, 'percentage': 0.3}",3 חודשים,4
 80-89,"{'amount': 6793, 'percentage': 0.7}","{'amount': 4831, 'percentage': 0.5}",שנה,2
 80-89,"{'amount': 2658, 'percentage': 0.5}","{'amount': 2053, 'percentage': 0.4}",6 חודשים,3
