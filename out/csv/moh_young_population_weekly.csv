@@ -420,7 +420,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 419,זכר,90+,0,0,9.0,9.0,un_vaccinate
 420,נקבה,70-79,1,0,45.0,45.0,un_vaccinate
 421,נקבה,70-79,0,8.0,0,8.0,un_vaccinate
-601,זכר,70-79,0,0,6.0,6.0,un_vaccinate
 422,נקבה,70-79,1,6.0,22.0,28.0,un_vaccinate
 423,זכר,80-89,0,4.0,2.0,5.0,At_least_1_dose
 424,זכר,80-89,0,0,10.0,10.0,un_vaccinate
@@ -600,6 +599,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 598,זכר,80-89,0,1,6.0,7.0,At_least_1_dose
 599,נקבה,60-69,0,8.0,26.0,34.0,un_vaccinate
 600,זכר,80-89,1,0,7.0,7.0,un_vaccinate
+601,זכר,70-79,0,0,6.0,6.0,un_vaccinate
 602,זכר,90+,0,0,1,1,un_vaccinate
 603,זכר,70-79,1,16.0,38.0,54.0,At_least_1_dose
 604,נקבה,80-89,0,5.0,10.0,15.0,un_vaccinate
@@ -1401,7 +1401,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 1400,זכר,50-59,1,5.0,25.0,30.0,un_vaccinate
 1401,זכר,80-89,1,4.0,5.0,9.0,At_least_1_dose
 1402,זכר,50-59,1,10.0,10.0,20.0,At_least_1_dose
-1537,זכר,70-79,0,0,2.0,2.0,un_vaccinate
 1403,זכר,70-79,1,6.0,21.0,27.0,At_least_1_dose
 1404,זכר,60-69,1,0,26.0,26.0,un_vaccinate
 1405,נקבה,90+,0,7.0,16.0,23.0,un_vaccinate
@@ -1491,7 +1490,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 1489,זכר,60-69,0,2.0,23.0,25.0,At_least_1_dose
 1490,זכר,60-69,0,0,18.0,18.0,un_vaccinate
 1491,נקבה,70-79,1,12.0,10.0,22.0,un_vaccinate
-1536,זכר,60-69,1,1,15.0,16.0,un_vaccinate
 1492,נקבה,80-89,0,3.0,4.0,7.0,At_least_1_dose
 1493,נקבה,70-79,NULL,NULL,NULL,5.0,un_vaccinate
 1494,נקבה,70-79,1,6.0,16.0,22.0,un_vaccinate
@@ -1536,6 +1534,8 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 1533,זכר,70-79,0,12.0,8.0,20.0,At_least_1_dose
 1534,זכר,60-69,1,0,9.0,9.0,un_vaccinate
 1535,זכר,50-59,1,5.0,24.0,29.0,un_vaccinate
+1536,זכר,60-69,1,1,15.0,16.0,un_vaccinate
+1537,זכר,70-79,0,0,2.0,2.0,un_vaccinate
 1538,נקבה,50-59,1,8.0,22.0,30.0,un_vaccinate
 1539,נקבה,70-79,0,1,6.0,7.0,un_vaccinate
 1540,נקבה,60-69,0,3.0,66.0,69.0,At_least_1_dose
@@ -2428,7 +2428,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 2427,זכר,70-79,0,1,24.0,25.0,un_vaccinate
 2428,נקבה,90+,0,1,53.0,54.0,un_vaccinate
 2429,נקבה,80-89,0,1,4.0,5.0,un_vaccinate
-2654,זכר,40-49,0,0,0,0,un_vaccinate
 2430,זכר,70-79,0,4.0,13.0,17.0,un_vaccinate
 2431,נקבה,80-89,0,2.0,11.0,13.0,un_vaccinate
 2432,נקבה,80-89,0,11.0,2.0,13.0,un_vaccinate
@@ -2518,7 +2517,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 2516,זכר,70-79,1,0,10.0,10.0,un_vaccinate
 2517,נקבה,80-89,0,-3.0,12.0,9.0,un_vaccinate
 2518,נקבה,70-79,0,2.0,7.0,9.0,un_vaccinate
-2743,זכר,80-89,0,7.0,0,7.0,un_vaccinate
 2519,זכר,80-89,0,4.0,3.0,7.0,un_vaccinate
 2520,זכר,80-89,1,0,14.0,13.0,un_vaccinate
 2521,נקבה,80-89,1,1,6.0,7.0,At_least_1_dose
@@ -2654,6 +2652,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 2651,זכר,70-79,1,-15.0,16.0,1,un_vaccinate
 2652,זכר,30-39,1,1,7.0,8.0,un_vaccinate
 2653,נקבה,80-89,0,7.0,6.0,12.0,At_least_1_dose
+2654,זכר,40-49,0,0,0,0,un_vaccinate
 2655,זכר,70-79,0,9.0,2.0,11.0,At_least_1_dose
 2656,נקבה,80-89,0,0,8.0,8.0,un_vaccinate
 2657,נקבה,70-79,1,1,36.0,37.0,un_vaccinate
@@ -2742,6 +2741,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 2740,זכר,70-79,1,6.0,12.0,18.0,un_vaccinate
 2741,נקבה,60-69,1,0,4.0,4.0,un_vaccinate
 2742,נקבה,70-79,0,1,5.0,6.0,un_vaccinate
+2743,זכר,80-89,0,7.0,0,7.0,un_vaccinate
 2744,זכר,90+,0,1,5.0,6.0,un_vaccinate
 2745,זכר,50-59,1,4.0,18.0,31.0,At_least_1_dose
 2746,נקבה,60-69,0,7.0,0,7.0,At_least_1_dose
@@ -2964,7 +2964,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 2963,זכר,60-69,1,5.0,15.0,20.0,At_least_1_dose
 2964,זכר,90+,0,0,12.0,12.0,un_vaccinate
 2965,זכר,70-79,1,1,41.0,42.0,un_vaccinate
-3457,נקבה,90+,0,9.0,0,9.0,un_vaccinate
 2966,זכר,70-79,0,4.0,5.0,9.0,At_least_1_dose
 2967,זכר,80-89,0,1,4.0,5.0,At_least_1_dose
 2968,נקבה,70-79,0,7.0,7.0,14.0,un_vaccinate
@@ -3009,7 +3008,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 3007,זכר,70-79,0,0,26.0,26.0,At_least_1_dose
 3008,נקבה,70-79,0,-4.0,19.0,15.0,At_least_1_dose
 3009,נקבה,80-89,0,0,6.0,6.0,At_least_1_dose
-3636,זכר,50-59,0,0,19.0,19.0,un_vaccinate
 3010,נקבה,80-89,0,23.0,19.0,42.0,un_vaccinate
 3011,נקבה,80-89,0,0,16.0,16.0,un_vaccinate
 3012,זכר,80-89,0,0,13.0,12.0,un_vaccinate
@@ -3457,6 +3455,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 3454,נקבה,50-59,0,1,0,1,un_vaccinate
 3455,זכר,70-79,0,3.0,0,3.0,un_vaccinate
 3456,נקבה,80-89,1,0,7.0,7.0,un_vaccinate
+3457,נקבה,90+,0,9.0,0,9.0,un_vaccinate
 3458,נקבה,60-69,0,0,41.0,41.0,un_vaccinate
 3459,נקבה,50-59,1,1,11.0,12.0,un_vaccinate
 3460,זכר,60-69,0,0,8.0,8.0,un_vaccinate
@@ -3635,6 +3634,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 3633,זכר,70-79,0,3.0,6.0,9.0,un_vaccinate
 3634,זכר,60-69,1,0,14.0,14.0,un_vaccinate
 3635,זכר,70-79,0,2.0,7.0,8.0,un_vaccinate
+3636,זכר,50-59,0,0,19.0,19.0,un_vaccinate
 3637,נקבה,80-89,1,2.0,12.0,14.0,un_vaccinate
 3638,נקבה,80-89,0,1,75.0,76.0,un_vaccinate
 3639,נקבה,60-69,0,0,13.0,13.0,un_vaccinate
@@ -3767,7 +3767,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 3766,זכר,70-79,1,1,12.0,13.0,At_least_1_dose
 3767,זכר,70-79,0,8.0,8.0,15.0,At_least_1_dose
 3768,זכר,70-79,0,12.0,0,12.0,un_vaccinate
-3814,נקבה,60-69,1,-2.0,7.0,5.0,un_vaccinate
 3769,זכר,70-79,0,10.0,7.0,17.0,At_least_1_dose
 3770,זכר,80-89,0,2.0,16.0,18.0,un_vaccinate
 3771,זכר,30-39,0,20.0,0,20.0,un_vaccinate
@@ -3813,6 +3812,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 3811,זכר,70-79,0,1,1,2.0,un_vaccinate
 3812,נקבה,70-79,0,7.0,3.0,10.0,un_vaccinate
 3813,נקבה,80-89,0,1,28.0,29.0,un_vaccinate
+3814,נקבה,60-69,1,-2.0,7.0,5.0,un_vaccinate
 3815,נקבה,70-79,0,0,12.0,12.0,un_vaccinate
 3816,זכר,60-69,1,1,6.0,7.0,un_vaccinate
 3817,נקבה,90+,0,1,12.0,13.0,At_least_1_dose
@@ -3947,7 +3947,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 3946,נקבה,80-89,0,2.0,2.0,3.0,un_vaccinate
 3947,נקבה,80-89,0,0,5.0,5.0,un_vaccinate
 3948,זכר,70-79,1,10.0,1,11.0,un_vaccinate
-4129,נקבה,90+,0,0,9.0,9.0,un_vaccinate
 3949,נקבה,80-89,0,0,11.0,11.0,At_least_1_dose
 3950,זכר,70-79,0,2.0,2.0,4.0,un_vaccinate
 3951,זכר,70-79,1,6.0,8.0,14.0,un_vaccinate
@@ -4128,6 +4127,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 4126,נקבה,60-69,0,10.0,3.0,13.0,un_vaccinate
 4127,זכר,80-89,0,-9.0,17.0,8.0,At_least_1_dose
 4128,נקבה,80-89,0,0,3.0,3.0,At_least_1_dose
+4129,נקבה,90+,0,0,9.0,9.0,un_vaccinate
 4130,זכר,70-79,0,1,9.0,10.0,un_vaccinate
 4131,נקבה,80-89,1,11.0,12.0,23.0,un_vaccinate
 4132,זכר,90+,1,1,14.0,14.0,un_vaccinate
@@ -4304,7 +4304,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 4303,זכר,80-89,0,2.0,19.0,21.0,At_least_1_dose
 4304,נקבה,80-89,0,17.0,0,17.0,un_vaccinate
 4305,נקבה,40-49,1,0,21.0,21.0,un_vaccinate
-4350,זכר,70-79,1,1,15.0,16.0,At_least_1_dose
 4306,זכר,60-69,0,2.0,18.0,21.0,At_least_1_dose
 4307,נקבה,80-89,1,11.0,21.0,32.0,un_vaccinate
 4308,נקבה,80-89,1,3.0,16.0,19.0,At_least_1_dose
@@ -4349,6 +4348,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 4347,נקבה,70-79,1,1,8.0,9.0,un_vaccinate
 4348,נקבה,60-69,NULL,NULL,NULL,1,un_vaccinate
 4349,זכר,70-79,1,1,39.0,40.0,un_vaccinate
+4350,זכר,70-79,1,1,15.0,16.0,At_least_1_dose
 4351,נקבה,70-79,1,1,28.0,29.0,un_vaccinate
 4352,זכר,90+,0,1,8.0,9.0,At_least_1_dose
 4353,נקבה,60-69,1,-4.0,38.0,34.0,At_least_1_dose
@@ -4569,7 +4569,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 4568,נקבה,90+,0,1,7.0,8.0,un_vaccinate
 4569,זכר,70-79,0,6.0,8.0,14.0,un_vaccinate
 4570,נקבה,90+,0,1,7.0,8.0,At_least_1_dose
-4794,זכר,80-89,0,11.0,0,11.0,un_vaccinate
 4571,נקבה,60-69,0,14.0,3.0,17.0,un_vaccinate
 4572,זכר,80-89,1,3.0,4.0,7.0,un_vaccinate
 4573,זכר,70-79,0,11.0,0,11.0,un_vaccinate
@@ -4793,6 +4792,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 4791,נקבה,80-89,0,8.0,5.0,13.0,At_least_1_dose
 4792,זכר,70-79,0,0,11.0,11.0,un_vaccinate
 4793,נקבה,90+,0,0,1,1,un_vaccinate
+4794,זכר,80-89,0,11.0,0,11.0,un_vaccinate
 4795,נקבה,70-79,0,14.0,2.0,16.0,At_least_1_dose
 4796,זכר,60-69,1,-12.0,26.0,14.0,un_vaccinate
 4797,נקבה,70-79,0,0,14.0,14.0,un_vaccinate
@@ -4969,7 +4969,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 4968,זכר,60-69,1,5.0,22.0,27.0,un_vaccinate
 4969,זכר,70-79,1,7.0,20.0,27.0,At_least_1_dose
 4970,זכר,80-89,0,1,6.0,7.0,un_vaccinate
-5459,זכר,60-69,0,0,3.0,3.0,un_vaccinate
 4971,זכר,90+,0,9.0,4.0,13.0,At_least_1_dose
 4972,נקבה,80-89,0,4.0,5.0,9.0,un_vaccinate
 4973,זכר,70-79,1,1,21.0,22.0,un_vaccinate
@@ -5237,7 +5236,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 5235,נקבה,80-89,0,0,3.0,3.0,un_vaccinate
 5236,זכר,60-69,0,13.0,0,13.0,un_vaccinate
 5237,זכר,70-79,1,2.0,9.0,11.0,un_vaccinate
-5949,זכר,70-79,0,0,3.0,3.0,un_vaccinate
 5238,זכר,60-69,1,-8.0,26.0,18.0,At_least_1_dose
 5239,נקבה,90+,0,10.0,7.0,17.0,un_vaccinate
 5240,נקבה,90+,0,8.0,5.0,13.0,At_least_1_dose
@@ -5459,6 +5457,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 5456,זכר,90+,NULL,NULL,NULL,22.0,un_vaccinate
 5457,זכר,70-79,1,-1.0,25.0,24.0,un_vaccinate
 5458,נקבה,60-69,1,0,5.0,5.0,un_vaccinate
+5459,זכר,60-69,0,0,3.0,3.0,un_vaccinate
 5460,זכר,80-89,0,1,79.0,80.0,un_vaccinate
 5461,זכר,80-89,1,5.0,22.0,26.0,un_vaccinate
 5462,זכר,90+,0,2.0,13.0,15.0,un_vaccinate
@@ -5548,7 +5547,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 5546,נקבה,80-89,0,1,14.0,15.0,un_vaccinate
 5547,זכר,60-69,0,8.0,0,8.0,un_vaccinate
 5548,זכר,90+,1,5.0,10.0,15.0,un_vaccinate
-6308,זכר,90+,0,0,1,1,un_vaccinate
 5549,זכר,30-39,1,13.0,18.0,30.0,un_vaccinate
 5550,זכר,50-59,0,1,5.0,3.0,un_vaccinate
 5551,נקבה,70-79,1,2.0,37.0,39.0,un_vaccinate
@@ -5949,6 +5947,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 5946,נקבה,90+,0,-1.0,14.0,13.0,At_least_1_dose
 5947,נקבה,80-89,1,3.0,7.0,10.0,At_least_1_dose
 5948,נקבה,50-59,1,8.0,10.0,18.0,un_vaccinate
+5949,זכר,70-79,0,0,3.0,3.0,un_vaccinate
 5950,נקבה,80-89,0,-1.0,4.0,3.0,un_vaccinate
 5951,זכר,50-59,0,0,8.0,8.0,un_vaccinate
 5952,זכר,70-79,0,0,11.0,11.0,un_vaccinate
@@ -6217,7 +6216,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 6215,זכר,80-89,0,1,28.0,29.0,un_vaccinate
 6216,זכר,80-89,0,-1.0,14.0,13.0,un_vaccinate
 6217,נקבה,80-89,0,-1.0,7.0,6.0,un_vaccinate
-6309,זכר,80-89,0,0,6.0,6.0,un_vaccinate
 6218,זכר,80-89,1,9.0,21.0,30.0,un_vaccinate
 6219,נקבה,60-69,0,0,13.0,13.0,un_vaccinate
 6220,זכר,90+,0,0,6.0,6.0,un_vaccinate
@@ -6308,6 +6306,8 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 6305,זכר,90+,0,0,16.0,16.0,un_vaccinate
 6306,זכר,70-79,1,6.0,13.0,19.0,un_vaccinate
 6307,זכר,80-89,1,3.0,9.0,12.0,At_least_1_dose
+6308,זכר,90+,0,0,1,1,un_vaccinate
+6309,זכר,80-89,0,0,6.0,6.0,un_vaccinate
 6310,זכר,80-89,0,16.0,1,17.0,At_least_1_dose
 6311,נקבה,60-69,0,1,0,1,un_vaccinate
 6312,זכר,70-79,1,4.0,28.0,32.0,un_vaccinate
@@ -6441,7 +6441,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 6440,זכר,70-79,1,1,23.0,24.0,un_vaccinate
 6441,זכר,60-69,0,0,7.0,7.0,At_least_1_dose
 6442,זכר,50-59,0,1,3.0,4.0,un_vaccinate
-7155,נקבה,70-79,0,0,0,0,un_vaccinate
 6443,נקבה,70-79,0,0,4.0,4.0,At_least_1_dose
 6444,זכר,80-89,0,11.0,3.0,14.0,un_vaccinate
 6445,נקבה,0-29,1,2.0,21.0,23.0,un_vaccinate
@@ -6797,7 +6796,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 6795,זכר,80-89,1,-18.0,29.0,11.0,un_vaccinate
 6796,נקבה,90+,NULL,NULL,NULL,4.0,un_vaccinate
 6797,נקבה,80-89,0,10.0,8.0,18.0,un_vaccinate
-7422,זכר,80-89,0,0,13.0,13.0,un_vaccinate
 6798,נקבה,80-89,1,1,10.0,11.0,At_least_1_dose
 6799,זכר,80-89,0,-2.0,2.0,0,un_vaccinate
 6800,נקבה,80-89,0,0,30.0,30.0,At_least_1_dose
@@ -7110,7 +7108,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7107,זכר,70-79,0,10.0,0,10.0,un_vaccinate
 7108,נקבה,80-89,1,3.0,12.0,15.0,un_vaccinate
 7109,נקבה,90+,0,0,14.0,14.0,un_vaccinate
-7692,זכר,90+,0,2.0,0,2.0,un_vaccinate
 7110,נקבה,70-79,1,1,60.0,61.0,un_vaccinate
 7111,נקבה,80-89,1,8.0,13.0,21.0,un_vaccinate
 7112,נקבה,90+,0,9.0,0,9.0,un_vaccinate
@@ -7156,6 +7153,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7152,נקבה,90+,1,0,9.0,9.0,un_vaccinate
 7153,זכר,70-79,1,1,10.0,11.0,un_vaccinate
 7154,נקבה,80-89,0,-10.0,34.0,24.0,un_vaccinate
+7155,נקבה,70-79,0,0,0,0,un_vaccinate
 7156,זכר,90+,0,3.0,71.0,74.0,un_vaccinate
 7157,נקבה,80-89,0,23.0,0,23.0,un_vaccinate
 7158,נקבה,60-69,1,9.0,7.0,16.0,At_least_1_dose
@@ -7378,7 +7376,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7375,נקבה,80-89,1,9.0,9.0,18.0,un_vaccinate
 7376,נקבה,60-69,NULL,NULL,NULL,7.0,At_least_1_dose
 7377,נקבה,90+,0,2.0,311.0,313.0,un_vaccinate
-7693,זכר,80-89,0,0,3.0,3.0,un_vaccinate
 7378,נקבה,90+,0,-303.0,311.0,8.0,un_vaccinate
 7379,נקבה,80-89,0,8.0,3.0,11.0,un_vaccinate
 7380,נקבה,80-89,1,0,24.0,24.0,At_least_1_dose
@@ -7423,6 +7420,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7419,זכר,0-29,0,0,10.0,10.0,At_least_1_dose
 7420,זכר,90+,0,7.0,2.0,9.0,At_least_1_dose
 7421,נקבה,60-69,0,0,16.0,16.0,At_least_1_dose
+7422,זכר,80-89,0,0,13.0,13.0,un_vaccinate
 7423,נקבה,90+,0,2.0,7.0,9.0,At_least_1_dose
 7424,נקבה,90+,0,13.0,0,13.0,un_vaccinate
 7425,זכר,80-89,1,4.0,6.0,10.0,un_vaccinate
@@ -7647,7 +7645,6 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7644,זכר,70-79,1,9.0,5.0,13.0,un_vaccinate
 7645,זכר,30-39,1,1,15.0,16.0,un_vaccinate
 7646,זכר,80-89,1,5.0,16.0,21.0,un_vaccinate
-7783,נקבה,90+,1,0,27.0,27.0,un_vaccinate
 7647,זכר,70-79,1,-1.0,10.0,9.0,At_least_1_dose
 7648,זכר,70-79,1,0,14.0,14.0,un_vaccinate
 7649,זכר,50-59,1,6.0,11.0,17.0,un_vaccinate
@@ -7693,6 +7690,8 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7689,נקבה,60-69,1,-2.0,3.0,1,At_least_1_dose
 7690,נקבה,80-89,0,0,10.0,10.0,un_vaccinate
 7691,זכר,90+,0,0,17.0,17.0,At_least_1_dose
+7692,זכר,90+,0,2.0,0,2.0,un_vaccinate
+7693,זכר,80-89,0,0,3.0,3.0,un_vaccinate
 7694,נקבה,50-59,1,8.0,42.0,50.0,un_vaccinate
 7695,נקבה,90+,0,0,9.0,9.0,un_vaccinate
 7696,נקבה,80-89,1,10.0,8.0,20.0,un_vaccinate
@@ -7782,6 +7781,7 @@ _id,gender,Age_group,Ventilated,Time_between_positive_and_hospitalization,Length
 7780,זכר,70-79,0,4.0,10.0,14.0,At_least_1_dose
 7781,נקבה,90+,0,9.0,2.0,11.0,un_vaccinate
 7782,זכר,80-89,1,3.0,6.0,9.0,At_least_1_dose
+7783,נקבה,90+,1,0,27.0,27.0,un_vaccinate
 7784,נקבה,80-89,0,4.0,16.0,20.0,At_least_1_dose
 7785,זכר,80-89,0,-3.0,20.0,17.0,At_least_1_dose
 7786,נקבה,90+,0,1,5.0,6.0,un_vaccinate
