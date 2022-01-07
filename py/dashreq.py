@@ -1,11 +1,10 @@
 import requests
 import json
 
+url = "https://datadashboardapi.health.gov.il/api/queries/_batch"
 
 def get_dash_data():
     # return json.load(open('samples/data-09-23.json', 'r'))
-
-    url = "https://datadashboardapi.health.gov.il/api/queries/_batch"
 
     with requests.session() as session:
         header = {
@@ -42,20 +41,20 @@ def get_dash_data():
 def get_dash_req():
     with open('jsons/dashreq.json') as f:
         req = json.load(f)
-    with open('jsons/currdashreq.json') as f:
-        curr = json.load(f)
-    reqQueries = [x['queryName'] for x in req['requests']]
-    changed = False
-    for c in curr['requests']:
-        if c['queryName'] not in reqQueries:
-            m = max([int(x['id']) for x in req['requests']])
-            c['id'] = str(m + 1)
-            req['requests'] += [c]
-            changed = True
+    # with open('jsons/currdashreq.json') as f:
+    #     curr = json.load(f)
+    # reqQueries = [x['queryName'] for x in req['requests']]
+    # changed = False
+    # for c in curr['requests']:
+    #     if c['queryName'] not in reqQueries:
+    #         m = max([int(x['id']) for x in req['requests']])
+    #         c['id'] = str(m + 1)
+    #         req['requests'] += [c]
+    #         changed = True
 
-    if changed:
-        with open('jsons/dashreq.json', 'w') as f:
-            json.dump(req, f, indent=4)
+    # if changed:
+    #     with open('jsons/dashreq.json', 'w') as f:
+    #         json.dump(req, f, indent=4)
 
     return req
 
@@ -63,8 +62,16 @@ def get_dash_req():
 if __name__ == '__main__':
     r = get_dash_req()
     print('=-=-=-=-')
-    print(r)
+    r['requests'] = r['requests']
+    print(json.dumps(r, indent=4, sort_keys=True))
     print('........')
-    for c in r['requests']:
+    data = requests.post(url, json=r).json()
+    for c in data:
+        d = str(c)
+        # if len(d) < 100:
         print(c)
     print('********')
+
+    # for c in r['requests']:
+    #     print(c)
+    # print('********')
