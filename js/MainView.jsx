@@ -119,71 +119,6 @@ const sheetnames = [
         "NewTables": [
         ]
     },
-    {
-        "AllTables": [
-            "all_dashboard_timeseries",
-            "arrivingAboardCountry",
-            "arrivingAboardDaily",
-            "averageInfectedPerWeek",
-            "breatheByAgeAndGenderPublic",
-            "breatheByPeriodAndAgeAndGender",
-            "calculatedVerified",
-            "contagionDataPerCityPublic",
-            "cumSeriusAndBreath",
-            "deadByAgeAndGenderPublic",
-            "deadByPeriodAndAgeAndGender",
-            "deadPatientsPerDate",
-            "deathVaccinationStatusDaily",
-            "doublingRate",
-            "externalLinksPublic",
-            "hardPatient",
-            "harpaz_moiz",
-            "hospitalBedStatusSegmentation",
-            "hospitalStatus",
-            "hospitalizationStatusDaily",
-            "infectedByAgeAndGenderPublic",
-            "infectedByPeriodAndAgeAndGender",
-            "infectedPerDate",
-            "infectionFactor",
-            "isolatedDoctorsAndNurses",
-            "isolatedVerifiedDoctorsAndNurses",
-            "lastUpdate",
-            "lastWeekLabResults",
-            "moh_corona_age_and_gender",
-            "moh_corona_deceased",
-            "moh_corona_hospitalization",
-            "moh_corona_isolation_per_day",
-            "moh_corona_medical_staff",
-            "moh_tested individuals",
-            "moh_young_population_weekly",
-            "otherHospitalizedStaff",
-            "patientsPerDate",
-            "patientsStatus",
-            "positiveArrivingAboardDaily",
-            "recoveredPerDay",
-            "researchGraph",
-            "seriousVaccinationStatusDaily",
-            "severeByAgeAndGenderPublic",
-            "severeByPeriodAndAgeAndGender",
-            "sickPatientPerLocation",
-            "sickPerDateTwoDays",
-            "sickPerLocation",
-            "spotlightAggregatedPublic",
-            "spotlightLastupdate",
-            "spotlightPublic",
-            "testResultsPerDate",
-            "testsPerDate",
-            "tileDisplay",
-            "updatedPatientsOverallStatus",
-            "vaccinated",
-            "vaccinatedVerifiedByAge",
-            "vaccinatedVerifiedDaily",
-            "vaccinationStatusAgg",
-            "vaccinationsPerAge",
-            "verfiiedVaccinationStatusDaily",
-            "verifiedDoctorsAndNurses",
-        ]
-    },
 ];
 
 const CollapsableListItem = ({ name, children }) => {
@@ -229,7 +164,7 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => {
     sheetnames[newindex]["NewTables"] = sheetnames[newindex]["NewTables"].concat(filteredNames);
 
     return (
-        <List component="nav" aria-label="secondary">
+        <List component="nav" aria-label="seconda   ry">
             <ListItem button
                 key={'lang'}
                 style={{ textAlign: "right" }}
