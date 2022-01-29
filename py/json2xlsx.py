@@ -102,10 +102,12 @@ with open('out/history/dates.json', 'w') as datesfile:
 # with open('out/csv/harpaz_moiz.csv', 'w') as csvfile:
 #     csvfile.write(text)
 
+print("fusing data for all_dashboard_timeseries")
 fused = fuse_data(sheet2data)
 
+print("writing all_dashboard_timeseries.csv")
 with open('out/csv/all_dashboard_timeseries.csv', 'w') as csvfile:
-    utils.writeToCsv(list(data), list(data[0].keys()), csvfile)
+    utils.writeToCsv(list(fused), list(fused[0].keys()), csvfile)
 
 with open(histdir + '/all_dashboard_timeseries.csv', 'w') as csvfile:
-    utils.writeToCsv(list(data), list(data[0].keys()), csvfile)
+    utils.writeToCsv(list(fused), list(fused[0].keys()), csvfile)
