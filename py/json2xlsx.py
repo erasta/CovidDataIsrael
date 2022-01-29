@@ -6,6 +6,7 @@ import urllib
 from datetime import datetime
 
 from xlsxwriter import Workbook
+from fuse_data import fuse_data
 
 import utils
 import xlscolumn
@@ -100,3 +101,11 @@ with open('out/history/dates.json', 'w') as datesfile:
 # print('harpaz_moiz')
 # with open('out/csv/harpaz_moiz.csv', 'w') as csvfile:
 #     csvfile.write(text)
+
+fused = fuse_data(sheet2data)
+
+with open('out/csv/all_dashboard_timeseries.csv', 'w') as csvfile:
+    utils.writeToCsv(list(data), list(data[0].keys()), csvfile)
+
+with open(histdir + '/all_dashboard_timeseries.csv', 'w') as csvfile:
+    utils.writeToCsv(list(data), list(data[0].keys()), csvfile)

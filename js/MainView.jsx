@@ -107,6 +107,7 @@ const sheetnames = [
     },
     {
         "ByHand": [
+            "all_dashboard_timeseries",
             "harpaz_moiz",
         ]
     },
