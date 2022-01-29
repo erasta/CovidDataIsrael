@@ -6,6 +6,7 @@ const HeaderWidget = ({ lang }) => {
         hospital: '',
         hard: '',
         critical: '',
+        ecmo: '',
         medium: '',
         breathe: '',
         dead: '',
@@ -51,6 +52,7 @@ const HeaderWidget = ({ lang }) => {
             const lastbreathe= valueOrUnknown(hardPatientTable[0]['countBreath']);
             const lasthard= valueOrUnknown(hardPatientTable[0]['countHardStatus']);
             const lastcritical= valueOrUnknown(hardPatientTable[0]['countCriticalStatus']);
+            const lastecmo= valueOrUnknown(hardPatientTable[0]['countEcmo']);
             const lasthospital= valueOrUnknown(sickPatientPerLocation.filter(x=>x['name'] === 'hospital')[0]['amount']);
             console.log(sum, yester, sumdead, vac_cum);
             const newData = {
@@ -61,6 +63,7 @@ const HeaderWidget = ({ lang }) => {
                 breathe: lastbreathe,
                 hard: lasthard,
                 critical: lastcritical,
+                ecmo: lastecmo,
                 hospital: lasthospital,
                 dead: sumdead,
                 dead77: sumdead77,
@@ -110,6 +113,7 @@ const HeaderWidget = ({ lang }) => {
                         }}
                         footer={
                             <Grid container direction="row" justify="space-between" alignItems="center">
+                                <WidgetItem name={'אקמו'} data={data.ecmo} color='darkred' />
                                 <WidgetItem name={'מונשמים'} data={data.breathe} color='blue' />
                                 <WidgetItem name={'קריטי'} data={data.critical} color='#ff00ff' />
                                 <WidgetItem name={'קשה'} data={data.hard} color='red' />
