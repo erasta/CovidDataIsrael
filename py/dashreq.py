@@ -52,9 +52,14 @@ def get_dash_req():
     #         req['requests'] += [c]
     #         changed = True
 
-    # if changed:
-    #     with open('jsons/dashreq.json', 'w') as f:
-    #         json.dump(req, f, indent=4)
+    # i = 1
+    # for c in req['requests']:
+    #     c['id'] = str(i)
+    #     i += 1
+
+    # # if changed:
+    # with open('jsons/dashreq.json', 'w') as f:
+    #     json.dump(req, f, indent=4)
 
     return req
 
@@ -66,11 +71,29 @@ if __name__ == '__main__':
     print(json.dumps(r, indent=4, sort_keys=True))
     print('........')
     data = requests.post(url, json=r).json()
+
+    # ids_to_del = []
     for c in data:
-        d = str(c)
-        # if len(d) < 100:
-        print(c)
-    print('********')
+        if 'error' in c:
+            print(c)
+    #         ids_to_del += [c['id']]
+    #     # d = str(c)
+    #     # if len(d) < 100:
+    #     #     print(c)
+    # print (ids_to_del)
+    # r['requests'] = [x for x in r['requests'] if x['id'] not in ids_to_del]
+    # print(json.dumps(r, indent=4, sort_keys=True))
+
+    # i = 1
+    # for c in r['requests']:
+    #     c['id'] = str(i)
+    #     i += 1
+
+    # # if changed:
+    # with open('jsons/dashreq.json', 'w') as f:
+    #     json.dump(r, f, indent=4)
+
+    # print('********')
 
     # for c in r['requests']:
     #     print(c)
