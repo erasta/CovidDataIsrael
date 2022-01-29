@@ -55,6 +55,7 @@ const sheetnames = [
     {
         "PerDate": [
             "infectedVsDead",
+            "hospitalizationStatusDaily",
             "infectedPerDate",
             "patientsPerDate",
             "deadPatientsPerDate",
