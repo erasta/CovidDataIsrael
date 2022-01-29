@@ -31,6 +31,10 @@ const HeaderWidget = ({ lang }) => {
                 await fetchCsv(`out/csv/vaccinated.csv`),
                 await fetchCsv(`out/csv/sickPerDateTwoDays.csv`)
             ]);
+
+            function valueOrUnknown(val) {
+                return ((val !== undefined) ? val : '...');
+            }
             const vac_cum = vaccinated[vaccinated.length - 1].vaccinated_cum;
             const last = patients[patients.length - 1];
             const sum = sumarr(infected.map(row => row['amount']));
@@ -43,22 +47,29 @@ const HeaderWidget = ({ lang }) => {
             const vac_week_ago = vaccinated.find(v => Math.abs(v.Day_Date - weekago) < 1000 * 3600 * 4);
             const vac_prec = vac_week_ago ? vac_week_ago.vaccinated_seconde_dose_population_perc + '%' : '...';
             const infected_now = sickTwo.map(x => x.amount).reduce((a, b) => a + b, 0);
+            const lastmedium= valueOrUnknown(last['CountMediumStatus']);
+            const lastbreathe= valueOrUnknown(last['CountBreath']);
+            const lasthard= valueOrUnknown(last['CountHardStatus']);
+            const lastcritical= valueOrUnknown(last['CountCriticalStatus']);
+            const lasthospital= valueOrUnknown(last['Counthospitalized']);
             console.log(sum, yester, sumdead, last, vac_cum);
-            setData(Object.assign({}, data, {
+            const newData = {
                 infectedTotal: sum,
                 infectedYesterday: yester,
                 infectedNow: infected_now, //last['Counthospitalized'] + last['patients_home'] + last['patients_hotel'],
-                medium: last['CountMediumStatus'],
-                breathe: last['CountBreath'],
-                hard: last['CountHardStatus'],
-                critical: last['CountCriticalStatus'],
+                medium: lastmedium,
+                breathe: lastbreathe,
+                hard: lasthard,
+                critical: lastcritical,
+                hospital: lasthospital,
                 dead: sumdead,
                 dead77: sumdead77,
-                hospital: last['Counthospitalized'],
                 deadThisWeek: deadweek,
                 vaccinated: vac_cum,
                 vac_prec: vac_prec
-            }));
+            };
+            console.log(newData);
+            setData(Object.assign({}, data, newData));
         })();
     }, [])
 
