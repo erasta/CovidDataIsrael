@@ -28,7 +28,7 @@ def fuse_data(sheet2data):
     # ventilated = [{'date': lastUpdate, 'ventilated': sheets['hardPatient']['countBreath']}]
     # ecmo = [{'date': lastUpdate, 'ecmo': sheets['hardPatient']['countEcmo']}]
 
-    system("for F in $(find out/history -name 'hardPatient.csv' | sort); do echo ${F:12:10} | tr '\n\r' ','; cat $F | tr '\n\r' ','; echo; done > out/csv/hardlist.csv")
+    system("for F in $(find out/history -name 'hardPatient.csv' | sort); do echo $F | awk '{a=substr($0,13,10);print a;}' | tr '\n\r' ','; cat $F | tr '\n\r' ','; echo; done > out/csv/hardlist.csv")
     hardlist = [line.strip().split(',') for line in open('out/csv/hardlist.csv')]
     harddict = [{**{"date": x[0]}, **dict(zip(x[1:x.index('')], x[x.index('')+1:-2]))} for x in hardlist]
 
