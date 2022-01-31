@@ -18,9 +18,10 @@ def readCsvUrl(url, fields):
         newdate = row['date']
         if len(newdate) > 15:
             newdate = newdate[0:10]
-        else:
-            for idx, mon in enumerate(months):
-                newdate = newdate.replace(mon, str(idx + 1).zfill(2))
+        elif newdate[2] == '-' and newdate[6] == '-':
+            parts = newdate.split('-')
+            mon = str(months.index(parts[1]) + 1).zfill(2)
+            newdate = parts[2] + '-' + mon + '-' + parts[0]
         newrow['date'] = newdate
         for key in fields:
             if key in row:
@@ -43,8 +44,6 @@ def readExternalTables():
     new_hospitalized = readCsvUrl(
         "https://raw.githubusercontent.com/yuval-harpaz/covid-19-israel-matlab/master/data/Israel/dashboard_timeseries.csv",
         ['new_hospitalized'])
-    # new_hospitalized = [{'date': row['date'],
-    #                      'new_hospitalized': row['new_hospitalized']} for row in rows if 'new_hospitalized' in row]
 
     patientsPerDate09 = readCsvUrl(
         "https://raw.githubusercontent.com/erasta/CovidDataIsrael/master/out/history/2022-01-09/patientsPerDate.csv",
