@@ -25,8 +25,9 @@ def readCsvUrl(url, fields):
             newdate = parts[2] + '-' + mon + '-' + parts[0]
         newrow['date'] = newdate
         for key in fields:
-            if key in row.keys():
-                newrow[key] = row[key]
+            for rkey in row.keys():
+                if key.lower().replace('_', '') == rkey.lower().replace('_', ''):
+                    newrow[key] = row[rkey]
         outrows += [newrow]
     return outrows
 
@@ -98,29 +99,29 @@ def fuse_data(sheet2data):
                                         'countMediumStatus': row['countMediumStatus'],
                                         'countEasyStatus': row['countEasyStatus']}]
 
-    harddict = readAllHardPatients()
+    hardPatients = readAllHardPatients()
     new_hospitalized, patientsPerDate09, patientsPerDate24 = readExternalTables()
 
     tables = [
-        harddict,
-        infectedPerDate,
-        testResultsPerDate,
-        deadPatientsPerDate,
-        patientsPerDate,
-        patientsPerDate09,
-        patientsPerDate24,
-        hospitalizationStatusDaily,
-        new_hospitalized,
+        ('hardPatients', hardPatients),
+        ('infectedPerDate', infectedPerDate),
+        ('testResultsPerDate', testResultsPerDate),
+        ('deadPatientsPerDate', deadPatientsPerDate),
+        ('patientsPerDate', patientsPerDate),
+        ('patientsPerDate09', patientsPerDate09),
+        ('patientsPerDate24', patientsPerDate24),
+        ('hospitalizationStatusDaily', hospitalizationStatusDaily),
+        ('new_hospitalized', new_hospitalized),
     ]
 
-    # for table in tables:
-    #     keys = set(more_itertools.flatten([row.keys() for row in table]))
-    #     keys.discard('date')
-    #     for row in table:
-    #         pass
+    for (name, table) in tables:
+        keys = set(more_itertools.flatten([row.keys() for row in table]))
+        keys.discard('date')
+        print(name, ':')
+        print(keys)
 
     bydate = []
-    for table in tables:
+    for (name, table) in tables:
         for row in table:
             found = False
             for rowout in bydate:
@@ -135,23 +136,6 @@ def fuse_data(sheet2data):
 
     ret = sorted(bydate, key=lambda x: x['date'])
 
-    #         currdate = str(row['date'])
-    #         if currdate not in bydate:
-    #             bydate[currdate] = {}
-
-    # ret = [x for x in bydate.values()]
-    # ret = mergeWithOtherTables(ret, deadPatientsPerDate, infectedPerDate)
-    # find(ret, now)['ecmo'] = ecmo
-    # combined = pd.concat([
-    #     pd.DataFrame(harddict),
-    #     pd.DataFrame(infectedPerDate),
-    #     pd.DataFrame(testResultsPerDate),
-    #     pd.DataFrame(hospitalizationStatusDaily),
-    #     pd.DataFrame(deadPatientsPerDate),
-    #     pd.DataFrame(patientsPerDate),
-    #     ]).groupby(["date"])
-    # # ombined.agg(sum).reset_index().to_csv('timeseries.csv')
-    # ret = combined.agg(sum).reset_index().to_dict('records')
     return ret
 
 
