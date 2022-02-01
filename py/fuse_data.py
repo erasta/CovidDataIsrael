@@ -1,9 +1,10 @@
 import csv
 from mmap import PROT_READ
 from os import system
-import pandas as pd
+# import pandas as pd
 import numpy as np
 import urllib.request
+import more_itertools
 
 
 def readCsvUrl(url, fields):
@@ -24,7 +25,7 @@ def readCsvUrl(url, fields):
             newdate = parts[2] + '-' + mon + '-' + parts[0]
         newrow['date'] = newdate
         for key in fields:
-            if key in row:
+            if key in row.keys():
                 newrow[key] = row[key]
         outrows += [newrow]
     return outrows
@@ -34,7 +35,6 @@ def readAllHardPatients():
     # critical = [{'date': lastUpdate, 'critical': sheets['hardPatient']['countCriticalStatus']}]
     # ventilated = [{'date': lastUpdate, 'ventilated': sheets['hardPatient']['countBreath']}]
     # ecmo = [{'date': lastUpdate, 'ecmo': sheets['hardPatient']['countEcmo']}]
-
     system("for F in $(find out/history -name 'hardPatient.csv' | sort); do echo $F | awk '{a=substr($0,13,10);print a;}' | tr '\n\r' ','; cat $F | tr '\n\r' ','; echo; done > out/csv/hardlist.csv")
     hardlist = [line.strip().split(',') for line in open('out/csv/hardlist.csv')]
     harddict = [{**{"date": x[0]}, **dict(zip(x[1:x.index('')], x[x.index('')+1:-2]))} for x in hardlist]
@@ -61,7 +61,6 @@ def readExternalTables():
         ['CountBreathCum'])
 
     return new_hospitalized, patientsPerDate09, patientsPerDate24
-
 
 def fuse_data(sheet2data):
     sheets = dict(sheet2data)
@@ -90,30 +89,37 @@ def fuse_data(sheet2data):
         patientsPerDate += [{'date': row['date'][0:10],
                              'severe_new': row['serious_critical_new'],
                              'medium_new': row['medium_new'],
-                             'mild_new': row['easy_new']}]
+                             'easy_new': row['easy_new']}]
 
     hospitalizationStatusDaily = []
     for row in sheets['hospitalizationStatusDaily']:
         hospitalizationStatusDaily += [{'date': row['dayDate'][0:10],
-                                        'severe': row['countHardStatus'],
-                                        'medium': row['countMediumStatus'],
-                                        'mild': row['countEasyStatus']}]
+                                        'countHardStatus': row['countHardStatus'],
+                                        'countMediumStatus': row['countMediumStatus'],
+                                        'countEasyStatus': row['countEasyStatus']}]
 
     harddict = readAllHardPatients()
     new_hospitalized, patientsPerDate09, patientsPerDate24 = readExternalTables()
 
-    bydate = []
     tables = [
         harddict,
         infectedPerDate,
         testResultsPerDate,
-        hospitalizationStatusDaily,
         deadPatientsPerDate,
         patientsPerDate,
         patientsPerDate09,
         patientsPerDate24,
+        hospitalizationStatusDaily,
         new_hospitalized,
     ]
+
+    # for table in tables:
+    #     keys = set(more_itertools.flatten([row.keys() for row in table]))
+    #     keys.discard('date')
+    #     for row in table:
+    #         pass
+
+    bydate = []
     for table in tables:
         for row in table:
             found = False
@@ -121,7 +127,8 @@ def fuse_data(sheet2data):
                 if row['date'] == rowout['date']:
                     found = True
                     for key in row.keys():
-                        rowout[key] = row[key]
+                        if row[key] != "":
+                            rowout[key] = row[key]
                     break
             if not found:
                 bydate += [row]
