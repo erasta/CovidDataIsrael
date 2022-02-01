@@ -1,7 +1,7 @@
+import pandas as pd
 import csv
 from mmap import PROT_READ
 from os import system
-# import pandas as pd
 import numpy as np
 import urllib.request
 import more_itertools
