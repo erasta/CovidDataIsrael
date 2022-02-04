@@ -1,0 +1,12 @@
+age,active_amount_vaccinated,active_amount_vaccinated_expired,active_amount_not_vaccinated,active_vaccinated_normalized,active_vaccinated_expired_normalized,active_not_vaccinated_normalized,serious_amount_vaccinated,serious_amount_vaccinated_expired,serious_amount_not_vaccinated,serious_vaccinated_normalized,serious_vaccinated_expired_normalized,serious_not_vaccinated_normalized
+5-11,14166,11,56403,5444.5,,6193.1,0,0,6,0,,0.7
+12-15,19304,1263,12094,5583.5,4854.3,4997.6,1,0,2,0.3,0,0.8
+16-19,17854,3244,5598,4446.4,5344.4,4889.3,1,0,3,0.2,0,2.6
+20-29,34562,7828,9600,3670.8,4705.7,5215.2,5,1,8,0.5,0.6,4.3
+30-39,41819,9003,10570,4652.6,6020.2,7787.1,5,4,9,0.6,2.7,6.6
+40-49,40741,5728,7861,4623.5,5311.6,7462.4,12,7,28,1.4,6.5,26.6
+50-59,26912,3014,4450,3711.2,4227.6,6504.4,42,13,58,5.8,18.2,84.8
+60-69,21326,1987,3125,3294,4843.3,5816.7,85,19,76,13.1,46.3,141.5
+70-79,12432,861,1710,2624,3744.5,6329.6,126,43,102,26.6,187,377.6
+80-89,6082,402,961,2925.9,2650.8,7337,168,35,125,80.8,230.8,954.3
+90+,1942,108,353,4170.5,1537.1,9994.3,53,8,54,113.8,113.9,1528.9
