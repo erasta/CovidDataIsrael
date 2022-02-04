@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import pandas as pd
 import csv
 from mmap import PROT_READ
@@ -6,6 +7,11 @@ import numpy as np
 import urllib.request
 import more_itertools
 
+def to_camel_case(snake_str):
+    components = snake_str.split('_')
+    # We capitalize the first letter of each component except the first one
+    # with the 'title' method and join them together.
+    return components[0][0].lower() + components[0][1:] + ''.join(x.title() for x in components[1:])
 
 def readCsvUrl(url, fields):
     print(url)
@@ -145,9 +151,16 @@ def fuse_data(sheet2data):
             if not found:
                 bydate += [row]
 
-    ret = sorted(bydate, key=lambda x: x['date'])
+    sortedFused = sorted(bydate, key=lambda x: x['date'])
 
-    return ret
+    namesFixed = []
+    for row in sortedFused:
+        newrow = {to_camel_case(k):v for k,v in row.items()}
+        namesFixed.append(newrow)
+
+    print('\n****** all_dashboard:\n', list(OrderedDict.fromkeys(more_itertools.flatten([list(row.keys()) for row in namesFixed]))))
+
+    return namesFixed
 
 
 if __name__ == '__main__':

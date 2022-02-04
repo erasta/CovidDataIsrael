@@ -1,4 +1,4 @@
-date,cases,recovered,tests,positiveRate,positiveRatePCR,positiveRateAntigen,deaths,severe_new,medium_new,easy_new,countEasyStatus,countMediumStatus,countHardStatus,countBreath,countCriticalStatus,CountSeriousCriticalCum,new_hospitalized,CountBreathCum,countHospitalized,countEcmo
+date,cases,recovered,tests,positiveRate,positiveRatePCR,positiveRateAntigen,deaths,severeNew,mediumNew,easyNew,countEasyStatus,countMediumStatus,countHardStatus,countBreath,countCriticalStatus,countSeriousCriticalCum,newHospitalized,countBreathCum,countHospitalized,countEcmo
 2020-02-12,0,0,,,,,,,,,,,,,,,,,,
 2020-02-13,0,0,,,,,,,,,,,,,,,,,,
 2020-02-14,0,0,,,,,,,,,,,,,,,,,,
