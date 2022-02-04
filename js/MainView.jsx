@@ -54,7 +54,7 @@ const sheetnames = [
     "map",
     {
         "PerDate": [
-            "infectedVsDead",
+            "all_dashboard_timeseries",
             "hospitalizationStatusDaily",
             "infectedPerDate",
             "patientsPerDate",
@@ -63,6 +63,7 @@ const sheetnames = [
             "recoveredPerDay",
             "testResultsPerDate",
             "doublingRate",
+            "infectedVsDead",
         ]
     },
     {
@@ -100,12 +101,6 @@ const sheetnames = [
             "moh_corona_medical_staff",
             "moh_corona_deceased",
             "moh_young_population_weekly"
-        ]
-    },
-    {
-        "ByHand": [
-            "all_dashboard_timeseries",
-            "harpaz_moiz",
         ]
     },
     {
