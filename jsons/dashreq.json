@@ -293,6 +293,12 @@
             "queryName": "ocuppanciesDaily",
             "single": false,
             "parameters": {}
+        },
+        {
+            "id": "50",
+            "queryName": "hospitalizationStatus",
+            "single": false,
+            "parameters": {}
         }
     ]
 }
