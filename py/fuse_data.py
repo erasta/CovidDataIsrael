@@ -99,6 +99,16 @@ def fuse_data(sheet2data):
                                         'countMediumStatus': row['countMediumStatus'],
                                         'countEasyStatus': row['countEasyStatus']}]
 
+    moh_fields = ['countDeath','countEasyStatus','countMediumStatus','countHardStatus','newHospitalized','countHospitalized','countBreathCum','countCriticalStatus','countSeriousCriticalCum','seriousCriticalNew','mediumNew','easyNew','countEcmo']
+    my_fields = ['deaths','countEasyStatus','countMediumStatus','countHardStatus','new_hospitalized','countHospitalized','CountBreathCum','countCriticalStatus','CountSeriousCriticalCum','severe_new','medium_new','easy_new','countEcmo']
+
+    hospitalizationStatus = []
+    for row in sheets['hospitalizationStatus']:
+        newrow = {'date': row['dayDate'][0:10]}
+        for (moh_field, my_field) in zip(moh_fields, my_fields):
+            newrow[my_field] = row[moh_field]
+        hospitalizationStatus += [newrow]
+
     hardPatients = readAllHardPatients()
     new_hospitalized, patientsPerDate09, patientsPerDate24 = readExternalTables()
 
@@ -112,6 +122,7 @@ def fuse_data(sheet2data):
         ('patientsPerDate24', patientsPerDate24),
         ('hospitalizationStatusDaily', hospitalizationStatusDaily),
         ('new_hospitalized', new_hospitalized),
+        ('hospitalizationStatus', hospitalizationStatus),
     ]
 
     for (name, table) in tables:

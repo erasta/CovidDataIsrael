@@ -165,7 +165,7 @@ const CsvButtons = ({ names, lang, language, setLanguage }) => {
     sheetnames[newindex]["NewTables"] = sheetnames[newindex]["NewTables"].concat(filteredNames);
 
     return (
-        <List component="nav" aria-label="seconda   ry">
+        <List component="nav" aria-label="secondary">
             <ListItem button
                 key={'lang'}
                 style={{ textAlign: "right" }}
