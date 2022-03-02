@@ -76,38 +76,39 @@ dashjson = get_dash_data()
 # print(dashjson)
 datas = list(map(lambda x: x['data'] if 'data' in x else None, dashjson))
 
-sheet2data = utils.group_sheet_data(sheets, datas)
+if any(datas):
+    sheet2data = utils.group_sheet_data(sheets, datas)
 
-histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
-os.makedirs(histdir, exist_ok=True)
-for i, (sheetname, data) in enumerate(sheet2data):
-    if data is not None:
-        data, fields = utils.data2fields(data)
-        print(i, sheetname, fields)
+    histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
+    os.makedirs(histdir, exist_ok=True)
+    for i, (sheetname, data) in enumerate(sheet2data):
+        if data is not None:
+            data, fields = utils.data2fields(data)
+            print(i, sheetname, fields)
 
-        with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
-            utils.writeToCsv(data, fields, csvfile)
+            with open('out/csv/' + sheetname + '.csv', 'w') as csvfile:
+                utils.writeToCsv(data, fields, csvfile)
 
-        with open(histdir + '/' + sheetname + '.csv', 'w') as csvfile:
-            utils.writeToCsv(data, fields, csvfile)
+            with open(histdir + '/' + sheetname + '.csv', 'w') as csvfile:
+                utils.writeToCsv(data, fields, csvfile)
 
-with open('out/history/dates.json', 'w') as datesfile:
-    histdirs = sorted(next(os.walk('out/history'))[1])
-    str = json.dumps(histdirs, sort_keys=True, indent=2)
-    datesfile.write(str)
+    with open('out/history/dates.json', 'w') as datesfile:
+        histdirs = sorted(next(os.walk('out/history'))[1])
+        str = json.dumps(histdirs, sort_keys=True, indent=2)
+        datesfile.write(str)
 
-# url = "https://raw.githubusercontent.com/yuval-harpaz/covid-19-israel-matlab/master/data/Israel/delta.csv"
-# text = urllib.request.urlopen(url).read().decode('utf-8')
-# print('harpaz_moiz')
-# with open('out/csv/harpaz_moiz.csv', 'w') as csvfile:
-#     csvfile.write(text)
+    # url = "https://raw.githubusercontent.com/yuval-harpaz/covid-19-israel-matlab/master/data/Israel/delta.csv"
+    # text = urllib.request.urlopen(url).read().decode('utf-8')
+    # print('harpaz_moiz')
+    # with open('out/csv/harpaz_moiz.csv', 'w') as csvfile:
+    #     csvfile.write(text)
 
-print("fusing data for all_dashboard_timeseries")
-fused = fuse_data(sheet2data)
+    print("fusing data for all_dashboard_timeseries")
+    fused = fuse_data(sheet2data)
 
-print("writing all_dashboard_timeseries.csv")
-with open('out/csv/all_dashboard_timeseries.csv', 'w') as csvfile:
-    utils.writeToCsv(list(fused), list(fused[0].keys()), csvfile)
+    print("writing all_dashboard_timeseries.csv")
+    with open('out/csv/all_dashboard_timeseries.csv', 'w') as csvfile:
+        utils.writeToCsv(list(fused), list(fused[0].keys()), csvfile)
 
-with open(histdir + '/all_dashboard_timeseries.csv', 'w') as csvfile:
-    utils.writeToCsv(list(fused), list(fused[0].keys()), csvfile)
+    with open(histdir + '/all_dashboard_timeseries.csv', 'w') as csvfile:
+        utils.writeToCsv(list(fused), list(fused[0].keys()), csvfile)
