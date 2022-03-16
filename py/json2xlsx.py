@@ -76,7 +76,9 @@ dashjson = get_dash_data()
 # print(dashjson)
 datas = list(map(lambda x: x['data'] if 'data' in x else None, dashjson))
 
-if any(datas):
+if not any(datas):
+    print('***\nno data to process')
+else:
     sheet2data = utils.group_sheet_data(sheets, datas)
 
     histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
