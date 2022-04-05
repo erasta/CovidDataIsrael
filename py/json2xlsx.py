@@ -84,7 +84,7 @@ else:
     histdir = 'out/history/' + datetime.now().strftime('%Y-%m-%d')
     os.makedirs(histdir, exist_ok=True)
     for i, (sheetname, data) in enumerate(sheet2data):
-        if data is not None:
+        if data is not None and len(data) > 0:
             data, fields = utils.data2fields(data)
             print(i, sheetname, fields)
 
