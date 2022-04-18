@@ -73,18 +73,18 @@ def fuse_data(sheet2data):
     sheets = dict(sheet2data)
 
     deadPatientsPerDate = []
-    for row in sheets['deadPatientsPerDate']:
+    for row in sheets['deadPatientsPerDate'] or []:
         deadPatientsPerDate += [{'date': row['date'][0:10],
                                  'deaths': row['amount']}]
 
     infectedPerDate = []
-    for row in sheets['infectedPerDate']:
+    for row in sheets['infectedPerDate'] or []:
         infectedPerDate += [{'date': row['date'][0:10],
                              'cases': row['amount'],
                              'recovered': row['recovered']}]
 
     testResultsPerDate = []
-    for row in sheets['testResultsPerDate']:
+    for row in sheets['testResultsPerDate'] or []:
         testResultsPerDate += [{'date': row['date'][0:10],
                                 'tests': row['amountPersonTested'],
                                 'positiveRate': row['positiveRate'],
@@ -92,14 +92,14 @@ def fuse_data(sheet2data):
                                 'positiveRatePCR': row['positiveRatePCR'],
                                 'positiveRateAntigen': row['positiveRateAntigen']}]
     patientsPerDate = []
-    for row in sheets['patientsPerDate']:
+    for row in sheets['patientsPerDate'] or []:
         patientsPerDate += [{'date': row['date'][0:10],
                              'severe_new': row['serious_critical_new'],
                              'medium_new': row['medium_new'],
                              'easy_new': row['easy_new']}]
 
     hospitalizationStatusDaily = []
-    for row in sheets['hospitalizationStatusDaily']:
+    for row in sheets['hospitalizationStatusDaily'] or []:
         hospitalizationStatusDaily += [{'date': row['dayDate'][0:10],
                                         'countHardStatus': row['countHardStatus'],
                                         'countMediumStatus': row['countMediumStatus'],
@@ -109,7 +109,7 @@ def fuse_data(sheet2data):
     my_fields = ['deaths','countEasyStatus','countMediumStatus','countHardStatus','new_hospitalized','countHospitalized','CountBreathCum','countCriticalStatus','CountSeriousCriticalCum','severe_new','medium_new','easy_new','countEcmo']
 
     hospitalizationStatus = []
-    for row in sheets['hospitalizationStatus']:
+    for row in sheets['hospitalizationStatus'] or []:
         newrow = {'date': row['dayDate'][0:10]}
         for (moh_field, my_field) in zip(moh_fields, my_fields):
             newrow[my_field] = row[moh_field]
