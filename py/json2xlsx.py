@@ -55,7 +55,9 @@ with open('jsons/mohfiles.json') as f:
             with open('out/csv/' + moh['name'] + '.csv', 'w') as csvfile:
                 utils.writeToCsv(data, fields, csvfile)
         except urllib.request.HTTPError as err:
-            print("HTTPError: {0}".format(err))
+            print("HTTPError: {0} {1}".format(err, url))
+        except urllib.request.URLError as err:
+            print("URLError: {0} {1}".format(err, url))
         finally:
             pass
 
