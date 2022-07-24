@@ -1,5 +1,5 @@
 # CovidDataIsrael
-Analyze Covid-19 data from ministery of health in Israel
+Analyze COVID-19 data from the Ministry of Health of Israel
 
 https://erasta.github.io/CovidDataIsrael
 
