@@ -1,0 +1,11 @@
+age,active_amount_vaccinated,active_amount_vaccinated_expired,active_amount_not_vaccinated,active_vaccinated_normalized,active_vaccinated_expired_normalized,active_not_vaccinated_normalized,serious_amount_vaccinated,serious_amount_vaccinated_expired,serious_amount_not_vaccinated,serious_vaccinated_normalized,serious_vaccinated_expired_normalized,serious_not_vaccinated_normalized
+5-11,11,44,92,215.6,19.8,9.7,0,0,0,0,0,0
+12-15,7,67,25,131.1,20.7,8.9,0,0,0,0,0,0
+16-19,11,192,28,315.3,43.8,20.5,0,0,0,0,0,0
+20-29,15,461,48,154.8,41.1,28.8,0,0,1,0,0,0.6
+30-39,16,402,56,148.2,38,45.2,0,0,0,0,0,0
+40-49,20,463,40,142.9,46.8,42.2,0,1,0,0,0.1,0
+50-59,24,518,41,127,65.1,79.2,0,2,3,0,0.3,5.8
+60-69,79,935,59,263.6,142.7,107.4,0,11,2,0,1.7,3.6
+70-79,128,1125,66,348.6,238.3,676.4,1,21,6,2.7,4.4,61.5
+80+,59,834,71,311.1,340.7,491,1,22,6,5.3,9,41.5
